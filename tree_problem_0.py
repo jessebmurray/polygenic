@@ -1,22 +1,26 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.special import erf
 import scipy.stats as st
+# from scipy.special import erf
 
 
+# Global variables that are just used in main
 number_of_iterations = 100
 z_range = 8
 r = 0.9
 r_s = 0.9
-round_number = 6
 mean_gen = 0
 sd_gen = 1
 k_val = -2
 percent_step = 0.33
 
+# Global variables that are used other than just in main (should really be a constant)
+round_number = 6
+
 
 def main():
 
+    # DONE
     parent_distribution = normal_distribution(number_of_iterations, z_range, mean_gen, sd_gen)
 
     # print(proportion_destined_value(parent_distribution, r, r_s, above_k_p=value, below_k_o=value))
@@ -24,16 +28,18 @@ def main():
     #
     # # print(proportion_destined_value(parent_distribution, r, r_s, below_k_p=k_val, below_k_o=k_val))
     # print(step_proportion_attributable_percentile(parent_distribution, r, r_s, percent_step))
+
+    # DONE
     offspring_distributions_ = offspring_distributions(parent_distribution, r, r_s)
     plot_distribution(parent_distribution)
     plot_distributions(offspring_distributions_)
+    plot_distribution(final_superimposed_distribution_all_area_adj(parent_distribution, r, r_s))
 
-    # plot_distribution(final_superimposed_distribution_all_area_adj(parent_distribution, r, r_s))
     # plot_distribution(final_superimposed_distribution(parent_distribution, r, r_s, below_k_v_p=k_val))
     # plot_distribution(final_superimposed_distribution(parent_distribution, r, r_s, below_k_v_p=k_val,
     #                                                   above_k_v_o=k_val))
 
-    plt.show()
+    # plt.show()
 
     # plt.show()
     # offspring_distribution = final_superimposed_distribution_all_area_adj(parent_distribution, r, r_s)
@@ -45,100 +51,9 @@ def main():
     # print(proportion_attributable_value(parent_distribution, r, r_s, below_k_p=k_val, above_k_o=k_val))
 
 
-def step_proportion_destined_percentile(parent_distribution, reg_coefficient, sd_reg_coefficient, percentile_step):
-    # parent zones are in the first column of every row and the percent of the parent zone's offspring that are destined
-    # to each offspring zone in the second column of every row
-    stepwise_percentile_list = []
-    above_k_p = 1 - percentile_step
-    below_k_p = 1
-    while below_k_p > 0.5:
-        step_list_parent = [[above_k_p, below_k_p]]
-        above_k_o = 1 - percentile_step
-        below_k_o = 1
-        step_list_parents_offspring = []
-        above_k_p_v = percentile_to_value(above_k_p, parent_distribution)
-        below_k_p_v = percentile_to_value(below_k_p, parent_distribution)
-        all_distributions = offspring_distributions(parent_distribution, reg_coefficient, sd_reg_coefficient,
-                                                    above_k_v_p=above_k_p_v, below_k_v_p=below_k_p_v)
-        area_all_distributions = area_under_distributions(all_distributions)
-
-        while below_k_o > 0.001:
-            step_list_offspring = [[above_k_o, below_k_o], proportion_destined_percentile(
-                parent_distribution, reg_coefficient, sd_reg_coefficient, above_k_p, below_k_p, above_k_o, below_k_o,
-                area_all_distributions)]
-
-            step_list_parents_offspring.append(step_list_offspring)
-            above_k_o = round(above_k_o - percentile_step, round_number)
-            below_k_o = round(below_k_o - percentile_step, round_number)
-        step_list_parent.append(step_list_parents_offspring)
-
-        stepwise_percentile_list.append(step_list_parent)
-        above_k_p = round(above_k_p - percentile_step, round_number)
-        below_k_p = round(below_k_p - percentile_step, round_number)
-    return stepwise_percentile_list
-
-
-def step_proportion_attributable_percentile(parent_distribution, reg_coefficient, sd_reg_coefficient, percentile_step):
-    # offspring zones are in the first column of every row and the percent of offspring attributable to each parent
-    # zone is in the second column of every row
-    stepwise_percentile_list = []
-    above_k_o = 1 - percentile_step
-    below_k_o = 1
-    while below_k_o > 0.5:
-        step_list_offspring = [[above_k_o, below_k_o]]
-        above_k_p = 1 - percentile_step
-        below_k_p = 1
-        step_list_offspring_parents = []
-        above_k_o_v = percentile_to_value(above_k_o, parent_distribution)
-        below_k_o_v = percentile_to_value(below_k_o, parent_distribution)
-        # different
-        all_distributions = offspring_distributions(parent_distribution, reg_coefficient, sd_reg_coefficient,
-                                                    above_k_v_o=above_k_o_v, below_k_v_o=below_k_o_v)
-        area_all_distributions = area_under_distributions(all_distributions)
-        while below_k_p > 0.001:
-            # different
-            step_list_parent = [[above_k_p, below_k_p], proportion_attributable_percentile(
-                parent_distribution, reg_coefficient, sd_reg_coefficient, above_k_p, below_k_p, above_k_o, below_k_o,
-                area_all_distributions)]
-
-            step_list_offspring_parents.append(step_list_parent)
-            above_k_p = round(above_k_p - percentile_step, round_number)
-            below_k_p = round(below_k_p - percentile_step, round_number)
-        step_list_offspring.append(step_list_offspring_parents)
-        stepwise_percentile_list.append(step_list_offspring)
-        above_k_o = round(above_k_o - percentile_step, round_number)
-        below_k_o = round(below_k_o - percentile_step, round_number)
-    return stepwise_percentile_list
-
-
-def proportion_destined_value(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None, above_k_o=None,
-                              below_k_o=None, area_all_distributions=None):
-    if area_all_distributions is None:
-        all_distributions = offspring_distributions(parent_distribution, r_mean, r_sd, above_k_v_p=above_k_p,
-                                                    below_k_v_p=below_k_p)
-        area_all_distributions = area_under_distributions(all_distributions)
-    return select_over_all(parent_distribution, r_mean, r_sd, above_k_p, below_k_p, above_k_o, below_k_o,
-                           area_all_distributions)
-
-
-def proportion_destined_percentile(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None,
-                                   above_k_o=None, below_k_o=None, area_all_distributions=None):
-    k_list = [above_k_p, below_k_p, above_k_o, below_k_o]
-    for i in range(len(k_list)):
-        if k_list[i] is not None:
-            k_list[i] = percentile_to_value(k_list[i], parent_distribution)
-    return proportion_destined_value(parent_distribution, r_mean, r_sd, k_list[0], k_list[1], k_list[2], k_list[3],
-                                     area_all_distributions)
-
-
-def proportion_attributable_percentile(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None,
-                                       above_k_o=None, below_k_o=None, area_all_distributions=None):
-    k_list = [above_k_p, below_k_p, above_k_o, below_k_o]
-    for i in range(len(k_list)):
-        if k_list[i] is not None:
-            k_list[i] = percentile_to_value(k_list[i], parent_distribution)
-    return proportion_attributable_value(parent_distribution, r_mean, r_sd, k_list[0], k_list[1], k_list[2], k_list[3],
-                                         area_all_distributions)
+# FUNDAMENTAL STRUCTURE FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def f_norm(x, mean, sd):
+    return (1 / (sd * ((2 * np.pi) ** 0.5))) * np.exp(-1 * ((((x - mean) / sd) ** 2) / 2))
 
 
 def normal_distribution(number_of_steps, z_score_range, mean=0, sd=1, above_k_value=None, below_k_value=None):
@@ -232,6 +147,7 @@ def offspring_distributions(par_distribution, reg_coefficient, sd_reg_coefficien
     return all_offspring_distributions
 
 
+# SUPERIMPOSED DISTRIBUTION FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def superimposed_offspring_distribution(distributions):
     set_of_x = set()
     for distribution in distributions:
@@ -314,6 +230,7 @@ def final_superimposed_distribution(parent_distribution, reg_coefficient, sd_reg
     return par_area_super_offspring_distribution
 
 
+# AREA FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def area_scale_factor_entire(entire_superimposed_distribution):
     parent_area = entire_superimposed_distribution[0][5][1]
     superimposed_distribution_area = area_under_one_distribution(entire_superimposed_distribution)
@@ -332,6 +249,30 @@ def area_under_distributions(distributions):
     return area
 
 
+# CONVERSION FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def percentile_to_value(percentile, parent_distribution):
+    return (parent_distribution[0][6][1] * st.norm.ppf(percentile)) + parent_distribution[0][5][1]
+
+
+def sd_to_value(sd, parent_distribution):
+    return (parent_distribution[0][6][1] * sd) + parent_distribution[0][5][1]
+
+
+def z_score_to_index(z_score, number_of_steps, z_score_range):
+    z_to_index_conversion = number_of_steps / z_score_range
+    z_to_travel = z_score + (z_score_range / 2)
+    return int((z_to_travel * z_to_index_conversion) + 0.5)
+
+
+def select_over_all(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None, above_k_o=None, below_k_o=None,
+                    area_all_distributions=None):
+    select_distributions = offspring_distributions(parent_distribution, r_mean, r_sd, above_k_p, below_k_p, above_k_o,
+                                                   below_k_o)
+    area_select_distributions = area_under_distributions(select_distributions)
+    return area_select_distributions / area_all_distributions
+
+
+# PLOTTING FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def plot_distributions(distributions):
     all_x = []
     all_y = []
@@ -354,22 +295,7 @@ def plot_distribution(distribution):
     plt.plot(x, y)
 
 
-def percentile_to_value(percentile, parent_distribution):
-    return (parent_distribution[0][6][1] * st.norm.ppf(percentile)) + parent_distribution[0][5][1]
-
-
-def sd_to_value(sd, parent_distribution):
-    return (parent_distribution[0][6][1] * sd) + parent_distribution[0][5][1]
-
-
-def select_over_all(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None, above_k_o=None, below_k_o=None,
-                    area_all_distributions=None):
-    select_distributions = offspring_distributions(parent_distribution, r_mean, r_sd, above_k_p, below_k_p, above_k_o,
-                                                   below_k_o)
-    area_select_distributions = area_under_distributions(select_distributions)
-    return area_select_distributions / area_all_distributions
-
-
+# PROPORTION ATTRIBUTABLE FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def proportion_attributable_value(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None, above_k_o=None,
                                   below_k_o=None, area_all_distributions=None):
     if area_all_distributions is None:
@@ -395,15 +321,109 @@ def proportion_attributable_standard_deviation(parent_distribution, r_mean, r_sd
                                          area_all_distributions)
 
 
-def f_norm(x, mean, sd):
-    return (1 / (sd * ((2 * np.pi) ** 0.5))) * np.exp(-1 * ((((x - mean) / sd) ** 2) / 2))
+def proportion_attributable_percentile(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None,
+                                       above_k_o=None, below_k_o=None, area_all_distributions=None):
+    k_list = [above_k_p, below_k_p, above_k_o, below_k_o]
+    for i in range(len(k_list)):
+        if k_list[i] is not None:
+            k_list[i] = percentile_to_value(k_list[i], parent_distribution)
+    return proportion_attributable_value(parent_distribution, r_mean, r_sd, k_list[0], k_list[1], k_list[2], k_list[3],
+                                         area_all_distributions)
 
 
-def z_erf(num):
-    return erf(num / (2 ** 0.5))
+def step_proportion_attributable_percentile(parent_distribution, reg_coefficient, sd_reg_coefficient, percentile_step):
+    # offspring zones are in the first column of every row and the percent of offspring attributable to each parent
+    # zone is in the second column of every row
+    stepwise_percentile_list = []
+    above_k_o = 1 - percentile_step
+    below_k_o = 1
+    while below_k_o > 0.5:
+        step_list_offspring = [[above_k_o, below_k_o]]
+        above_k_p = 1 - percentile_step
+        below_k_p = 1
+        step_list_offspring_parents = []
+        above_k_o_v = percentile_to_value(above_k_o, parent_distribution)
+        below_k_o_v = percentile_to_value(below_k_o, parent_distribution)
+        # different
+        all_distributions = offspring_distributions(parent_distribution, reg_coefficient, sd_reg_coefficient,
+                                                    above_k_v_o=above_k_o_v, below_k_v_o=below_k_o_v)
+        area_all_distributions = area_under_distributions(all_distributions)
+        while below_k_p > 0.001:
+            # different
+            step_list_parent = [[above_k_p, below_k_p], proportion_attributable_percentile(
+                parent_distribution, reg_coefficient, sd_reg_coefficient, above_k_p, below_k_p, above_k_o, below_k_o,
+                area_all_distributions)]
+
+            step_list_offspring_parents.append(step_list_parent)
+            above_k_p = round(above_k_p - percentile_step, round_number)
+            below_k_p = round(below_k_p - percentile_step, round_number)
+        step_list_offspring.append(step_list_offspring_parents)
+        stepwise_percentile_list.append(step_list_offspring)
+        above_k_o = round(above_k_o - percentile_step, round_number)
+        below_k_o = round(below_k_o - percentile_step, round_number)
+    return stepwise_percentile_list
 
 
-main()
+# PROPORTION DESTINED FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def proportion_destined_value(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None, above_k_o=None,
+                              below_k_o=None, area_all_distributions=None):
+    if area_all_distributions is None:
+        all_distributions = offspring_distributions(parent_distribution, r_mean, r_sd, above_k_v_p=above_k_p,
+                                                    below_k_v_p=below_k_p)
+        area_all_distributions = area_under_distributions(all_distributions)
+    return select_over_all(parent_distribution, r_mean, r_sd, above_k_p, below_k_p, above_k_o, below_k_o,
+                           area_all_distributions)
+
+
+def proportion_destined_percentile(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None,
+                                   above_k_o=None, below_k_o=None, area_all_distributions=None):
+    k_list = [above_k_p, below_k_p, above_k_o, below_k_o]
+    for i in range(len(k_list)):
+        if k_list[i] is not None:
+            k_list[i] = percentile_to_value(k_list[i], parent_distribution)
+    return proportion_destined_value(parent_distribution, r_mean, r_sd, k_list[0], k_list[1], k_list[2], k_list[3],
+                                     area_all_distributions)
+
+
+def step_proportion_destined_percentile(parent_distribution, reg_coefficient, sd_reg_coefficient, percentile_step):
+    # parent zones are in the first column of every row and the percent of the parent zone's offspring that are destined
+    # to each offspring zone in the second column of every row
+    stepwise_percentile_list = []
+    above_k_p = 1 - percentile_step
+    below_k_p = 1
+    while below_k_p > 0.5:
+        step_list_parent = [[above_k_p, below_k_p]]
+        above_k_o = 1 - percentile_step
+        below_k_o = 1
+        step_list_parents_offspring = []
+        above_k_p_v = percentile_to_value(above_k_p, parent_distribution)
+        below_k_p_v = percentile_to_value(below_k_p, parent_distribution)
+        all_distributions = offspring_distributions(parent_distribution, reg_coefficient, sd_reg_coefficient,
+                                                    above_k_v_p=above_k_p_v, below_k_v_p=below_k_p_v)
+        area_all_distributions = area_under_distributions(all_distributions)
+
+        while below_k_o > 0.001:
+            step_list_offspring = [[above_k_o, below_k_o], proportion_destined_percentile(
+                parent_distribution, reg_coefficient, sd_reg_coefficient, above_k_p, below_k_p, above_k_o, below_k_o,
+                area_all_distributions)]
+
+            step_list_parents_offspring.append(step_list_offspring)
+            above_k_o = round(above_k_o - percentile_step, round_number)
+            below_k_o = round(below_k_o - percentile_step, round_number)
+        step_list_parent.append(step_list_parents_offspring)
+
+        stepwise_percentile_list.append(step_list_parent)
+        above_k_p = round(above_k_p - percentile_step, round_number)
+        below_k_p = round(below_k_p - percentile_step, round_number)
+    return stepwise_percentile_list
+
+
+# NOT USED FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# def z_erf(num):
+#     return erf(num / (2 ** 0.5))
+
+
+# main()
 
 # keep in mind that we have a wrong increment in the superimposed distribution function
 # 0.25 -> 5, 0.5 -> 3, 0.75 -> ~7
