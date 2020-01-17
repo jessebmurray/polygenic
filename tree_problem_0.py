@@ -13,7 +13,6 @@ mean_gen = 0
 sd_gen = 1
 k_val = -2
 percent_step = 0.33
-sd_accuracy_multiplier = 100000  # It's recommended to have at least 1000 here
 
 
 # Global variables that are used other than just in main (should really be a constant)
@@ -228,6 +227,16 @@ def final_superimposed_distribution(parent_distribution, reg_coefficient, sd_reg
     return par_area_super_offspring_distribution
 
 
+def final_superimposed_distribution_all_area_adj(parent_distribution, reg_coefficient, sd_reg_coefficient):
+    par_inc_super_offspring_distribution_all = \
+        final_superimposed_distribution_all_not_area_adj(parent_distribution, reg_coefficient, sd_reg_coefficient)
+    parent_area_factor = area_scale_factor_entire(par_inc_super_offspring_distribution_all)
+    par_area_super_offspring_distribution_all = \
+        normalized_superimposed_distribution_to_parent_area(par_inc_super_offspring_distribution_all,
+                                                            parent_area_factor)
+    return par_area_super_offspring_distribution_all
+
+
 # AREA FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def area_scale_factor_entire(entire_superimposed_distribution):
     parent_area = entire_superimposed_distribution[0][5][1]
@@ -262,14 +271,6 @@ def z_score_to_index(z_score, number_of_steps, z_score_range):
     return int((z_to_travel * z_to_index_conversion) + 0.5)
 
 
-def select_over_all(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None, above_k_o=None, below_k_o=None,
-                    area_all_distributions=None):
-    select_distributions = offspring_distributions(parent_distribution, r_mean, r_sd, above_k_p, below_k_p, above_k_o,
-                                                   below_k_o)
-    area_select_distributions = area_under_distributions(select_distributions)
-    return area_select_distributions / area_all_distributions
-
-
 # PLOTTING FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def plot_distributions(distributions):
     all_x = []
@@ -293,10 +294,10 @@ def plot_distribution(distribution):
     plt.plot(x, y)
 
 
-def plot_generations_sd(generations, accuracy_multiplier):
+def plot_generations_sd(generations):
     sd_list = []
     for generation in generations:
-        sd_list.append(st_dev_of_distribution(generation, accuracy_multiplier))
+        sd_list.append(st_dev_of_distribution(generation))
     plt.plot(sd_list, '-o')
 
 
@@ -369,6 +370,14 @@ def step_proportion_attributable_percentile(parent_distribution, reg_coefficient
     return stepwise_percentile_list
 
 
+def select_over_all(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None, above_k_o=None, below_k_o=None,
+                    area_all_distributions=None):
+    select_distributions = offspring_distributions(parent_distribution, r_mean, r_sd, above_k_p, below_k_p, above_k_o,
+                                                   below_k_o)
+    area_select_distributions = area_under_distributions(select_distributions)
+    return area_select_distributions / area_all_distributions
+
+
 # PROPORTION DESTINED FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def proportion_destined_value(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None, above_k_o=None,
                               below_k_o=None, area_all_distributions=None):
@@ -424,7 +433,7 @@ def step_proportion_destined_percentile(parent_distribution, reg_coefficient, sd
 
 
 # REPRODUCING FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def final_super_to_parent(final_super_distribution, accuracy_multiplier):
+def final_super_to_parent(final_super_distribution):
     super_max_index = len(final_super_distribution) - 1
     super_parent_max_index = final_super_distribution[0][6][1]
 
@@ -452,18 +461,18 @@ def final_super_to_parent(final_super_distribution, accuracy_multiplier):
     number = len(final) - 1
     bound = final[-1][0] - final[0][0]
     mean = final[mid_index][0]
-    st_dev = st_dev_of_distribution(final_super_distribution, accuracy_multiplier)
+    st_dev = st_dev_of_distribution(final_super_distribution)
 
     final[0] += [['increment', increment], ['number', number], ['bound', bound], ['mean', mean], ['sd', st_dev]]
 
     return final
 
 
-def st_dev_of_distribution(distribution, accuracy_multiplier):
+def st_dev_of_distribution(distribution):
     mid_index = (len(distribution) - 1) // 2
     mean = distribution[mid_index][0]
 
-    weights = [int((value[1] * accuracy_multiplier) + 0.5) for value in distribution]
+    weights = [value[1] for value in distribution]
     x = [value[0] for value in distribution]
 
     sum_of_sq = 0
@@ -479,16 +488,6 @@ def st_dev_of_distribution(distribution, accuracy_multiplier):
 # NOT USED FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # def z_erf(num):
 #     return erf(num / (2 ** 0.5))
-
-
-def final_superimposed_distribution_all_area_adj(parent_distribution, reg_coefficient, sd_reg_coefficient):
-    par_inc_super_offspring_distribution_all = \
-        final_superimposed_distribution_all_not_area_adj(parent_distribution, reg_coefficient, sd_reg_coefficient)
-    parent_area_factor = area_scale_factor_entire(par_inc_super_offspring_distribution_all)
-    par_area_super_offspring_distribution_all = \
-        normalized_superimposed_distribution_to_parent_area(par_inc_super_offspring_distribution_all,
-                                                            parent_area_factor)
-    return par_area_super_offspring_distribution_all
 
 
 # main()
