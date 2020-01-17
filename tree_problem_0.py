@@ -321,7 +321,6 @@ def proportion_attributable_standard_deviation(parent_distribution, r_mean, r_sd
     k_list = [above_k_p, below_k_p, above_k_o, below_k_o]
     for i in range(len(k_list)):
         if k_list[i] is not None:
-            # k_list[i] = (parent_distribution[0][6][1] * k_list[i]) + parent_distribution[0][5][1]
             k_list[i] = sd_to_value(k_list[i], parent_distribution)
     return proportion_attributable_value(parent_distribution, r_mean, r_sd, k_list[0], k_list[1], k_list[2], k_list[3],
                                          area_all_distributions)
@@ -376,6 +375,18 @@ def select_over_all(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p
                                                    below_k_o)
     area_select_distributions = area_under_distributions(select_distributions)
     return area_select_distributions / area_all_distributions
+
+
+def step_tree_question_z_score(parent_distribution, r_mean, r_sd, z_score_increment, z_score_bound):
+    z_score = - z_score_bound / 2
+
+    proportion_list = []
+    while z_score <= z_score_bound / 2:
+        proportion = proportion_attributable_standard_deviation(parent_distribution, r_mean, r_sd,
+                                                                below_k_p=z_score, above_k_o=z_score)
+        proportion_list.append(proportion)
+        z_score += z_score_increment
+    return proportion_list
 
 
 # PROPORTION DESTINED FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
