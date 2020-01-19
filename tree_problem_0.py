@@ -264,6 +264,12 @@ def plot_generations_sd(generations):
     sd_list = []
     for generation in generations:
         sd_list.append(st_dev_of_distribution(generation))
+
+    x_label_list = list(range(len(generations)))
+    x_generation_labels = [str(value + 1) for value in x_label_list]
+    plt.xlabel('generation')
+    plt.ylabel('standard deviation')
+    plt.xticks(x_label_list, x_generation_labels)
     plt.plot(sd_list, '-o')
 
 
