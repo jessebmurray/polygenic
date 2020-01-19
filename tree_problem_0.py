@@ -4,7 +4,7 @@ import scipy.stats as st
 # from scipy.special import erf
 
 
-# Global variables that are just used in main
+# Global variables that were just used in main
 number_of_iterations = 100
 z_range = 8
 r = 0.9
@@ -15,41 +15,8 @@ k_val = -2
 percent_step = 0.33
 
 
-# Global variables that are used other than just in main (should really be a constant)
-round_number = 6
-
-
-def main():
-
-    # DONE
-    parent_distribution = normal_distribution(number_of_iterations, z_range, mean_gen, sd_gen)
-
-    # print(proportion_destined_value(parent_distribution, r, r_s, above_k_p=value, below_k_o=value))
-    # print(step_proportion_destined_percentile(parent_distribution, r, r_s, percent_step))
-    #
-    # # print(proportion_destined_value(parent_distribution, r, r_s, below_k_p=k_val, below_k_o=k_val))
-    # print(step_proportion_attributable_percentile(parent_distribution, r, r_s, percent_step))
-
-    # DONE
-    offspring_distributions_ = offspring_distributions(parent_distribution, r, r_s)
-    plot_distribution(parent_distribution)
-    plot_distributions(offspring_distributions_)
-    plot_distribution(final_superimposed_distribution_all_area_adj(parent_distribution, r, r_s))
-
-    # plot_distribution(final_superimposed_distribution(parent_distribution, r, r_s, below_k_v_p=k_val))
-    # plot_distribution(final_superimposed_distribution(parent_distribution, r, r_s, below_k_v_p=k_val,
-    #                                                   above_k_v_o=k_val))
-
-    # plt.show()
-
-    # plt.show()
-    # offspring_distribution = final_superimposed_distribution_all_area_adj(parent_distribution, r, r_s)
-    # plot_distribution(parent_distribution)
-    # plot_distribution(offspring_distribution)
-    # plt.show()
-    # print(parent_distribution)
-
-    # print(proportion_attributable_value(parent_distribution, r, r_s, below_k_p=k_val, above_k_o=k_val))
+# Global variables that are used in here (the module) not just in main
+ROUND_NUMBER = 6
 
 
 # FUNDAMENTAL STRUCTURE FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,7 +40,7 @@ def normal_distribution(number_of_steps, z_score_range, mean=0, sd=1, above_k_va
     else:
         below_n = 0
     x_start = mean - (bound / 2)
-    x = round(x_start, round_number)
+    x = round(x_start, ROUND_NUMBER)
     for num in range(number + 1):
         x_y_pair = [0, 0]
         go_ahead = True
@@ -88,7 +55,7 @@ def normal_distribution(number_of_steps, z_score_range, mean=0, sd=1, above_k_va
         if go_ahead:
             x_y_pair = [x, f_norm(x, mean, sd)]
         two_d_distribution.append(x_y_pair)
-        x = round(x_start + (increment * (num + 1)), round_number)
+        x = round(x_start + (increment * (num + 1)), ROUND_NUMBER)
     two_d_distribution[0] += [['increment', increment], ['number', number], ['bound', bound], ['mean', mean],
                               ['sd', sd]]
     return two_d_distribution
@@ -161,8 +128,8 @@ def superimposed_offspring_distribution(distributions):
             for row in distribution:
                 if row[0] == value:
                     superimposed_row[1] += row[1]
-    # the below increment is wrong in a lot of cases
-    increment = round(superimposed_distribution[1][0] - superimposed_distribution[0][0], round_number)
+    # the below increment is wrong in a lot of cases, but it doesn't matter because we never use it
+    increment = round(superimposed_distribution[1][0] - superimposed_distribution[0][0], ROUND_NUMBER)
 
     parent_increment = distributions[0][0][2][1]
     parent_mean = distributions[0][0][7][1]
@@ -185,8 +152,8 @@ def normalized_superimposed_distribution_to_parent_increment(superimposed_distri
     n = int(abs(smallest_x - parent_mean) / parent_increment)
     par_inc_norm_superimposed_distribution = []
     for num in range((2 * n) + 1):
-        x_value_prev = round((num - n - 1) * parent_increment, round_number)
-        x_value = round((num - n) * parent_increment, round_number)
+        x_value_prev = round((num - n - 1) * parent_increment, ROUND_NUMBER)
+        x_value = round((num - n) * parent_increment, ROUND_NUMBER)
         par_inc_norm_superimposed_distribution.append([x_value, 0])
         for row in superimposed_distribution:
             if x_value_prev < row[0] <= x_value:
@@ -285,7 +252,6 @@ def plot_distributions(distributions):
         all_y.append(y)
     for dist_num in range(len(all_x)):
         plt.plot(all_x[dist_num], all_y[dist_num])
-    plt.show()
 
 
 def plot_distribution(distribution):
@@ -299,6 +265,37 @@ def plot_generations_sd(generations):
     for generation in generations:
         sd_list.append(st_dev_of_distribution(generation))
     plt.plot(sd_list, '-o')
+
+
+def bar_graph_step(step_list, step_labels=None):
+    num_groups = len(step_list[0][1])
+    if step_labels is None:
+        step_labels = list(range(1, num_groups + 1))
+    percent_group_values = []
+    for i in range(len(step_list[0][1])):
+        values_list = [row[1][i][1] for row in step_list]
+        percent_group_values.append(values_list)
+    one_or_zero = num_groups % 2
+    for num in range(len(percent_group_values[0]) - one_or_zero - 1, -1, -1):
+        extra_values = []
+        for row in percent_group_values:
+            extra_values.append(row[num])
+        extra_values.reverse()
+        for i in range(len(percent_group_values)):
+            percent_group_values[i].append(extra_values[i])
+    pal = ['xkcd:light navy blue', 'xkcd:windows blue', 'xkcd:turquoise blue', 'xkcd:carolina blue', 'xkcd:light blue']
+    values_sum_list = [0] * len(percent_group_values[0])
+    plt.ylim(0, 1)
+    for j in range(len(percent_group_values)):
+        if num_groups <= len(pal):
+            plt.bar(step_labels, percent_group_values[j], bottom=values_sum_list, color=pal[j], alpha=1)
+        else:
+            plt.bar(step_labels, percent_group_values[j], bottom=values_sum_list, alpha=1)
+        for a, b, c in zip(step_labels, values_sum_list, percent_group_values[j]):
+            num = (b + c / 2) - 0.02
+            plt.text(a, num, ' ' + "{:0.0%}".format(c), va='bottom', ha='center', color='w', size=15)
+        for i in range(len(values_sum_list)):
+            values_sum_list[i] += percent_group_values[j][i]
 
 
 # PROPORTION ATTRIBUTABLE FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -360,12 +357,12 @@ def step_proportion_attributable_percentile(parent_distribution, reg_coefficient
                 area_all_distributions)]
 
             step_list_offspring_parents.append(step_list_parent)
-            above_k_p = round(above_k_p - percentile_step, round_number)
-            below_k_p = round(below_k_p - percentile_step, round_number)
+            above_k_p = round(above_k_p - percentile_step, ROUND_NUMBER)
+            below_k_p = round(below_k_p - percentile_step, ROUND_NUMBER)
         step_list_offspring.append(step_list_offspring_parents)
         stepwise_percentile_list.append(step_list_offspring)
-        above_k_o = round(above_k_o - percentile_step, round_number)
-        below_k_o = round(below_k_o - percentile_step, round_number)
+        above_k_o = round(above_k_o - percentile_step, ROUND_NUMBER)
+        below_k_o = round(below_k_o - percentile_step, ROUND_NUMBER)
     return stepwise_percentile_list
 
 
@@ -374,6 +371,7 @@ def select_over_all(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p
     select_distributions = offspring_distributions(parent_distribution, r_mean, r_sd, above_k_p, below_k_p, above_k_o,
                                                    below_k_o)
     area_select_distributions = area_under_distributions(select_distributions)
+    # return area_all_distributions
     return area_select_distributions / area_all_distributions
 
 
@@ -433,13 +431,13 @@ def step_proportion_destined_percentile(parent_distribution, reg_coefficient, sd
                 area_all_distributions)]
 
             step_list_parents_offspring.append(step_list_offspring)
-            above_k_o = round(above_k_o - percentile_step, round_number)
-            below_k_o = round(below_k_o - percentile_step, round_number)
+            above_k_o = round(above_k_o - percentile_step, ROUND_NUMBER)
+            below_k_o = round(below_k_o - percentile_step, ROUND_NUMBER)
         step_list_parent.append(step_list_parents_offspring)
 
         stepwise_percentile_list.append(step_list_parent)
-        above_k_p = round(above_k_p - percentile_step, round_number)
-        below_k_p = round(below_k_p - percentile_step, round_number)
+        above_k_p = round(above_k_p - percentile_step, ROUND_NUMBER)
+        below_k_p = round(below_k_p - percentile_step, ROUND_NUMBER)
     return stepwise_percentile_list
 
 
@@ -499,9 +497,3 @@ def st_dev_of_distribution(distribution):
 # NOT USED FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # def z_erf(num):
 #     return erf(num / (2 ** 0.5))
-
-
-# main()
-
-# keep in mind that we have a wrong increment in the superimposed distribution function
-# 0.25 -> 5, 0.5 -> 3, 0.75 -> ~7
