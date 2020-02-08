@@ -254,10 +254,13 @@ def plot_distributions(distributions):
         plt.plot(all_x[dist_num], all_y[dist_num])
 
 
-def plot_distribution(distribution):
+def plot_distribution(distribution, label=None):
     x = [row[0] for row in distribution]
     y = [row[1] for row in distribution]
-    plt.plot(x, y)
+    if label is not None:
+        plt.plot(x, y, label=label)
+    else:
+        plt.plot(x, y, label=label)
 
 
 def plot_generations_sd(generations):
