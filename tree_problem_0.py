@@ -239,7 +239,7 @@ def z_score_to_index(z_score, number_of_steps, z_score_range):
 
 
 # PLOTTING FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def plot_distributions(distributions):
+def plot_distributions(distributions, label=None):
     all_x = []
     all_y = []
     for distribution in distributions:
@@ -252,6 +252,7 @@ def plot_distributions(distributions):
         all_y.append(y)
     for dist_num in range(len(all_x)):
         plt.plot(all_x[dist_num], all_y[dist_num])
+        plt.plot(label='hi')
 
 
 def plot_distribution(distribution, label=None):
