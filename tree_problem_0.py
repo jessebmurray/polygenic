@@ -224,12 +224,26 @@ def area_under_distributions(distributions):
 
 
 # CONVERSION FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def percentile_to_value(percentile, parent_distribution):
-    return (parent_distribution[0][6][1] * st.norm.ppf(percentile)) + parent_distribution[0][5][1]
+def percentile_to_value(percentile, distribution, distribution_sd=None):
+    if distribution[0][6][0] == 'sd':
+        return (distribution[0][6][1] * st.norm.ppf(percentile)) + distribution[0][5][1]
+    else:
+        if distribution_sd is not None:
+            standard_dev = distribution_sd
+        else:
+            standard_dev = st_dev_of_distribution(distribution)
+        return (standard_dev * st.norm.ppf(percentile)) + distribution[len(distribution) // 2][0]
 
 
-def sd_to_value(sd, parent_distribution):
-    return (parent_distribution[0][6][1] * sd) + parent_distribution[0][5][1]
+def sd_to_value(sd, distribution, distribution_sd=None):
+    if distribution[0][6][0] == 'sd':
+        return (distribution[0][6][1] * sd) + distribution[0][5][1]
+    else:
+        if distribution_sd is not None:
+            standard_dev = distribution_sd
+        else:
+            standard_dev = st_dev_of_distribution(distribution)
+        return (standard_dev * sd) + distribution[len(distribution) // 2][0]
 
 
 def z_score_to_index(z_score, number_of_steps, z_score_range):
@@ -315,30 +329,50 @@ def proportion_attributable_value(parent_distribution, r_mean, r_sd, above_k_p=N
         all_distributions = offspring_distributions(parent_distribution, r_mean, r_sd, above_k_v_o=above_k_o,
                                                     below_k_v_o=below_k_o)
         area_all_distributions = area_under_distributions(all_distributions)
-    # select_distributions = offspring_distributions(parent_distribution, r_mean, r_sd, above_k_p, below_k_p, above_k_o,
-    #                                                below_k_o)
-    # area_select_distributions = area_under_distributions(select_distributions)
-    # return area_select_distributions / area_all_distributions
     return select_over_all(parent_distribution, r_mean, r_sd, above_k_p, below_k_p, above_k_o, below_k_o,
                            area_all_distributions)
 
 
 def proportion_attributable_standard_deviation(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None,
-                                               above_k_o=None, below_k_o=None, area_all_distributions=None):
+                                               above_k_o=None, below_k_o=None, area_all_distributions=None, same=False):
     k_list = [above_k_p, below_k_p, above_k_o, below_k_o]
     for i in range(len(k_list)):
-        if k_list[i] is not None:
-            k_list[i] = sd_to_value(k_list[i], parent_distribution)
+
+        if same:
+            if k_list[i] is not None:
+                k_list[i] = sd_to_value(k_list[i], parent_distribution)
+        else:
+            return True  # come back to this!
+
     return proportion_attributable_value(parent_distribution, r_mean, r_sd, k_list[0], k_list[1], k_list[2], k_list[3],
                                          area_all_distributions)
 
 
 def proportion_attributable_percentile(parent_distribution, r_mean, r_sd, above_k_p=None, below_k_p=None,
-                                       above_k_o=None, below_k_o=None, area_all_distributions=None):
+                                       above_k_o=None, below_k_o=None, area_all_distributions=None,
+                                       offspring_distribution=None, offspring_sd=None, same=False,):
     k_list = [above_k_p, below_k_p, above_k_o, below_k_o]
+
+    if same is False:
+        if offspring_distribution is None:
+            offspring_distribution = final_superimposed_distribution_all_area_adj(parent_distribution, r_mean, r_sd)
+
+        if offspring_sd is None:
+            standard_dev = st_dev_of_distribution(offspring_distribution)
+        else:
+            standard_dev = offspring_sd
+
     for i in range(len(k_list)):
-        if k_list[i] is not None:
-            k_list[i] = percentile_to_value(k_list[i], parent_distribution)
+        if same is True:
+            if k_list[i] is not None:
+                k_list[i] = percentile_to_value(k_list[i], parent_distribution)
+        else:
+            if k_list[i] is not None:
+                if i <= 1:
+                    k_list[i] = percentile_to_value(k_list[i], parent_distribution)
+                elif i >= 2:
+                    k_list[i] = percentile_to_value(k_list[i], offspring_distribution, standard_dev)
+
     return proportion_attributable_value(parent_distribution, r_mean, r_sd, k_list[0], k_list[1], k_list[2], k_list[3],
                                          area_all_distributions)
 
