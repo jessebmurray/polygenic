@@ -1,5 +1,6 @@
 # polygenic
-This is the repository of the tree-problem project. I've recently started work on assessing my proposed model with the [Galton height dataset](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/T0HSJ1).
+This is the repository of the tree-problem project. I've recently started work on assessing my proposed model with the [Galton height dataset](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/T0HSJ1). I'm working on writing a paper in latex for journal submission. 
+
 
 ## How to use
 * To see an explanation of the project, go to the [Tree Project Explainer](tree_project_explainer.ipynb) notebook. 
