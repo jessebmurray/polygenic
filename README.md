@@ -10,4 +10,4 @@ This is the repository of the tree-problem project. I recently compared my propo
 * To see the coin flip analogy and how the central limit theorem explains why polygenic genes fall into a normal distribution, go to the [Coin Flip Analogy](coin_flip_analogy.ipynb) notebook.
 
 
-As of March 14, the LaTeX paper is in its very early stages and doesn't include most of the figures, etc. However, I expect to be making progress on it rapidly. 
+As of March 14, the LaTeX paper is in its very early stages and doesn't include the figures, etc. However, I expect to be making progress on it rapidly. 
