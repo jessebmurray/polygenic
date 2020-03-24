@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as st
 from matplotlib.ticker import PercentFormatter
-
 # from scipy.special import erf
 
 # Global variables that would be used in main
@@ -277,7 +276,7 @@ def convert_ks(parent_distribution, r, r_s, above_k_p=None, below_k_p=None, abov
         if offspring_distribution is None:  # if there is no provided off. dist. then create it
             offspring_distribution = \
                 final_superimposed_distribution_all_area_adj(parent_distribution, r, r_s)
-        if offspring_sd is None:  # if there is no provided
+        if offspring_sd is None:  # if there is no provided offspring sd
             standard_dev = st_dev_of_distribution(offspring_distribution)
         else:
             standard_dev = offspring_sd
@@ -300,7 +299,7 @@ def convert_ks(parent_distribution, r, r_s, above_k_p=None, below_k_p=None, abov
                     if conv_type == 'percentile':
                         # noinspection PyUnboundLocalVariable
                         k_list[i] = percentile_to_value(k_list[i], offspring_distribution, standard_dev)
-                    elif conv_type == 'sd':
+                    elif conv_type == 'z_score':
                         k_list[i] = z_score_to_value(k_list[i], offspring_distribution, standard_dev)
     return k_list
 
@@ -341,7 +340,7 @@ def proportion_attributable_z_score(parent_distribution, r, r_s, above_k_p=None,
     k_list = convert_ks(parent_distribution=parent_distribution, r=r, r_s=r_s, above_k_p=above_k_p,
                         below_k_p=below_k_p, above_k_o=above_k_o, below_k_o=below_k_o,
                         offspring_distribution=offspring_distribution, offspring_sd=offspring_sd,
-                        assume_same_sd=assume_same_sd, conv_type='sd')
+                        assume_same_sd=assume_same_sd, conv_type='z_score')
 
     return proportion_attributable_value(parent_distribution, r, r_s, k_list[0], k_list[1], k_list[2], k_list[3],
                                          area_all_distributions)
@@ -365,7 +364,7 @@ def proportion_destined_z_score(parent_distribution, r, r_s, above_k_p=None, bel
     k_list = convert_ks(parent_distribution=parent_distribution, r=r, r_s=r_s, above_k_p=above_k_p,
                         below_k_p=below_k_p, above_k_o=above_k_o, below_k_o=below_k_o,
                         offspring_distribution=offspring_distribution, offspring_sd=offspring_sd,
-                        assume_same_sd=assume_same_sd, conv_type='sd')
+                        assume_same_sd=assume_same_sd, conv_type='z_score')
 
     return proportion_destined_value(parent_distribution, r, r_s, k_list[0], k_list[1], k_list[2], k_list[3],
                                      area_all_distributions)
@@ -542,12 +541,14 @@ def plot_distributions(distributions):
         all_x.append(x)
         all_y.append(y)
     for dist_num in range(len(all_x)):
-        plt.plot(all_x[dist_num], all_y[dist_num])
+        plt.plot(all_x[dist_num], all_y[dist_num], linewidth=0.8)
 
 
 def plot_distribution(distribution, label=None):
     x = [row[0] for row in distribution]
     y = [row[1] for row in distribution]
+    plt.xlabel('Phenotype SDS')
+    plt.ylabel('Proportion')
     if label is not None:
         plt.plot(x, y, label=label)
     else:
@@ -594,9 +595,8 @@ def plot_mobility(data):
     else:
         step_labels = list(range(1, len(data) + 1))
 
-    plt.figure()
-    plt.xlabel('Parent\'s Quintile')
-    plt.ylabel('Likelihood of Offspring in each Quintile')
+    plt.xlabel('Parent\'s Quintile', fontsize=15)
+    plt.ylabel('Likelihood of Offspring in each Quintile', fontsize=15)
     plt.ylim(0, 1)
     values_sum_list = [0] * len(data)
     for j in range(len(data)):
@@ -606,7 +606,7 @@ def plot_mobility(data):
             plt.bar(step_labels, data[j], bottom=values_sum_list)
 
         for a, b, c in zip(step_labels, values_sum_list, data[j]):
-            num = (b + c / 2) - 0.02
+            num = (b + c / 2) - 0.018
             plt.text(a, num, ' ' + "{:0.0%}".format(c), va='bottom', ha='center', color='w', size=15)
 
         for i in range(len(values_sum_list)):
@@ -616,7 +616,6 @@ def plot_mobility(data):
     plt.legend(legend, bbox_to_anchor=(1, 1), loc="upper left", fontsize=15)
     plt.yticks(np.arange(0, 1.1, 0.1))
     plt.gca().yaxis.set_major_formatter(PercentFormatter(1))
-    plt.show()
 
 
 # NOT USED FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
