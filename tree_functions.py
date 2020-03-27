@@ -142,24 +142,60 @@ def superimposed_offspring_distribution(distributions):
                                      ['parent number', parent_number], ['parent bound', parent_bound]]
     return superimposed_distribution
 
+# def normalized_superimposed_distribution_to_parent_increment(superimposed_distribution):
+#     parent_increment = superimposed_distribution[0][3][1]
+#     parent_mean = superimposed_distribution[0][4][1]
+#     smallest_x = superimposed_distribution[0][0]
+#     n = int(abs(smallest_x - parent_mean) / parent_increment)
+#     par_inc_norm_superimposed_distribution = list()
+#     for num in range((2 * n) + 1):
+#         x_value_prev = round((num - n - 1) * parent_increment, ROUND_NUMBER)
+#         x_value = round((num - n) * parent_increment, ROUND_NUMBER)
+#         par_inc_norm_superimposed_distribution.append([x_value, 0])
+#         for row in superimposed_distribution:
+#             if x_value_prev < row[0] <= x_value:
+#                 par_inc_norm_superimposed_distribution[num][1] += row[1]
+#             # ideally we'd like to stop this loop once row[0] is greater than the x_value
+#     par_inc_norm_superimposed_distribution[0] += [['increment', parent_increment]]
+#     par_inc_norm_superimposed_distribution[0] += superimposed_distribution[0][3:]
+#     return par_inc_norm_superimposed_distribution
 
-def normalized_superimposed_distribution_to_parent_increment(superimposed_distribution):
-    parent_increment = superimposed_distribution[0][3][1]
-    parent_mean = superimposed_distribution[0][4][1]
-    smallest_x = superimposed_distribution[0][0]
-    n = int(abs(smallest_x - parent_mean) / parent_increment)
-    par_inc_norm_superimposed_distribution = list()
-    for num in range((2 * n) + 1):
-        x_value_prev = round((num - n - 1) * parent_increment, ROUND_NUMBER)
-        x_value = round((num - n) * parent_increment, ROUND_NUMBER)
-        par_inc_norm_superimposed_distribution.append([x_value, 0])
-        for row in superimposed_distribution:
-            if x_value_prev < row[0] <= x_value:
-                par_inc_norm_superimposed_distribution[num][1] += row[1]
-            # ideally we'd like to stop this loop once row[0] is greater than the x_value
-    par_inc_norm_superimposed_distribution[0] += [['increment', parent_increment]]
-    par_inc_norm_superimposed_distribution[0] += superimposed_distribution[0][3:]
-    return par_inc_norm_superimposed_distribution
+
+def normalized_superimposed_distribution_to_parent_increment(pre_dist, gen_num=0):
+    norm_dist = list()
+
+    par_inc = pre_dist[0][3][1]
+    lowest_pre_x = pre_dist[0][0]
+    # Initialize the increment location
+    loc = int(lowest_pre_x / par_inc) * par_inc
+    if gen_num == 1:
+        loc = round(loc - par_inc, ROUND_NUMBER)
+
+    pre_index = 0
+    norm_index = 0
+    # Loop through the distribution and bin to the increment location
+    norm_dist.append([loc, 0])
+    while pre_index < len(pre_dist):
+        if gen_num == 0:  # shift to the right
+            if pre_dist[pre_index][0] <= loc:
+                norm_dist[norm_index][1] += pre_dist[pre_index][1]
+                pre_index += 1
+            else:
+                norm_index += 1
+                loc = round(loc + par_inc, ROUND_NUMBER)
+                norm_dist.append([loc, 0])
+        elif gen_num == 1:  # shift to the left
+            if loc <= pre_dist[pre_index][0] <= round(loc + par_inc, ROUND_NUMBER):
+                norm_dist[norm_index][1] += pre_dist[pre_index][1]
+                pre_index += 1
+            else:
+                norm_index += 1
+                loc = round(loc + par_inc, ROUND_NUMBER)
+                norm_dist.append([loc, 0])
+    norm_dist[0] += [['increment', par_inc]]
+    norm_dist[0] += pre_dist[0][3:]
+
+    return norm_dist
 
 
 def final_superimposed_distribution_all_not_area_adj(parent_distribution, r, r_s):
@@ -177,21 +213,6 @@ def normalized_superimposed_distribution_to_parent_area(superimposed_distributio
     return par_area_norm_superimposed_distribution
 
 
-def final_superimposed_distribution(parent_distribution, r, r_s, above_k_v_p=None, below_k_v_p=None,
-                                    above_k_v_o=None, below_k_v_o=None):
-    offspring_distributions_ = offspring_distributions(parent_distribution, r, r_s, above_k_v_p, below_k_v_p,
-                                                       above_k_v_o, below_k_v_o)
-    super_offspring_distribution = superimposed_offspring_distribution(offspring_distributions_)
-    par_inc_super_offspring_distribution = \
-        normalized_superimposed_distribution_to_parent_increment(super_offspring_distribution)
-    par_inc_super_offspring_distribution_all = \
-        final_superimposed_distribution_all_not_area_adj(parent_distribution, r, r_s)
-    parent_area_factor = area_scale_factor_entire(par_inc_super_offspring_distribution_all)
-    par_area_super_offspring_distribution = \
-        normalized_superimposed_distribution_to_parent_area(par_inc_super_offspring_distribution, parent_area_factor)
-    return par_area_super_offspring_distribution
-
-
 def final_superimposed_distribution_all_area_adj(parent_distribution, r, r_s):
     par_inc_super_offspring_distribution_all = \
         final_superimposed_distribution_all_not_area_adj(parent_distribution, r, r_s)
@@ -203,10 +224,6 @@ def final_superimposed_distribution_all_area_adj(parent_distribution, r, r_s):
 
 
 # AREA FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def area_scale_factor_entire(entire_superimposed_distribution):
-    parent_area = entire_superimposed_distribution[0][5][1]
-    superimposed_distribution_area = area_under_one_distribution(entire_superimposed_distribution)
-    return superimposed_distribution_area / parent_area
 
 
 def area_under_one_distribution(one_distribution):
@@ -228,18 +245,7 @@ def z_score_to_index(z_score, number_of_steps, z_score_range):
     return int((z_to_travel * z_to_index_conversion) + 0.5)
 
 
-def percentile_to_value(percentile, distribution, distribution_sd=None):
-    if distribution[0][6][0] == 'sd':  # if the distribution (parent) already has a given SD, use it
-        return (distribution[0][6][1] * st.norm.ppf(percentile)) + distribution[0][5][1]
-    else:  # if not, and we're not passing in a pre-calculated SD, then go ahead and calculate it
-        if distribution_sd is not None:
-            standard_dev = distribution_sd
-        else:
-            standard_dev = st_dev_of_distribution(distribution)  # calculate it based on the distribution
-        return (standard_dev * st.norm.ppf(percentile)) + distribution[len(distribution) // 2][0]  # sd * z + mean
-
-
-def z_score_to_value(sd, distribution, distribution_sd=None):  # should really be called z-score to value, but okay
+def z_score_to_value(sd, distribution, distribution_sd=None):
     if distribution[0][6][0] == 'sd':  # if the distribution (parent) already has a given SD, use it
         return (distribution[0][6][1] * sd) + distribution[0][5][1]
     else:  # if not, and we're not passing in a pre-calculated SD, then go ahead and calculate it
@@ -251,8 +257,7 @@ def z_score_to_value(sd, distribution, distribution_sd=None):  # should really b
 
 
 def st_dev_of_distribution(distribution):
-    mid_index = (len(distribution) - 1) // 2
-    mean = distribution[mid_index][0]
+    mean = true_mean(distribution)
 
     weights = [value[1] for value in distribution]
     x = [value[0] for value in distribution]
@@ -428,8 +433,20 @@ def step_proportion_attributable_percentile(parent_distribution, r, r_s, percent
     return stepwise_percentile_list
 
 
+def percentile_to_value(percentile, distribution, distribution_sd=None):
+    if distribution[0][6][0] == 'sd':  # if the distribution (parent) already has a given SD, use it
+        return (distribution[0][6][1] * st.norm.ppf(percentile)) + distribution[0][5][1]
+    else:  # if not, and we're not passing in a pre-calculated SD, then go ahead and calculate it
+        if distribution_sd is not None:
+            standard_dev = distribution_sd
+        else:
+            standard_dev = st_dev_of_distribution(distribution)  # calculate it based on the distribution
+        return (standard_dev * st.norm.ppf(percentile)) + distribution[len(distribution) // 2][0]  # sd * z + mean
+
+
 def step_proportion_destined_percentile(parent_distribution, r, r_s, percentile_step,
                                         offspring_distribution=None, assume_same_sd=False):
+    # Very slow
     # parent zones are in the first column of every row and the percent of the parent zone's offspring that are destined
     # to each offspring zone in the second column of every row
     stepwise_percentile_list = list()
@@ -473,6 +490,68 @@ def step_proportion_destined_percentile(parent_distribution, r, r_s, percentile_
     return stepwise_percentile_list
 
 
+def initialize_gen_1s(gen_0, r, r_s, percentile_step=0.2):
+    below_k_p = 1
+    above_k_p = 1 - percentile_step
+
+    par_inc_super_offspring_distribution_all = \
+        final_superimposed_distribution_all_not_area_adj(gen_0, r, r_s)
+    parent_area_factor = area_scale_factor_entire(par_inc_super_offspring_distribution_all)
+
+    gen_1s = list()
+    while below_k_p > 0.5:
+        above_k_p_v = percentile_to_value(above_k_p, gen_0)
+        below_k_p_v = percentile_to_value(below_k_p, gen_0)
+
+        gen_1s.append(final_superimposed_distribution(gen_0, r, r_s,
+                                                      above_k_v_p=above_k_p_v,
+                                                      below_k_v_p=below_k_p_v,
+                                                      parent_area_factor=parent_area_factor))
+        # st.norm.ppf(gen_cov(above_k_p)) (the old way)
+
+        above_k_p = round(above_k_p - percentile_step, ROUND_NUMBER)
+        below_k_p = round(below_k_p - percentile_step, ROUND_NUMBER)
+
+    return gen_1s
+
+
+def final_superimposed_distribution(parent_distribution, r, r_s, above_k_v_p=None, below_k_v_p=None,
+                                    above_k_v_o=None, below_k_v_o=None, parent_area_factor=None):
+    offspring_distributions_ = offspring_distributions(parent_distribution, r, r_s, above_k_v_p, below_k_v_p,
+                                                       above_k_v_o, below_k_v_o)
+    super_offspring_distribution = superimposed_offspring_distribution(offspring_distributions_)
+
+    # Normalize to the parent increment
+    par_inc_super_offspring_distribution = \
+        normalized_superimposed_distribution_to_parent_increment(super_offspring_distribution)
+
+    # We need the entire offspring distribution to get the area scale factor reliably
+    if parent_area_factor is None:
+        par_inc_super_offspring_distribution_all = \
+            final_superimposed_distribution_all_not_area_adj(parent_distribution, r, r_s)
+        parent_area_factor = area_scale_factor_entire(par_inc_super_offspring_distribution_all)
+    else:
+        parent_area_factor = parent_area_factor
+
+    # Just divides all the 'y's in the distribution by the area scale factor
+    par_area_super_offspring_distribution = \
+        normalized_superimposed_distribution_to_parent_area(par_inc_super_offspring_distribution, parent_area_factor)
+
+    return par_area_super_offspring_distribution
+
+
+def area_scale_factor_entire(entire_superimposed_distribution):
+    parent_area = entire_superimposed_distribution[0][5][1]
+    superimposed_distribution_area = area_under_one_distribution(entire_superimposed_distribution)
+    return superimposed_distribution_area / parent_area
+
+
+# not used
+def gen_conv(percentile, gen_sd):
+    z_score = st.norm.ppf(percentile)
+    return gen_sd * z_score
+
+
 def step_tree_question_z_score(parent_distribution, r, r_s, z_score_increment, z_score_bound,
                                offspring_distribution=None, assume_same_sd=False):
     z_score = - z_score_bound / 2  # initialize the z_score at the lower end of the bound
@@ -492,38 +571,84 @@ def step_tree_question_z_score(parent_distribution, r, r_s, z_score_increment, z
     return proportion_list
 
 
+# TRUE MEAN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def true_mean(dist):
+    # gives the probability weighted mean/also median for any
+    max_ = 0
+    max_index = 0
+    for i in range(len(dist)):
+        if dist[i][1] > max_:
+            max_ = dist[i][1]
+            max_index = i
+    return dist[max_index][0]
+
+
+def true_mean_index(dist):
+    # gives the index of the probability weighted mean/also median for any
+    max_ = 0
+    max_index = 0
+    for i in range(len(dist)):
+        if dist[i][1] > max_:
+            max_ = dist[i][1]
+            max_index = i
+    return max_index
+
+
 # REPRODUCING FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def final_super_to_parent(final_super_distribution):
+def final_super_to_parent(final_super_distribution, population_mean=None):
+    # Very fast
     super_max_index = len(final_super_distribution) - 1
-    super_parent_max_index = final_super_distribution[0][6][1]
+    super_parent_max_index = final_super_distribution[0][6][1]  # (parent number gives the max index)
 
     final = list()
 
     # If it's bigger than the parent, make it only as big as the bound
     if super_max_index > super_parent_max_index:
-        super_start_index = (super_max_index - super_parent_max_index) // 2
-        super_end_index = super_start_index + super_parent_max_index + 1
+        # super_start_index = (super_max_index - super_parent_max_index) // 2
+        # super_end_index = super_start_index + super_parent_max_index + 1
+
+        # Mar 27
+        mean_index = true_mean_index(final_super_distribution)
+        start_index = mean_index - (super_parent_max_index // 2)
+        end_index = start_index + super_parent_max_index + 1
+        # Mar 27
 
     # If's it's equal to or smaller than the parent, make it as big as it is already
     else:
-        super_start_index = 0
-        super_end_index = len(final_super_distribution)
+        # super_start_index = 0
+        # super_end_index = len(final_super_distribution)
+        start_index = 0
+        end_index = len(final_super_distribution)
 
-    for row_num in range(super_start_index, super_end_index):
+    # Simply copy it with the new lengths
+
+    for row_num in range(start_index, end_index):
         final_row = list()
         for column_num in range(2):
             final_row.append(final_super_distribution[row_num][column_num])
         final.append(final_row)
+
+    # for row_num in range(super_start_index, super_end_index):
+    #     final_row = list()
+    #     for column_num in range(2):
+    #         final_row.append(final_super_distribution[row_num][column_num])
+    #     final.append(final_row)
 
     mid_index = (len(final) - 1) // 2
 
     increment = final_super_distribution[0][2][1]
     number = len(final) - 1
     bound = final[-1][0] - final[0][0]
-    mean = final[mid_index][0]
+    if population_mean is None:
+        mean = final[mid_index][0]
+        mean_name = 'mean'
+    else:
+        mean = population_mean
+        mean_name = 'population mean'
+        final[1] += ['parent_mean', true_mean(final_super_distribution)]
     st_dev = st_dev_of_distribution(final_super_distribution)
 
-    final[0] += [['increment', increment], ['number', number], ['bound', bound], ['mean', mean], ['sd', st_dev]]
+    final[0] += [['increment', increment], ['number', number], ['bound', bound], [mean_name, mean], ['sd', st_dev]]
 
     return final
 
@@ -544,15 +669,12 @@ def plot_distributions(distributions):
         plt.plot(all_x[dist_num], all_y[dist_num], linewidth=0.8)
 
 
-def plot_distribution(distribution, label=None):
+def plot_distribution(distribution, label=None, color=None, linestyle=None, alpha=None):
     x = [row[0] for row in distribution]
     y = [row[1] for row in distribution]
     plt.xlabel('Phenotype SDS')
     plt.ylabel('Proportion')
-    if label is not None:
-        plt.plot(x, y, label=label)
-    else:
-        plt.plot(x, y, label=label)
+    plt.plot(x, y, label=label, color=color, linestyle=linestyle, alpha=alpha)
 
 
 def plot_generations_sd(generations):
