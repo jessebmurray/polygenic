@@ -65,18 +65,41 @@ def one_offspring_distribution(parent_distribution, index_num, r, r_s, above_k_v
     # distribution by that value, essentially scaling it by that value.
     # Also the x values in the offspring distribution need to be shifted by r * z_p
     parent_mean = parent_distribution[0][5][1]
+
+    # set the mean of the individual distribution
     shift = r * (parent_distribution[index_num][0] - parent_mean)
     offspring_mean = parent_mean + shift
+
+    # set the st dev of the individual distribution
     parent_sd = parent_distribution[0][6][1]
     offspring_sd = r_s * parent_sd
+
+    # set the scale factor, i.e., f(x_p)
     scale_factor = parent_distribution[index_num][1]
+
+    # set the number of iterations for the individual distribution to be equal to that of the parent generation
     number = parent_distribution[0][3][1]
+
+    # Here we range across the same bound as the parent distribution, even if that means
+    # traversing 30 standard deviations, or 2. This reduces accuracy for r_s, especially when r_s << 1. Better
+    # to traverse the same number of sds as the parent generation. However, the increase in computational complexity
+    # is crazy because the normal dist function scales the increment too. So
     z_score_range = parent_distribution[0][4][1] / offspring_sd
+    # Here we divide the parent bound by its standard deviation to get the parent z_score range, which we would use,
+    # except it increases the computational complexity by a lot. We can deal with a less than an ideal response to
+    # varying r_s, which we don't actually vary that much
+    # z_score_range = parent_distribution[0][4][1] / parent_sd  # gives parent z_score range
+
     offspring_distribution = normal_distribution(number, z_score_range, offspring_mean, offspring_sd, above_k_v,
                                                  below_k_v)
+
+    # scale all the y values by the scale factor
     for row in offspring_distribution:
         row[1] *= scale_factor
+
+    # add the parent mean for bookkeeping
     offspring_distribution[0] += [['parent mean', parent_mean]]
+
     return offspring_distribution
 
 
@@ -654,7 +677,7 @@ def final_super_to_parent(final_super_distribution, population_mean=None):
 
 
 # PLOT FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def plot_distributions(distributions):
+def plot_distributions(distributions, linestyle=None):
     all_x = list()
     all_y = list()
     for distribution in distributions:
@@ -666,15 +689,15 @@ def plot_distributions(distributions):
         all_x.append(x)
         all_y.append(y)
     for dist_num in range(len(all_x)):
-        plt.plot(all_x[dist_num], all_y[dist_num], linewidth=0.8)
+        plt.plot(all_x[dist_num], all_y[dist_num], linewidth=0.8, linestyle=linestyle)
 
 
-def plot_distribution(distribution, label=None, color=None, linestyle=None, alpha=None):
+def plot_distribution(distribution, label=None, color=None, linestyle=None, alpha=None, lw=None):
     x = [row[0] for row in distribution]
     y = [row[1] for row in distribution]
     plt.xlabel('Phenotype SDS')
     plt.ylabel('Proportion')
-    plt.plot(x, y, label=label, color=color, linestyle=linestyle, alpha=alpha)
+    plt.plot(x, y, label=label, color=color, linestyle=linestyle, alpha=alpha, lw=lw)
 
 
 def plot_generations_sd(generations):
