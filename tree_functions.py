@@ -12,7 +12,7 @@ rsMain = 0.9
 mean_gen = 0
 sd_gen = 1
 k_val = -2
-percent_step = 0.33
+percent_step = 0.2
 
 # Global variables that are used in the module to fix issues that result from the base 2 arithmetic in python
 ROUND_NUMBER = 6
@@ -458,13 +458,14 @@ def step_proportion_attributable_percentile(parent_distribution, r, r_s, percent
 
 def percentile_to_value(percentile, distribution, distribution_sd=None):
     if distribution[0][6][0] == 'sd':  # if the distribution (parent) already has a given SD, use it
-        return (distribution[0][6][1] * st.norm.ppf(percentile)) + distribution[0][5][1]
+        return (distribution[0][6][1] * st.norm.ppf(percentile)) + distribution[0][5][1]  # sd * z + mean
     else:  # if not, and we're not passing in a pre-calculated SD, then go ahead and calculate it
         if distribution_sd is not None:
             standard_dev = distribution_sd
         else:
             standard_dev = st_dev_of_distribution(distribution)  # calculate it based on the distribution
-        return (standard_dev * st.norm.ppf(percentile)) + distribution[len(distribution) // 2][0]  # sd * z + mean
+        return (standard_dev * st.norm.ppf(percentile)) + true_mean(distribution)  # sd * z + mean
+        # return (standard_dev * st.norm.ppf(percentile)) + distribution[len(distribution) // 2][0]  # sd * z + mean
 
 
 def step_proportion_destined_percentile(parent_distribution, r, r_s, percentile_step,
@@ -511,31 +512,6 @@ def step_proportion_destined_percentile(parent_distribution, r, r_s, percentile_
         above_k_p = round(above_k_p - percentile_step, ROUND_NUMBER)
         below_k_p = round(below_k_p - percentile_step, ROUND_NUMBER)
     return stepwise_percentile_list
-
-
-def initialize_gen_1s(gen_0, r, r_s, percentile_step=0.2):
-    below_k_p = 1
-    above_k_p = 1 - percentile_step
-
-    par_inc_super_offspring_distribution_all = \
-        final_superimposed_distribution_all_not_area_adj(gen_0, r, r_s)
-    parent_area_factor = area_scale_factor_entire(par_inc_super_offspring_distribution_all)
-
-    gen_1s = list()
-    while below_k_p > 0.5:
-        above_k_p_v = percentile_to_value(above_k_p, gen_0)
-        below_k_p_v = percentile_to_value(below_k_p, gen_0)
-
-        gen_1s.append(final_superimposed_distribution(gen_0, r, r_s,
-                                                      above_k_v_p=above_k_p_v,
-                                                      below_k_v_p=below_k_p_v,
-                                                      parent_area_factor=parent_area_factor))
-        # st.norm.ppf(gen_cov(above_k_p)) (the old way)
-
-        above_k_p = round(above_k_p - percentile_step, ROUND_NUMBER)
-        below_k_p = round(below_k_p - percentile_step, ROUND_NUMBER)
-
-    return gen_1s
 
 
 def final_superimposed_distribution(parent_distribution, r, r_s, above_k_v_p=None, below_k_v_p=None,
@@ -677,7 +653,7 @@ def final_super_to_parent(final_super_distribution, population_mean=None):
 
 
 # PLOT FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def plot_distributions(distributions, linestyle=None):
+def plt_dists(distributions, linestyle=None):
     all_x = list()
     all_y = list()
     for distribution in distributions:
@@ -692,7 +668,7 @@ def plot_distributions(distributions, linestyle=None):
         plt.plot(all_x[dist_num], all_y[dist_num], linewidth=0.8, linestyle=linestyle)
 
 
-def plot_distribution(distribution, label=None, color=None, linestyle=None, alpha=None, lw=None):
+def plt_dist(distribution, label=None, color=None, linestyle=None, alpha=None, lw=None):
     x = [row[0] for row in distribution]
     y = [row[1] for row in distribution]
     plt.xlabel('Phenotype SDS')
@@ -731,8 +707,12 @@ def bar_graph_step(step_list):
     plot_mobility(percent_group_values)
 
 
-def plot_mobility(data):
-    pal = ['xkcd:light navy blue', 'xkcd:windows blue', 'xkcd:turquoise blue', 'xkcd:carolina blue', 'xkcd:light blue']
+def plot_mobility(data, pal=None):
+    plt.figure(figsize=(13, 8))
+    if pal is None:
+        # pal = ['xkcd:light navy blue', 'xkcd:windows blue', '#1CA3DE', 'xkcd:carolina blue', 'xkcd:light blue']
+        pal = ['#c6dbef', '#9ecae1', '#6baed6', '#4292c6', '#2171b5']
+        pal.reverse()
 
     if len(data) == 5:
         step_labels = ['Parent in\nBottom Quintile', 'Second Quintile', 'Third Quintile', 'Fourth Quintile',
@@ -743,24 +723,272 @@ def plot_mobility(data):
     plt.xlabel('Parent\'s Quintile', fontsize=15)
     plt.ylabel('Likelihood of Offspring in each Quintile', fontsize=15)
     plt.ylim(0, 1)
-    values_sum_list = [0] * len(data)
-    for j in range(len(data)):
+    values_sum_list = [1] * len(data)
+    for j in range(len(data) - 1, -1, -1):
         if len(data) <= 5:
-            plt.bar(step_labels, data[j], bottom=values_sum_list, color=pal[j])
+            plt.bar(step_labels, [- value for value in data[j]], bottom=values_sum_list, color=pal[j])
         else:
-            plt.bar(step_labels, data[j], bottom=values_sum_list)
+            plt.bar(step_labels, [- value for value in data[j]], bottom=values_sum_list)
 
-        for a, b, c in zip(step_labels, values_sum_list, data[j]):
+        for a, b, c in zip(step_labels, values_sum_list, [- value for value in data[j]]):
             num = (b + c / 2) - 0.018
-            plt.text(a, num, ' ' + "{:0.0%}".format(c), va='bottom', ha='center', color='w', size=15)
+            # plt.text(a, num, ' ' + "{:0.0%}".format(- c), va='bottom', ha='center', color='k', size=15, alpha=0.7)
+            if j >= 2:
+                plt.text(a, num, ' ' + "{:0.0%}".format(- c), va='bottom', ha='center', color='k', size=15, alpha=0.8)
+            else:
+                plt.text(a, num, ' ' + "{:0.0%}".format(- c), va='bottom', ha='center', color='w', size=15, alpha=0.8)
 
         for i in range(len(values_sum_list)):
-            values_sum_list[i] += data[j][i]
+            values_sum_list[i] -= data[j][i]
 
-    legend = ['Offspring in\nBottom Quintile', 'Second Quintile', 'Third Quintile', 'Fourth Quintile', 'Top Quintile']
+    legend = ['Offspring in\nTop Quintile', 'Fourth Quintile', 'Third Quintile', 'Second Quintile', 'Bottom Quintile']
     plt.legend(legend, bbox_to_anchor=(1, 1), loc="upper left", fontsize=15)
     plt.yticks(np.arange(0, 1.1, 0.1))
     plt.gca().yaxis.set_major_formatter(PercentFormatter(1))
+
+
+# MULTI GENERATIONAL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def initialize_dscts(gen_0_par, r, r_s, percentile_step=0.2):
+    below_k_p = 1
+    above_k_p = 1 - percentile_step
+
+    par_inc_super_offspring_distribution_all = \
+        final_superimposed_distribution_all_not_area_adj(gen_0_par, r, r_s)
+    parent_area_factor = area_scale_factor_entire(par_inc_super_offspring_distribution_all)
+
+    gen_1s = list()
+    while below_k_p > 0.5:
+        above_k_p_v = percentile_to_value(above_k_p, gen_0_par)
+        below_k_p_v = percentile_to_value(below_k_p, gen_0_par)
+
+        gen_1s.append(final_superimposed_distribution(gen_0_par, r, r_s,
+                                                      above_k_v_p=above_k_p_v,
+                                                      below_k_v_p=below_k_p_v,
+                                                      parent_area_factor=parent_area_factor))
+        # st.norm.ppf(gen_cov(above_k_p)) (the old way)
+
+        above_k_p = round(above_k_p - percentile_step, ROUND_NUMBER)
+        below_k_p = round(below_k_p - percentile_step, ROUND_NUMBER)
+
+    return gen_1s
+
+
+def initialize_dsct(gen_0_par, r, r_s, above_perc, below_perc):
+    par_inc_super_offspring_distribution_all = \
+        final_superimposed_distribution_all_not_area_adj(gen_0_par, r, r_s)
+    parent_area_factor = area_scale_factor_entire(par_inc_super_offspring_distribution_all)
+
+    above_k_p_v = percentile_to_value(above_perc, gen_0_par)
+    below_k_p_v = percentile_to_value(below_perc, gen_0_par)
+
+    gen_1_dsct = final_superimposed_distribution(gen_0_par, r, r_s, above_k_v_p=above_k_p_v, below_k_v_p=below_k_p_v,
+                                                 parent_area_factor=parent_area_factor)
+
+    return gen_1_dsct
+
+
+def dsct_destined(gen_par, gen_dsct_par, perc=0.2):
+    total_area = area_under_one_distribution(gen_dsct_par)
+    above_k_o = 1 - perc
+    below_k_o = 1
+
+    areas = list()
+
+    latest_below_index = len(gen_dsct_par) - 1
+
+    while below_k_o > 0.001:
+
+        above_k_v_o = percentile_to_value(above_k_o, gen_par)
+
+        # set the indices
+        above_index = nearest_index(above_k_v_o, gen_dsct_par)
+        below_index = latest_below_index
+
+        area = area_btw(gen_dsct_par, above_index, below_index)
+        area /= total_area
+        areas.append([[above_k_o, below_k_o], area])
+
+        above_k_o = round(above_k_o - perc, ROUND_NUMBER)
+        below_k_o = round(below_k_o - perc, ROUND_NUMBER)
+
+        # update the latest below index to be the same as the previous above index
+        # this way we don't ever ever have to calculate below values, cause they're
+        # the same as the previous step's above value
+        latest_below_index = above_index - 1
+
+    return areas
+
+
+def nearest_index(value, dist):
+    value_index = 0
+    for i in range(len(dist)):
+        if dist[i][0] <= value:
+            value_index = i
+    return value_index
+
+
+def area_btw(dist_par, above_index, below_index):
+    # this function assumes a constant increment for a parent distribution
+    increment = dist_par[0][2][1]
+    area = 0
+    for i in range(above_index, below_index + 1):
+        area += dist_par[i][1]
+    area *= increment
+    return area
+
+
+def multi_1st(gen_0_par, r, r_s, perc=0.2, population_mean=0):
+    gen_1 = final_superimposed_distribution_all_area_adj(gen_0_par, r, r_s)
+    gen_1_par = final_super_to_parent(gen_1)
+
+    gen_1_dscts = initialize_dscts(gen_0_par, r, r_s, perc)
+    gen_1_dscts_par = list()
+    for row in gen_1_dscts:
+        gen_1_dscts_par.append(final_super_to_parent(row, population_mean=population_mean))
+
+    return gen_1_par, gen_1_dscts_par
+
+
+def one_1st(gen_0_par, r, r_s, above_perc, below_perc, population_mean=0):
+    gen_1 = final_superimposed_distribution_all_area_adj(gen_0_par, r, r_s)
+    gen_1_par = final_super_to_parent(gen_1)
+
+    gen_1_dsct = initialize_dsct(gen_0_par, r, r_s, above_perc, below_perc)
+    gen_1_dsct_par = final_super_to_parent(gen_1_dsct, population_mean=population_mean)
+
+    return gen_1_par, gen_1_dsct_par
+
+
+def destined_dsct_n_gen(gen_1_par, gen_1_dsct_par, r, r_s, n_gen, perc, population_mean):
+    destined_matrices = list()
+    gen_dsct_pars = list()
+    gen_pars = list()
+
+    # Append generation 1 and the descendant
+    gen_pars.append(gen_1_par)
+    gen_dsct_pars.append(gen_1_dsct_par)
+
+    # Initialize the destined matrix
+    destined_matrix = dsct_destined(gen_1_par, gen_1_dsct_par, perc=perc)
+    destined_matrices.append(destined_matrix)
+
+    # Initialize the latest generation
+    latest_gen_par = gen_1_par
+    latest_gen_dsct_par = gen_1_dsct_par
+
+    # Create the distributions and their matrices
+    for i in range(2, n_gen + 1):
+        # Calculate and append the new total parent generation
+        gen_i = final_superimposed_distribution_all_area_adj(latest_gen_par, r, r_s)
+        gen_i_par = final_super_to_parent(gen_i)
+        gen_pars.append(gen_i_par)
+
+        # Calculate and append the new descendant parent generation
+        gen_i_dsct = final_superimposed_distribution_all_area_adj(latest_gen_dsct_par, r, r_s)
+        gen_i_dsct_par = final_super_to_parent(gen_i_dsct, population_mean=population_mean)
+        gen_dsct_pars.append(gen_i_dsct_par)
+
+        # Create and append the new destined matrix
+        destined_matrix = dsct_destined(gen_i_par, gen_i_dsct_par, perc=perc)
+        destined_matrices.append(destined_matrix)
+
+        # Update the latest generation
+        latest_gen_par = gen_i_par
+        latest_gen_dsct_par = gen_i_dsct_par
+
+        # Print update
+        print(destined_matrices, gen_dsct_pars, gen_pars)
+        print('\n\n\n\n\n\n\n\n\n\n\n\n')
+
+    return destined_matrices, gen_dsct_pars, gen_pars
+
+
+def transpose_matrix(matrix):
+    num_gens = len(matrix)
+    num_dscts = len(matrix[0])
+
+    transposed = list()
+    for dsct_num in range(num_dscts - 1, -1, -1):
+        sub_transposed = list()
+        for gen_num in range(num_gens):
+            sub_transposed.append(matrix[gen_num][dsct_num][1])
+        transposed.append(sub_transposed)
+    return transposed
+
+
+def get_colors():
+    file_colors = open('tree_colors.txt', 'r')
+    colors_list = list()
+    for line in file_colors:
+        colors_list.append(line.strip())
+    file_colors.close()
+#     colors_list.reverse()
+    return colors_list
+
+
+def plot_multi_mobility(data, pal=None):
+    n_dscts = len(data)  # 10
+    n_gens = len(data[0])  # 5
+
+    plt.figure(figsize=(13, 8))
+    if pal is None:
+        # pal = ['xkcd:light navy blue', 'xkcd:windows blue', '#1CA3DE', 'xkcd:carolina blue', 'xkcd:light blue']
+        pal = ['#c6dbef', '#9ecae1', '#6baed6', '#4292c6', '#2171b5']
+        pal.reverse()
+        if n_dscts == 10:
+            pal = get_colors()
+
+    step_labels = list(range(1, n_gens + 1))
+
+    plt.xlabel('Generation', fontsize=15)
+    if n_dscts == 10:
+        group_name = 'Decile'
+    elif n_dscts == 5:
+        group_name = 'Quintile'
+    else:
+        group_name = 'Group'
+
+    plt.ylabel('Likelihood of Descendants in each ' + group_name, fontsize=15)
+    plt.ylim(0, 1)
+    values_sum_list = [1] * n_gens
+
+    for j in range(len(data) - 1, -1, -1):
+        plt.bar(step_labels, [- value for value in data[j]], bottom=values_sum_list, color=pal[j])
+
+        for a, b, c in zip(step_labels, values_sum_list, [- value for value in data[j]]):
+            num = (b + c / 2) - 0.018
+            # plt.text(a, num, ' ' + "{:0.0%}".format(- c), va='bottom', ha='center', color='k', size=15, alpha=0.7)
+
+            horz_align = 'center'
+            #             if abs(c) <= 0.01:
+            #                 horz_align = 'left'
+            #             elif abs(c) <= 0.03:
+            #                 horz_align = 'right'
+            if abs(c) >= 0.01:
+                if 7 >= j >= 2:
+                    plt.text(a, num, ' ' + "{:0.0%}".format(- c), va='bottom', ha=horz_align, color='k', size=15,
+                             alpha=0.8)
+                else:
+                    plt.text(a, num, ' ' + "{:0.0%}".format(- c), va='bottom', ha=horz_align, color='w', size=15,
+                             alpha=0.8)
+
+        for i in range(len(values_sum_list)):
+            values_sum_list[i] -= data[j][i]
+
+    if n_dscts == 5:
+        legend = ['Descendants in\nTop Quintile', 'Fourth Quintile', 'Third Quintile', 'Second Quintile',
+                  'Bottom Quintile']
+    elif n_dscts == 10:
+        legend = ['Descendants in\nTop Decile', 'Ninth Decile', 'Eighth Decile', 'Seventh Decile',
+                  'Sixth Decile', 'Fifth Decile', 'Fourth Decile', 'Third Decile', 'Second Decile', 'Bottom Decile']
+    else:
+        legend = ['None']
+
+    plt.legend(legend, bbox_to_anchor=(1, 1), loc="upper left", fontsize=15)
+    plt.yticks(np.arange(0, 1.1, 0.1))
+    plt.gca().yaxis.set_major_formatter(PercentFormatter(1))
+    plt.xticks(list(range(1, n_gens + 1)))
+#     plt.xticks([1,2,3,4,5], ['Son/Daughter', 'Grand', 'Great', 'Great-great', 'Great-great-great'])
 
 
 # NOT USED FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
