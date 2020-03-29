@@ -991,6 +991,31 @@ def plot_multi_mobility(data, pal=None):
 #     plt.xticks([1,2,3,4,5], ['Son/Daughter', 'Grand', 'Great', 'Great-great', 'Great-great-great'])
 
 
+def get_ratios(parent_distribution, possible_r, possible_r_s):
+    ratios = list()
+    for i in range(len(possible_r)):
+        r = round(possible_r[i], ROUND_NUMBER)
+
+        for j in range(len(possible_r_s)):
+            # Get the rounded parameters
+            r_s = round(possible_r_s[j], ROUND_NUMBER)
+
+            # Calculate the offspring generation
+            gen_1 = final_superimposed_distribution_all_area_adj(parent_distribution, r, r_s)
+            # Calculate its standard deviation
+            sd = st_dev_of_distribution(gen_1)
+
+            # Append the st dev to the ratio entry
+            ratios.append([[r, r_s], sd])
+
+        print('i =', i, 'r =', r)
+        print('Ratios:')
+        print(ratios)
+        print('\n\n\n\n\n')
+
+    return ratios
+
+
 # NOT USED FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # def z_erf(num):
 #     return erf(num / (2 ** 0.5))
