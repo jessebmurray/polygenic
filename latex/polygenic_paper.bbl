@@ -3,6 +3,22 @@
 \bibitem[Lamport, 1994]{Lamport}
 Lamport, L. (1994).
 \newblock {\em \LaTeX{}: A Document Preparation System}.
-\newblock Reading, Massachusetts: Addison Wesley, 2nd edition.
+\newblock Addison Wesley, Reading, Massachusetts, 2nd edition.
+
+\bibitem[Lange, 1997a]{lange_article}
+Lange, K. (1997a).
+\newblock An approximate model of polygenic inheritance.
+\newblock {\em Genetics}, 147(3):1423--1430.
+
+\bibitem[Lange, 1997b]{lange_book}
+Lange, K. (1997b).
+\newblock {\em The Polygenic Model. In: Mathematical and Statistical Methods
+  for Genetic Analysis. Statistics for Biology and Health}.
+\newblock Springer, New York, NY.
+
+\bibitem[Rieger et~al., 1968]{rieger}
+Rieger, R., Michaelis, A., and Green, M. (1968).
+\newblock {\em A Glossary of Genetics and Cytogenetics}.
+\newblock Springer, New York, NY.
 
 \end{thebibliography}
