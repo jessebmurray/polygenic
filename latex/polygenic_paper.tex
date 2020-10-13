@@ -26,107 +26,150 @@ A simple Markov chain model is proposed that seeks to describe the movement of p
 
 \subsection{Conceptual basis for polygenic analogy}
 
-Polygenic traits are determined by many genes (hundreds or thousands), and their observed phenotypic scores generally normally distributed \cite{lange_article, lange_book}. Their normal distribution is theorized to result from the central limit theorem - as the phenotype of a polygenic trait (referred to as the score) results from the additive sum of many gene-effects, which are akin to independent random draws from an arbitrary distribution \cite{rieger}.
+Polygenic traits are determined by many genes (hundreds or thousands), and their observed phenotypic scores are generally normally distributed \cite{lange_article, lange_book}. This is thought to result from the central limit theorem -- as the phenotype of a polygenic trait results from the additive sum of many gene-effects, which are akin to independent random draws from an arbitrary distribution \cite{rieger}.
 
 
 \subsection{Markov chain}
-The proposed Markov chain exists in discrete time $\{0, 1, 2,...\}$, representing familial generations (parent, offspring, etc.); and continuous space $\mathbb{R}$, representing a continuous one-dimensional polygenic score. 
+The proposed Markov chain exists in discrete time $ i \in \{0, 1, 2,...\}$, where $i$ is the familial generation (parent, offspring, etc.); and continuous space $X_i \in \mathbb{R}$, where $X_i$ is the phenotypic score of the analogized one-dimensional polygenic trait. The terms \emph{score} and \emph{state} are used interchangeably. 
 
 \begin{description}
-\item [Convention] Let $Z$ indicate a standard normal $Z \sim \mathcal{N}(0, 1)$. All $Z$ are taken to be independent unless otherwise specified.
+\item [Convention] Let $Z$ indicate a standard normal $Z \sim \mathcal{N}(0, 1)$. All $Z$ are taken to be independent unless specified otherwise.
 \end{description}
 
-A complete description of the chain can be given in two parts: the initial condition and the one-step transition. 
+A complete description of the chain can be given in two parts: (1.) the initial condition and (2.) the one-step transition. 
+
+\begin{enumerate}
+\item The initial score is drawn from a standard normal distribution: $X_0 \sim \mathcal{N}(0, 1)$. A normally distributed one-dimensional polygenic trait can be standardized to meet this condition.
+$$X_0 = Z$$
+
+\item The conditional one-step transition, i.e., the score of an offspring, given the score of its parent, is also drawn from a normal distribution: $X_{i+1}|X_i \sim \mathcal{N}(\tilde{\mu}_{i+1}, \tilde{\sigma}_{i+1}^2)$.
+$$X_{i+1}|X_i = \tilde{\mu}_{i+1} + \tilde{\sigma}_{i+1} Z$$
 
 \begin{enumerate}
 
-\item The initial score is drawn from a normal distribution: $X_0 \sim \mathcal{N}(0, \sigma_0^2)$.
+\item An offspring's score is expected to be similar to that of its parent, scaled by $r$ -- the \emph{expectation regression coefficient}. There is no strict requirement on $r$, other than that it is a real number. However, in order for there to be -- on average -- regression towards the population mean, $0 < r < 1$.
+$$\mathrm{E}(X_{i+1}|X_i) = \tilde{\mu}_{i+1} = rX_i$$
 
-$$X_0 = \sigma_0 Z$$
-
-\item The conditional one-step transition, i.e., the score of an offspring, given the score of its parent, is also drawn from a normal distribution: $X_{n+1}|X_n \sim \mathcal{N}(\tilde{\mu}_{n+1}, \tilde{\sigma}_{n+1}^2)$.
-
-$$X_{n+1}|X_n = \tilde{\mu}_{n+1} + \tilde{\sigma}_n Z$$
-
-\begin{enumerate}
-
-\item An offspring's score is expected to be similar to that of its parent, although scaled by $r$ - the \emph{expectation regression coefficient}. Typically, $0 < r < 1$, such that there is - on average - regression towards the population mean.
-
-$$\mathrm{E}(X_{n+1}|X_n) = \tilde{\mu}_{n+1} = rX_n$$
-
-\item An offspring's score has a standard deviation that is similar to the standard deviation of the parent generation's population, although scaled by  $r_s$ - the \emph{standard deviation scaling coefficient}.
-
-$$\sqrt{\mathrm{Var}(X_{n+1}|X_n)} =\tilde{\sigma}_{n+1} = r_s \sigma_n$$
-
+\item An offspring's score has a standard deviation that is similar to the marginal standard deviation of the parent generation, scaled by  $r_s$ -- the \emph{standard deviation scaling coefficient}. For standard deviation to be positive and degenerate normal distributions avoided, we have $r_s > 0$.
+$$\sqrt{\mathrm{Var}(X_{i+1}|X_i)} =\tilde{\sigma}_{i+1} = r_s \sigma_i$$
 \end{enumerate}
 \end{enumerate}
 
+Combining these two parts we have the initial condition:
+$$X_0 = Z$$
+And the one-step transition:
+$$X_{i+1}|X_i = rX_i+ r_s\sigma_iZ$$
+These two equations give a complete description of the Markov chain and all of its properties can be derived from them.
 
-\subsection{Further one-step properties}
-
-The expectation regression coefficient also describes the covariance and correlation between parent and offspring scores. 
-
-$$\mathrm{Cov}(X_{n+1}, X_n) = r \sigma_n^2$$
-
-$$\mathrm{Corr}(X_{n+1}, X_n) = r \frac{\sigma_n}{\sigma_{n+1}}$$
-
-
-\subsection{Arbitrary step-length properties}
-
-
-$$\mathrm{E}(X_{n+j}|X_n) = \tilde{\mu}_{n+j} = r^jX_n$$
-
-$$\sqrt{\mathrm{Var}(X_{n+j}|X_n)} = \tilde{\sigma}_{n+j} = \sigma_n \sqrt{(r^2+r_s^2)^j - r^{2j}}$$
-
-For a stable population variance, the expression under the square root asymptotically approaches 1.
-
-
-
-
-
-
-
-\subsection{The marginal random state}
+\subsection{Marginal random state}
 It can be shown by induction and the theorem of the sum of independent normal random variables (rvs) that $X_n \sim \mathcal{N}(0, \sigma_n^2)$:
-
 $$X_n = \sigma_nZ$$
 
-Then, for $Z_a$, $Z_b$ iid standard normal rvs:
 
-$$X_{n+1} = r\sigma_nZ_a + r_s\sigma_nZ_b$$
+\begin{description}
+\item [Convention] Let $\sigma_i^2$ -- the \emph{population variance} -- refer to the marginal variance of $X_i$, i.e., not given any previous score $X_{j}$ with $j<i$. The population variance is shown to have a one-step relationship with the population variance of the previous generation.
+\end{description}
+
+Then, for $Z_\alpha$, $Z_\beta$ iid standard normals, the marginal random state $X_{i+1}$ can be written in terms of the population variance of the previous state.
+$$X_{i+1} = r\sigma_iZ_\alpha + r_s\sigma_iZ_\beta$$
+
+\subsubsection{Population variance}
+From the equation for the marginal random state $X_{i+1}$, it can be shown that $\sigma_{i+1}^2$ has the following one-step relationship with the previous population variance:
+$$\sigma_{i+1}^2 = (r^2+r_s^2)  \sigma_i^2$$
+
+By induction, the population variance can be computed from a previous population variance for an arbitrary step-length:
+$$\sigma_{i+n}^2 = (r^2+r_s^2)^n  \sigma_{i}^2$$
+
+Setting $i=0$:
+$$\sigma_n^2 = (r^2+r_s^2)^n$$
+
+
+\subsection{Conditional transition of an arbitrary step-length}
+%$$X_{i+n}|X_i \sim \mathcal{N}( \, r^nX_i, \, \sigma_i^2 [(r^2+r_s^2)^n-r^{2n}]\,)$$
+%$$\mathrm{E}(X_{i+n}|X_i)$$
+%$$\sqrt{\mathrm{Var}(X_{i+n}|X_i)}$$
+
+The conditional distribution of $X_{i+n}$ given $X_i$ can be shown to be normally distributed: $X_{i+n}|X_i \sim \mathcal{N}( \tilde{\mu}_{i+n}, \tilde{\sigma}_{i+n})$.
+
+With the following conditional expectation:
+$$\mathrm{E}(X_{i+n}|X_i) = \tilde{\mu}_{i+n} = r^nX_i$$
+And the following conditional standard deviation :
+$$\sqrt{\mathrm{Var}(X_{i+n}|X_i)} = \tilde{\sigma}_{i+n} = \sigma_i \sqrt{(r^2+r_s^2)^n-r^{2n}}$$
+
+The equation for conditional standard deviation results from consecutively re-applying the one-step transition, which leads to the following equation for $X_{i+n}|X_i$:
+$$X_{i+n}|X_i = r^nX_i + r_s\sigma_i \sum_{j=1}^{n}r^{n-j}(r^2+r_s^2)^{\frac{j-1}{2}}Z_j$$
+
+It might appear that to obtain $\tilde{\sigma}_{i+n}^2$, an unpleasant summation needs to made of the squared coefficients that multiply each $Z_j$. However, the earlier equation for population variance can be deployed, in which $r^nX_i$ is treated as a random variable instead of a constant. Therefore, the population variance is equal to the sum of marginal variance of $r^nX_i$ and $\tilde{\sigma}_{i+n}^2$.
+$$\sigma_{i+n}^2 =  (r^2+r_s^2)^n  \sigma_{i}^2 =  r^{2n}\sigma_i^2 + \tilde{\sigma}_{i+n}$$
+
+After rearranging and taking the square root, we obtain the equation for $\tilde{\sigma}_{i+n}$.
+
+This is -- coincidentally -- a proof of the following fact, which can be shown by induction to hold any real numbers $a$,  $b$:
+$$(a+b)^n = a^n + b \sum_{j=1}^{n}a^{n-j}(a+b)^{j-1}$$
+
+
+\subsection{One-step dependency}
+The expectation regression coefficient describes the covariance and correlation between parent and offspring scores. 
+
+$$\mathrm{Cov}(X_{i+1}, X_i) = r \sigma_i^2$$
+
+$$\mathrm{Corr}(X_{i+1}, X_i) = r \frac{\sigma_i}{\sigma_{i+1}}$$
 
 
 
-\subsection{Marginal variance}
-It follows immediately that $\sigma_{n+1}^2$ has the following one-step relationship:
+\section{Population variance and the stationary distribution}
 
-$$\sigma_{n+1}^2 = (r^2+r_s^2)  \sigma_n^2$$
+\subsection{Unstable population variance}
+We have shown that:
+$$\sigma_{i+n}^2 = (r^2+r_s^2)^n  \sigma_{i}^2$$
 
-By induction, $\sigma_n^2$ can also be stated in terms of the initial variance:
+Taking the limit $n \rightarrow \infty$: 
+\begin{itemize}
+\item For $r^2+r_s^2 < 1$ we have $\sigma_{i+n}^2 \rightarrow 0$.
+\item For  $r^2+r_s^2 > 1$, we have $\sigma_{i+n}^2 \rightarrow \infty$. 
+\end{itemize}
 
-$$\sigma_n^2 = (r^2+r_s^2)^n  \sigma_{0}^2$$
+These degenerate limits could be prevented if $r$ or $r_s$ were inversely proportional to some power of the population variance $\sigma_i^2$. However, this negative feedback is not explored here. Instead, we discuss the simplest resolution to population variance instability, which is that $r^2+r_s^2 = 1$. Then, every generation has the same population variance.
 
-
-
-
-
-
-\section{Stable population variance}
-Let a stable population variance be defined as follows:
-
-$$\sigma_{n+1}^2 = \sigma_n^2$$
-
-The following are important properties that occur under stable population variance:
-
+\subsection{Stable population variance}
+We are particularly interested in the case where the population variance remains constant between generations. This would model a population in which the phenotypes of the polygenic trait do not become increasingly or decreasingly spread out between successive generations. 
+$$\sigma_{i+1}^2 = \sigma_i^2$$
+This occurs if and only if:
 $$r^2+r_s^2 = 1$$
+%
+By induction, the population variance of any arbitrary generation $i$ is equal to the initial variance. 
+$$\sigma_i^2 = 1$$
 
-$$\mathrm{Corr}(X_{n+1}, X_n) = r$$
+\subsubsection{Stable population variance implies stationary distribution}
+It can be shown that the chain is at a stationary distribution when there is stable population variance:
+$$X_i \sim \mathcal{N}(0, 1)$$
+$$X_{i+1} = r Z_\alpha + r_s Z_\beta$$
+$$X_{i+1} \sim \mathcal{N}(0, r^2+r_s^2)$$
+$$X_{i+1} \sim \mathcal{N}(0, 1)$$
 
-For an arbitrary state $i \ge 0$:
+\subsubsection{Convergence of the conditional transition to the stationary distribution}
+The $n$-step conditional transition $X_{i+n}|X_i \sim \mathcal{N}( \tilde{\mu}_{i+n}, \tilde{\sigma}_{i+n})$ converges to the marginal population distribution for large $n$. 
 
-$$\sigma_i^2 = \sigma_{0}^2$$
+From stable population variance, we have that $r^2 + r_s^2 = 1$; and by definition, we have that $r_s > 0$. Together, these imply $|r| < 1$. Then by the ratio test, we have the following convergence:
+$$\lim_{n\to\infty} r^n \rightarrow 0$$
+
+As a result, the expectation and variance of the conditional normal distribution converge to the expectation and variance of the stationary population.
+$$\lim_{n\to\infty} \mathrm{E}(X_{i+n}|X_i) = r^nX_i \rightarrow 0$$
+$$\lim_{n\to\infty} \mathrm{Var}(X_{i+n}|X_i) = (r^2+r_s^2)^n-r^{2n} \rightarrow (r^2+r_s^2)^n = 1$$
+
+Then as $n \rightarrow \infty$:
+$$X_{i+n}|X_i \rightarrow \mathcal{N}(0, 1)$$
+
+By the polygenic analogy, this result says that after many generations, a population member's descendants will have scores that become asymptotically indistinguishable from the scores of the population at large. Regardless of how average or extreme the ancestor's score was, it eventually becomes irrelevant.
 
 
+\subsubsection{Stationary distribution use case}
+Under stable population variance, observing or measuring one of $r$ or $r_s$ immediately gives away the other. As an example, $r$ could be obtained by the correlation coefficient between parent and offspring.  
+$$\mathrm{Corr}(X_{i+1}, X_i) = r$$
+
+Alternatively, $r$ could be obtained by ordinary least squares, as described later.
+
+When there is stable population variance, knowledge of either $r$ or $r_s$ provides sufficient information to model the population with the proposed Markov chain model.
 
 
 \section{Transition kernel}
@@ -136,27 +179,27 @@ Let $A$ be a subset of the state space:
 $$A \subseteq \mathbb{R}$$
 
 \subsection{State to set transition}
-Then the transition kernel $P(A, x_n)$ gives the one-step probability of reaching the set $A$ from the state $x_n$. 
+Then the transition kernel $P(A, x_i)$ gives the one-step probability of reaching the set $A$ from the state $x_i$. 
 
-$$P(A, x_n) = \int_{x_{n+1}\in A}^{} f(x_{n+1}|x_n)f(x_n) \, dx_{n+1}$$
+$$P(A, x_i) = \int_{x_{i+1}\in A}^{} f(x_{i+1}|x_i)f(x_i) \, dx_{i+1}$$
 
-Where $f(x_{n+1}|x_n)$ is the conditional probability density function (pdf) of $X_{n+1}|X_n \sim \mathcal{N}(\tilde{\mu}_{n+1}, \tilde{\sigma}_{n+1}^2)$, and $f(x_n)$ is the pdf of $X_n \sim \mathcal{N}(0, \sigma_n^2)$.
+Where $f(x_{i+1}|x_i)$ is the conditional probability density function (pdf) of $X_{i+1}|X_i \sim \mathcal{N}(\tilde{\mu}_{i+1}, \tilde{\sigma}_{i+1}^2)$, and $f(x_i)$ is the pdf of $X_i \sim \mathcal{N}(0, \sigma_i^2)$.
 
 \subsection{Set to set transition}
 A similar transition kernel $P(A, B)$ can be used to obtain the one-step probability of reaching the set $A$ from the set $B$. 
 
 $$B \subseteq \mathbb{R}$$
 
-$$P(A, B) = \int_{x_n\in B}^{} P(A, x_n) \, dx_n$$
+$$P(A, B) = \int_{x_i\in B}^{} P(A, x_i) \, dx_i$$
 
 \subsection{Probability attributable}
-Define the probability that a current state $X_{n+1}$ in set $A$ resulted from or is 'attributable' to a previous state or parent score $X_n$ in set $B$.
+Define the probability that a current state $X_{i+1}$ in set $A$ resulted from or is 'attributable' to a previous state or parent score $X_i$ in set $B$.
 
 $$\large P_{\alpha}(A, B) = \frac{P(A, B)}{P(A, \mathbb{R})}$$
 
-By the law of total probability, $P(A, \mathbb{R})$ is the marginal probability that the state $X_{n+1}$ is in the space $A$, which is given by $P(A)$:
+By the law of total probability, $P(A, \mathbb{R})$ is the marginal probability that the state $X_{i+1}$ is in the space $A$, which is given by $P(A)$:
 
-$$P(A) = \int_{x_{n+1}\in A} f(x_{n+1}) \, dx_{n+1}$$
+$$P(A) = \int_{x_{i+1}\in A} f(x_{i+1}) \, dx_{i+1}$$
 
 Therefore:
 
@@ -166,13 +209,13 @@ $$P_{\alpha}(A, B) = \frac{P(A, B)}{P(A)}$$
 
 
 \subsection{Probability destined}
-Define the probability that a previous state $X_n$ in set $B$ will result in or is 'destined' for a current state or offspring score $X_{n+1}$ in set $A$. 
+Define the probability that a previous state $X_i$ in set $B$ will result in or is 'destined' for a current state or offspring score $X_{i+1}$ in set $A$. 
 
 $$P_{\delta}(A, B) = \frac{P(A, B)}{P(\mathbb{R}, B)}$$
 
-Because the integral over the entire support of a pdf equals 1, $P(\mathbb{R}, B)$ is the marginal probability that the state $X_n$ is in the space $B$, which is given by $P(B)$:
+Because the integral over the entire support of a pdf equals 1, $P(\mathbb{R}, B)$ is the marginal probability that the state $X_i$ is in the space $B$, which is given by $P(B)$:
 
-$$P(B) = \int_{x_{n+1}\in B} f(x_n) \, dx_n$$
+$$P(B) = \int_{x_{i+1}\in B} f(x_i) \, dx_i$$
 
 
 
@@ -181,11 +224,11 @@ Therefore:
 $$P_{\delta}(A, B) = \frac{P(A, B)}{P(B)}$$
 
 
-\section{Linear regression}
+\section{Linear regression of the one-step transition}
 
 We have that:
 
-$$\mathrm{E}(X_{n+1}|X_n) = rX_n, \qquad X_{n+1} = rX_n + \epsilon$$
+$$\mathrm{E}(X_{i+1}|X_i) = rX_i, \qquad X_{i+1} = rX_i + \epsilon$$
 
 This has the same form as the linear regression model where $b$ can be estimated by minimising the sum of the squared errors.
 
@@ -197,36 +240,36 @@ This means that $r$ can be estimated from existing one-step transition data thro
 \section{Reverse one-step transition}
 The parent's phenotypic score is also a rv that is dependent on the offspring's phenotypic score. 
 
-$$X_n = \frac{1}{r}X_{n+1} + \frac{r_s}{r}\sigma_nZ$$
+$$X_i = \frac{1}{r}X_{i+1} + \frac{r_s}{r}\sigma_iZ$$
 
 
-$$X_n|X_{n+1} \sim \mathcal{N}(\frac{1}{r}X_{n+1}, \frac{r_s^2}{r^2}\sigma_n^2)$$
+$$X_i|X_{i+1} \sim \mathcal{N}(\frac{1}{r}X_{i+1}, \frac{r_s^2}{r^2}\sigma_i^2)$$
 
 
 Where the variance can be rewritten in terms of the $n$th generation's variance:
 
-$$\mathrm{Var}(X_n|X_{n+1}) = \frac{r_s^2}{r^2(r^2+r_s^2)} \sigma_{n+1}^2$$
+$$\mathrm{Var}(X_i|X_{i+1}) = \frac{r_s^2}{r^2(r^2+r_s^2)} \sigma_{i+1}^2$$
 
 \section{Eve's law}
-It is possible to compute $\mathrm{Var(X_{n+1})}$ through Eve's law:
+It is possible to compute $\mathrm{Var(X_{i+1})}$ through Eve's law:
 
-$$\mathrm{Var(X_{n+1})} = \mathrm{E}(\mathrm{Var}(X_n|X_{n+1})) + \mathrm{Var}(\mathrm{E}(X_{n+1}|X_n))$$
+$$\mathrm{Var(X_{i+1})} = \mathrm{E}(\mathrm{Var}(X_i|X_{i+1})) + \mathrm{Var}(\mathrm{E}(X_{i+1}|X_i))$$
 
 We have that:
 
-$$X_{n+1} = rX_n + \tilde{\sigma}_{n+1} Z$$
+$$X_{i+1} = rX_i + \tilde{\sigma}_{i+1} Z$$
 
-$$\tilde{\sigma}_{n+1} = r_s \sigma_n$$
+$$\tilde{\sigma}_{i+1} = r_s \sigma_i$$
 
 Therefore, each term in Eve's law is:
 
-$$\mathrm{E}(\mathrm{Var}(X_{n+1}|X_n)) = \mathrm{E}(r_s^2 \sigma_n^2) = r_s^2 \sigma_n^2$$
+$$\mathrm{E}(\mathrm{Var}(X_{i+1}|X_i)) = \mathrm{E}(r_s^2 \sigma_i^2) = r_s^2 \sigma_i^2$$
 
-$$\mathrm{Var}(\mathrm{E}(X_{n+1}|X_n)) = \mathrm{Var}(rX_n) = r^2\sigma_n^2$$
+$$\mathrm{Var}(\mathrm{E}(X_{i+1}|X_i)) = \mathrm{Var}(rX_i) = r^2\sigma_i^2$$
 
-Combining these terms, we confirm the variance of $X_{n+1}$:
+Combining these terms, we confirm the variance of $X_{i+1}$:
 
-$$\sigma_{n+1}^2 = (r^2+r_s^2)  \sigma_n^2$$
+$$\sigma_{i+1}^2 = (r^2+r_s^2)  \sigma_i^2$$
 
 
 
@@ -235,13 +278,13 @@ $$\sigma_{n+1}^2 = (r^2+r_s^2)  \sigma_n^2$$
 \section{Use cases}
 With the two parameters $r$ and $r_s$, we can perfectly describe the variance of the offspring's generation relative to that of the parent's generation through the following relation:
 
-$$\frac{\sigma_{n+1}^2}{\sigma_n^2} = r^2+r_s^2$$
+$$\frac{\sigma_{i+1}^2}{\sigma_i^2} = r^2+r_s^2$$
 
 Simply knowing or having measured two of the three values: the ratio parent generation and offspring generation variance, the expectation regression coefficient ($r$), the standard deviation scaling coefficient ($r_s$); it is possible to obtain the third.
 
-This can be useful, for example, to obtain the standard deviation of the offspring's polygenic score, after having measured the parent's polygenic score: $\tilde{\sigma}_{n+1} = r_s \sigma_n$.
+This can be useful, for example, to obtain the standard deviation of the offspring's polygenic score, after having measured the parent's polygenic score: $\tilde{\sigma}_{i+1} = r_s \sigma_i$.
 
-Alternatively, after having only measured the $\frac{\sigma_{n+1}^2}{\sigma_n^2}$, which is 1 when there is stable population variance, and $r$, which can be obtained through ordinary least squares with the parent and offspring data or by the correlation coefficient between parent and offspring when there is stable population variance; the model can be constructed and applied.
+Alternatively, after having only measured the $\frac{\sigma_{i+1}^2}{\sigma_i^2}$, which is 1 when there is stable population variance, and $r$, which can be obtained through ordinary least squares with the parent and offspring data or by the correlation coefficient between parent and offspring when there is stable population variance; the model can be constructed and applied.
 
 
 

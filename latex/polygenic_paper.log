@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  11 OCT 2020 23:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 OCT 2020 01:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -293,9 +293,22 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 16.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [1] [2]
+{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [1]
+Overfull \hbox (2.83446pt too wide) in paragraph at lines 92--93
+\T1/ptm/m/n/10.95 The con-di-tional dis-tri-bu-tion of $\OML/cmm/m/it/10.95 X[]
+$ \T1/ptm/m/n/10.95 given $\OML/cmm/m/it/10.95 X[]$ \T1/ptm/m/n/10.95 can be sh
+own to be nor-mally dis-tributed: $\OML/cmm/m/it/10.95 X[]\OMS/cmsy/m/n/10.95 j
+\OML/cmm/m/it/10.95 X[] \OMS/cmsy/m/n/10.95 ^^X
+ []
 
-Overfull \hbox (23.71599pt too wide) in paragraph at lines 143--144
+[2]
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
+28.
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+) [3]
+[4]
+Overfull \hbox (10.13487pt too wide) in paragraph at lines 186--187
 []\T1/ptm/m/n/10.95 Where $\OML/cmm/m/it/10.95 f\OT1/cmr/m/n/10.95 (\OML/cmm/m/
 it/10.95 x[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 x[]\OT1/cmr/m/n/10.95 )$ \
 T1/ptm/m/n/10.95 is the con-di-tional prob-a-bil-ity den-sity func-tion (pdf) o
@@ -305,27 +318,27 @@ y/m/n/10.95 ^^X N\OT1/cmr/m/n/10.95 ([]\OML/cmm/m/it/10.95 ; []\OT1/cmr/m/n/10.
  []
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 155.
+LaTeX Font Warning: Command \large invalid in math mode on input line 198.
 
-[3] [4] [5] [6]
-LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 25
-0.
+[5] [6] [7] [8]
+LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 29
+3.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/inconsolata/t1zi4.fd
 File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 250.
+(Font)              scaled to size 10.95pt on input line 293.
 
-(./polygenic_paper.bbl) [7
+(./polygenic_paper.bbl) [9
 
 ] (./polygenic_paper.aux) ) 
 Here is how much of TeX's memory you used:
- 4074 strings out of 480608
- 54654 string characters out of 5903631
+ 4098 strings out of 480608
+ 55013 string characters out of 5903631
  301919 words of memory out of 5000000
- 19884 multiletter control sequences out of 15000+600000
- 563947 words of font info for 71 fonts, out of 8000000 for 9000
+ 19904 multiletter control sequences out of 15000+600000
+ 564261 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  33i,6n,40p,839b,197s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/
@@ -339,15 +352,16 @@ m/cmmi8.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 r6.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.
 pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
-></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10
-.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr
-/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/tex
-live/2020/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on polygenic_paper.pdf (8 pages, 147411 bytes).
+fb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb
+></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><
+/usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
+fb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/l
+ocal/texlive/2020/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texli
+ve/2020/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on polygenic_paper.pdf (10 pages, 163418 bytes).
 PDF statistics:
- 89 PDF objects out of 1000 (max. 8388607)
- 64 compressed objects within 1 object stream
+ 99 PDF objects out of 1000 (max. 8388607)
+ 71 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
