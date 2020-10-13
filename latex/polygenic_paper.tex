@@ -19,12 +19,11 @@
 \pagenumbering{arabic}
 
 \section{Introduction}
-A simple Markov chain model is proposed that seeks to describe the movement of polygenic scores between familial generations. Some potentially useful properties are shown to result from this model. The model is compared with the data on the heights of 898 adult children and their parents, as collected by Francis Galton. 
+A simple Markov chain model is proposed that seeks to describe the movement of polygenic scores between familial generations. Some potentially useful properties are shown to result from this model. %The model is compared with the data on the heights of 898 adult children and their parents, as collected by Francis Galton. 
 
+\section{Model formulation}
 
-\section{Model}
-
-\subsection{Conceptual basis for polygenic analogy}
+\subsection{Polygenic analogy}
 
 Polygenic traits are determined by many genes (hundreds or thousands), and their observed phenotypic scores are generally normally distributed \cite{lange_article, lange_book}. This is thought to result from the central limit theorem -- as the phenotype of a polygenic trait results from the additive sum of many gene-effects, which are akin to independent random draws from an arbitrary distribution \cite{rieger}.
 
@@ -33,24 +32,25 @@ Polygenic traits are determined by many genes (hundreds or thousands), and their
 The proposed Markov chain exists in discrete time $ i \in \{0, 1, 2,...\}$, where $i$ is the familial generation (parent, offspring, etc.); and continuous space $X_i \in \mathbb{R}$, where $X_i$ is the phenotypic score of the analogized one-dimensional polygenic trait. The terms \emph{score} and \emph{state} are used interchangeably. 
 
 \begin{description}
-\item [Convention] Let $Z$ indicate a standard normal $Z \sim \mathcal{N}(0, 1)$. All $Z$ are taken to be independent unless specified otherwise.
+\item [Convention] Let all $Z$ refer to independent standard normals $Z \sim \mathcal{N}(0, 1)$. 
 \end{description}
+
+\subsubsection{Complete description}
 
 A complete description of the chain can be given in two parts: (1.) the initial condition and (2.) the one-step transition. 
 
 \begin{enumerate}
 \item The initial score is drawn from a standard normal distribution: $X_0 \sim \mathcal{N}(0, 1)$. A normally distributed one-dimensional polygenic trait can be standardized to meet this condition.
-$$X_0 = Z$$
 
 \item The conditional one-step transition, i.e., the score of an offspring, given the score of its parent, is also drawn from a normal distribution: $X_{i+1}|X_i \sim \mathcal{N}(\tilde{\mu}_{i+1}, \tilde{\sigma}_{i+1}^2)$.
-$$X_{i+1}|X_i = \tilde{\mu}_{i+1} + \tilde{\sigma}_{i+1} Z$$
+$$X_{i+1}|X_i = \tilde{\mu}_{i+1} + \tilde{\sigma}_{i+1} Z$$ 
 
 \begin{enumerate}
 
-\item An offspring's score is expected to be similar to that of its parent, scaled by $r$ -- the \emph{expectation regression coefficient}. There is no strict requirement on $r$, other than that it is a real number. However, in order for there to be -- on average -- regression towards the population mean, $0 < r < 1$.
+\item An offspring's score is proportion to the score of its parent, which is scaled by $r$ -- the \emph{expectation regression coefficient}. There is no strict requirement on $r$, other than that it is a real number. However, in order for there to be -- on average -- regression towards the population mean, $0 < r < 1$.
 $$\mathrm{E}(X_{i+1}|X_i) = \tilde{\mu}_{i+1} = rX_i$$
 
-\item An offspring's score has a standard deviation that is similar to the marginal standard deviation of the parent generation, scaled by  $r_s$ -- the \emph{standard deviation scaling coefficient}. For standard deviation to be positive and degenerate normal distributions avoided, we have $r_s > 0$.
+\item An offspring's score has a standard deviation that is proportional to the marginal standard deviation of the parent generation, which is scaled by  $r_s$ -- the \emph{standard deviation scaling coefficient}. For standard deviation to be positive and degenerate normal distributions avoided, we have $r_s > 0$.
 $$\sqrt{\mathrm{Var}(X_{i+1}|X_i)} =\tilde{\sigma}_{i+1} = r_s \sigma_i$$
 \end{enumerate}
 \end{enumerate}
@@ -65,6 +65,7 @@ These two equations give a complete description of the Markov chain and all of i
 It can be shown by induction and the theorem of the sum of independent normal random variables (rvs) that $X_n \sim \mathcal{N}(0, \sigma_n^2)$:
 $$X_n = \sigma_nZ$$
 
+This occurs because the conditional one-step transition is normally distributed about the expected value $rX_i$. If this were not the case, the population would leave the normal distribution after just one generation.
 
 \begin{description}
 \item [Convention] Let $\sigma_i^2$ -- the \emph{population variance} -- refer to the marginal variance of $X_i$, i.e., not given any previous score $X_{j}$ with $j<i$. The population variance is shown to have a one-step relationship with the population variance of the previous generation.
@@ -290,9 +291,9 @@ Alternatively, after having only measured the $\frac{\sigma_{i+1}^2}{\sigma_i^2}
 
 \clearpage
 \section*{Appendix}
-\begin{verbatim}
-Put your R code here.
-\end{verbatim}
+%\begin{verbatim}
+%Put your R code here.
+%\end{verbatim}
 
 \bibliographystyle{apalike}
 \bibliography{polygenic_bib}
