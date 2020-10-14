@@ -1,7 +1,7 @@
 # Polygenic
 The paper that I'm writing for this project can be [found here](https://jessebmurray.github.io/project_files/polygenic_paper.pdf). 
 
-This is the repository of the tree-problem project. 
+A newer version is [here](latex/polygenic_paper.pdf).
 
 
 ## For those interested...
