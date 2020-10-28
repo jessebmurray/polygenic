@@ -1,0 +1,30 @@
+\contentsline {section}{\numberline {1}Model formulation}{3}%
+\contentsline {subsection}{\numberline {1.1}Analogy to polygenic inheritance}{3}%
+\contentsline {subsection}{\numberline {1.2}Markov chain model of inheritance}{3}%
+\contentsline {subsection}{\numberline {1.3}Linear regression form}{4}%
+\contentsline {subsection}{\numberline {1.4}Assumptions and limitations}{5}%
+\contentsline {section}{\numberline {2}Verification for human stature}{7}%
+\contentsline {subsection}{\numberline {2.1}Large population-based study}{7}%
+\contentsline {subsection}{\numberline {2.2}Historic dataset}{8}%
+\contentsline {section}{\numberline {3}Properties}{11}%
+\contentsline {subsection}{\numberline {3.1}Marginal population distribution}{11}%
+\contentsline {subsection}{\numberline {3.2}Covariance and correlation}{12}%
+\contentsline {subsection}{\numberline {3.3}Conditional descendant distribution}{12}%
+\contentsline {subsection}{\numberline {3.4}Exponential convergence of the conditional descendant distribution}{13}%
+\contentsline {subsection}{\numberline {3.5}Population variance dynamics}{15}%
+\contentsline {subsection}{\numberline {3.6}Stationary distribution}{16}%
+\contentsline {subsection}{\numberline {3.7}Conditional ancestor distribution}{16}%
+\contentsline {subsection}{\numberline {3.8}Exponential convergence of the conditional ancestor distribution}{18}%
+\contentsline {section}{\numberline {4}Mobility and information loss}{19}%
+\contentsline {subsection}{\numberline {4.1}Mobility as rate of convergence to the marginal distribution}{19}%
+\contentsline {subsection}{\numberline {4.2}Proposed measure}{20}%
+\contentsline {subsection}{\numberline {4.3}Mobility under limiting cases}{20}%
+\contentsline {section}{\numberline {5}Probability kernels}{21}%
+\contentsline {subsection}{\numberline {5.1}State to set probability}{21}%
+\contentsline {subsection}{\numberline {5.2}Set to set probability}{22}%
+\contentsline {subsection}{\numberline {5.3}Probability attributable}{22}%
+\contentsline {subsection}{\numberline {5.4}Probability destined}{22}%
+\contentsline {subsection}{\numberline {5.5}Percentile transiton matrices}{23}%
+\contentsline {section}{\numberline {6}Discussion}{24}%
+\contentsline {section}{\numberline {7}Appendix}{25}%
+\contentsline {section}{\numberline {8}References}{26}%

@@ -1,24 +1,54 @@
 \begin{thebibliography}{}
 
-\bibitem[Lamport, 1994]{Lamport}
-Lamport, L. (1994).
-\newblock {\em \LaTeX{}: A Document Preparation System}.
-\newblock Addison Wesley, Reading, Massachusetts, 2nd edition.
+\bibitem[Bogin and Rios, 2003]{bogin}
+Bogin, B. and Rios, L. (2003).
+\newblock Rapid morphological change in living humans: implications for modern
+  human origins.
+\newblock {\em Comparative Biochemistry and Physiology Part A: Molecular and
+  Integrative Physiology}, 136(1):71 -- 84.
 
-\bibitem[Lange, 1997a]{lange_article}
-Lange, K. (1997a).
-\newblock An approximate model of polygenic inheritance.
-\newblock {\em Genetics}, 147(3):1423--1430.
+\bibitem[Galton, 2017]{galton}
+Galton, F. (2017).
+\newblock {Galton height data}.
+\newblock Harvard Dataverse.
 
-\bibitem[Lange, 1997b]{lange_book}
-Lange, K. (1997b).
+\bibitem[Lange, 1997]{lange_book}
+Lange, K. (1997).
 \newblock {\em The Polygenic Model. In: Mathematical and Statistical Methods
   for Genetic Analysis. Statistics for Biology and Health}.
 \newblock Springer, New York, NY.
+
+\bibitem[Luo et~al., 1998]{luo}
+Luo, Z.~C., Albertsson-Wikland, K., and Karlberg, J. (1998).
+\newblock Target height as predicted by parental heights in a population-based
+  study.
+\newblock {\em Pediatric Research}, 44(4):563--571.
+
+\bibitem[Pearson and Lee, 1903]{pearson}
+Pearson, K. and Lee, A. (1903).
+\newblock On the laws of inheritance in man: I. inheritance of physical
+  characters.
+\newblock {\em Biometrika}, 2(4):357--462.
+
+\bibitem[Perkins et~al., 2016]{perkins}
+Perkins, J.~M., Subramanian, S.~V., Davey~Smith, G., and Özaltin, E. (2016).
+\newblock Adult height, nutrition, and population health.
+\newblock {\em Nutrition reviews}, 74(3):149--165.
+
+\bibitem[Preece, 1996]{preece}
+Preece, M.~A. (1996).
+\newblock The genetic contribution to stature.
+\newblock {\em Hormone Research in Pediatrics}, 45(Suppl. 2):56--58.
 
 \bibitem[Rieger et~al., 1968]{rieger}
 Rieger, R., Michaelis, A., and Green, M. (1968).
 \newblock {\em A Glossary of Genetics and Cytogenetics}.
 \newblock Springer, New York, NY.
+
+\bibitem[Wood and Esko, 2014]{wood}
+Wood, A.~R. and Esko, T., e.~a. (2014).
+\newblock Defining the role of common variation in the genomic and biological
+  architecture of adult human height.
+\newblock {\em Nature Genetics}, 46(11):1173--1186.
 
 \end{thebibliography}
