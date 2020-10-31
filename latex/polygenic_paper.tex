@@ -34,11 +34,33 @@
 
 
 \section*{Abstract}
-A discrete time and continuous space Markov chain model of polygenic inheritance is proposed. The chain is given by a normally distributed initial condition and a normal linear model in the one-step transition. From two separate datasets, the model is shown to accurately describe the inheritance of human stature -- with complete confirmation in the case of stable population variance. Important properties of the Markov chain are derived, such as the conditional distribution of a descendant's score given its ancestor's score, as well as the conditional distribution of an ancestor's score given its descendant's score -- both are functions of the number of separating generations. The chain is fully determined by two parameters: the regression coefficient and residual coefficient, which are shown to affect the rate at which the conditional distribution converges to the marginal (population) distribution. This convergence occurs for both the conditional ancestor and descendant distributions such that their conditional expectation and variance have exponential functions over time (generations). A measure of mobility, or equivalently, information loss, is introduced as the ratio of the residual coefficient to the regression coefficient. This measure of mobility is shown to have its desired properties in the limiting cases and is unique to each Markov chain when there is stable population variance. Stable population variance occurs when the sum of the squared parameters equals one, and results in a time-reversible stationary distribution. Probability kernels are introduced that can make important predictions over any number of generations in the form of probability attributable and probability destined calculations, which are equivalent within percentile transition matrices. An example of one of these matrices is compared with the observed matrix from a dataset on the heights of parents and their adult children.
+%
+A Markov chain model of polygenic inheritance is proposed.
+%
+Population members reproduce in discrete time, i.e., generations, and have phenotypic scores in continuous space.
+%
+The initial condition is a standard normal distribution of scores.
+%
+The one-step transition (parent to offspring score) is a normal linear model, which is determined by the regression and residual coefficients.
+%
+From this formulation, many important properties are derived. 
+%
+Given a present score, conditional distributions for the scores of all descendants and ancestors are found. 
+%
+These conditional distributions are normal, furthermore, their expectation and variance have exponential functions over time, i.e., the generation-gap.
+%
+As expected, the conditional distributions converge to the marginal population distribution as the generation-gap widens.
+%
+The regression and residual coefficients determine the rates of convergence such that a robust measure of mobility -- equivalently, information loss -- is introduced as the ratio of the residual to the regression coefficient.
+%
+Stable population variance is defined as the case where the marginal population variance remains constant over generations.
+%
+This occurs when the sum of the two squared coefficients equals one, and results in a reversible stationary distribution, meaning the model of inheritance behaves identically going forwards and backwards in time.
+%
+The Markov chain is shown to have probability kernels that can make important predictions over any number of generations in the form of probability attributable and probability destined, which are equivalent in percentile transition matrices. 
+%
+From two large datasets, the proposed model is shown to accurately describe the inheritance of human stature -- with complete confirmation under stable population variance.
 
-
-
-% We don't need to mention that we found the upward and downward marginal distribution.
 
 
 \newpage
@@ -61,7 +83,7 @@ Polygenic inheritance occurs when a trait is determined by many genes (up to hun
 
 A Markov chain is proposed that seeks to provide a basic model for the multi-generational dynamics of inheritance for a univariate polygenic trait. One example of such a trait is human stature, which is thought to be a non-sex-linked, nondominant, polygenic trait \cite{luo}. The observed normal distribution of human stature is unsurprising as, at the time of this writing, there have been 697 variants identified at genome-wide significance that together explain only one-fifth of heritability for adult height \cite{preece, wood}. 
 
-Until previously, simple normal linear models have been used to predict offspring height from parent height. However, these linear models have not been generalized in the form of a Markov chain. 
+Until now, simple normal linear models have been used to predict offspring height from parent height. However, these linear models have not been generalized in the form of a Markov chain. 
 
 \subsection{Markov chain model of inheritance}
 
@@ -91,7 +113,7 @@ $$\tilde{\sigma}_{i+1} = \sqrt{\mathrm{Var}(X_{i+1}|X_i)} = r_s \sigma_i$$
 \end{enumerate}
 \end{enumerate}
 
-\subsubsection*{Brief and complete description of the chain}
+\subsubsection{Brief and complete description of the chain}
 As we have shown, the Markov chain can be constructed from the equations for the initial condition and the one-step downward transition:
 $$X_0 \sim \mathcal{N}(0, 1)$$
 $$X_{i+1}|X_i = rX_i+ r_s\sigma_iZ$$
@@ -119,9 +141,9 @@ $$\bold{x} \sim \mathcal{N}(\bold{0}, I_n)$$
 Where $\bold{0}$ is a vector of length $n$ containing zeros, and $I_n$ is the $n \times n$ identity matrix, and the vector $\epsilon$ represents the errors, or differences in statures $\bold{y}$ from the predicted statures $r\bold{x}$. 
 
 \subsubsection*{Without standardization}
-The column vectors $\bold{x}, \bold{y}$ were both standardized to the mean and SD of the measured parental scores. It is easy to show how the linear regression equation can be written in terms of the un-standardized scores $\bold{x}_u, \bold{y}_u$ of the parents and offspring, which might be the measurements in their original units, e.g. centimeters. 
-$$\bold{y}_u =  r \, \bold{x}_u + \sigma_x\bold{\epsilon} +  \mu_x(1-r)$$
-Where $\mu_x$ and $\sigma_x$ are the (unstandardized) mean and SD of the parent scores, given in their measured units. Importantly, the regression coefficient is still the slope of the regression line, even without standardization. 
+The column vectors $\bold{x}, \bold{y}$ were both standardized to the mean and SD of the measured parent scores. It is easy to show how the linear regression equation can be written in terms of the un-standardized scores $\bold{x}_u, \bold{y}_u$ of the parents and offspring, which might be the measurements in their original units, e.g. centimeters. 
+$$\bold{y}_u =  r \, \bold{x}_u + \sigma_x\bold{\epsilon} +  \bold{\mu}_x(1-r)$$
+Where $\bold{\mu}_x$ is a repeated column vector containing the mean of the parent scores and $\sigma_x$ is the standard deviation of the parent scores, both given in their measured units. Importantly, the regression coefficient is still the slope of the regression line, even without standardization. 
 
 
 \subsubsection*{Estimating $r$ and $r_s$ from one-step transition data}
@@ -145,15 +167,15 @@ These equations gives us a way to obtain the MLEs of $r$ and $r_s$ from one-step
 \item Normality of the polygenic trait. This assumption is generally supported by the literature consensus on the effect of the central limit theorem for additive polygenic traits. The normality assumption has been widely been confirmed within the literature on human stature \cite{luo}.
 \item Normal linear relationship between parent and offspring statures. That is, the linear regression form of the one-step downward transition has normally distributed residuals. This has been verified for human stature \cite{luo}.
 \item Equal probability and degree of successful reproduction for all members of the population -- regardless of score. In other words, no members of the population have more offspring than other members, and no natural selection occurs. 
-\item Phenotypes are determined in the absence of net environmental effects, which would directionally shift phenotypic scores between generations. It is shown however, that an environmental effect that acts uniformly on the population as whole can easily be included in the model. 
+\item Phenotypes are determined in the absence of net environmental effects, which would directionally shift phenotypic scores between generations. It is shown however, that an environmental effect that acts uniformly on the population as a whole can easily be included in the model. 
 \end{enumerate}
 
 \subsubsection*{Limitations}
 \begin{enumerate}
-\item No average movement of the population mean occurs between generations due to the equal probability of successful reproduction and no net environmental effects. Therefore, all generations have marginal population mean $0$.
+\item No average movement of the population mean occurs between generations due to the equal probability of successful reproduction and no net environmental effects. Therefore, all generations have marginal population mean zero.
 \item Marginal populations implicitly exist in discrete time and are non-overlapping, each having mean $0$ and SD $\sigma_i^2$.
 \item Population size is not modeled. 
-\item Over many generations ($n$-step transitions for when $n$ is large), the model appears to be more appropriate under the condition of stable population variance. Otherwise, the population variance eventually expands to $\infty$ or shrinks to $0$, depending on whether $r^2 + r_s^2$ is greater than $1$ or less than $1$, respectively. On the other hand, it will be discussed how proposed calculations of probability attributable and probability destined can remain valid and undistorted even when there is unstable population variance.
+\item Over many generations ($n$-step transitions for when $n$ is large), the model appears to be more appropriate under the condition of stable population variance. Otherwise, the population variance eventually expands to $\infty$ or shrinks to $0$, depending on whether $r^2 + r_s^2$ is greater than one or less than one, respectively. On the other hand, it will be discussed how proposed calculations of probability attributable and probability destined can remain valid and undistorted even when there is unstable population variance.
 \end{enumerate}
 
 
@@ -176,128 +198,6 @@ $$\mu_{i-n} = \mu_i - \sum_{t = i-1}^{i-n} c(t)$$
 Note that the convergences to the marginal distributions are not affected as the adjustment constant is added to both the marginal and conditional expectation, and thus cancels out when the two are compared. 
 
 The observation of increasing height between generations does not affect the integrity of the un-adjusted form of the model, as we have discussed how increases in height have resulted from improved environmental factors, rather than genetic inheritance per se. It is then fair to say that the model seeks to describe polygenic inheritance -- in the absence of net environmental effects, such as improving nutrition. However, such effects can easily be included within the model if necessary, as long as they act uniformly on all offspring. This is shown to be the case in both the large population-based and historical Pearson datasets. 
-
-
-
-
-
-
-%% MODEL VERIFICATION FOR HUMAN STATURE %%
-\section{Verification for human stature}
-
-The model formulation is checked against data on the heights of parents and their adult children. Because all of the properties of the Markov chain follow from the initial condition and the one-step downward transition, confirming their accuracy confirms the model's properties over any number of steps.
-
-\subsubsection*{Verifying the model}
-We consider the parental generation to be the initial generation. Then, we have two basic requirements to confirm our model:
-\begin{enumerate}
-\item The parental heights are modeled by the initial condition.
-\item The conditional distribution of the offspring heights is modeled by the one-step downward transition, for which we can also refer to its linear regression form.
-\end{enumerate}
-
-
-
-\subsection{Large population-based study}
-
-The study \emph{Target Height as Predicted by Parental Heights in a Population-Based Study}, published in \emph{Nature -- Pediatric Research} \cite{luo}, analyzed the relationship between the heights of adult children and the heights of their parents for predicting target height. The data they analyzed was from a large sample ($n$ = 2402) of normal Swedish children born in the 1970s. 
-
-
-\subsubsection*{The initial condition}
-Unfortunately, the authors did not report on the normality of the parental heights in the dataset. Nonetheless, the authors cite a paper that reports height to be normally distributed in a population \cite{preece}. Thus, we can assume that the parental heights were normally distributed, confirming the initial condition.
-
-
-\subsubsection*{The one-step downward transition}
-
-An increase in height between generations was observed, amounting to 0.7 cm for male and 1.0 cm for female subjects. We have shown that as long as the increase is uniform, i.e., not dependent on the parent's score, then we can include the increase in the model by the addition of a constant-term in the linear regression. That is, as long as the mean residual values are zero over all possible parent scores, then the increase is uniform and is accurately described by the adjustment to the model.
-
-The authors tested the validity of a normal linear model for the one-step transition of parent to offspring heights. Their model was identical to the linear regression form of the one-step transition discussed earlier. The authors confirm the veracity of the linear model, and thus the they confirm the formulation one-step downward transition -- completely in the case of stable population variance.
-
-The authors confirm the validity of the normal linear model by the following tests:
-\begin{enumerate}
-\item The residuals were normally distributed (tested by skewness and kurtosis).
-\item The mean residual values were fairly constant over the range of midparental heights, fluctuating around zero, and were only statistically significantly above zero ($p < 0.05$) for very short mid-parental heights (below $-2$ SDs).
-\item The mean residual values were constant over the range of difference in parental heights.
-\item The residual SDs were constant over the range of midparental height  
-\item The residual SDs were constant over the range of difference in parental heights.
-\end{enumerate}
-
-In summary, the residuals were normally distributed about the linearly predicted offspring height, and neither midparental height, nor the difference in parental height, affected the residual values. In terms of the model, this result means that both $r$ and $r_s$ are neither dependent on $X_i$, nor on the difference between $X_i$ and the score of the mating partner. 
-
-The authors also conclude that the predictive accuracy was also not affected by assortative mating, as they observed a correlation coefficient between the parents of 0.27, which is an indication of assortative mating.
-
-
-
-\subsubsection*{Observed coefficients}
-Varied values of $r$ and $r_s$ were found for using mothers' heights to predict sons' heights, fathers' heights to predict sons' heights, mothers' heights to predict daughters' heights, etc. However, these four possibilities averaged around $r$ = 0.49 and $r_s$ = 0.88, which essentially produces stable population variance, giving an SD ratio of 1.01.
-
-
-\subsubsection*{Model can be completely confirmed for stable population variance}
-From one-step transition data, we cannot confirm the part of our model that says $\tilde{\sigma}_{i+1} = r_s \sigma_i$, that is, except for when there is stable population variance. Then, $\sigma_i$ is constant, and we have $\tilde{\sigma}_{i+1} = r_s$, because the initial variance is standardized to one.
-
-In the dataset, the observed ratio of the SD of the sons' heights to the SD of the fathers' heights was 0.978, consistent with stable population variance. The observed ratio of the SD of the daughters' heights to the SD of the mothers' heights was 1.16, somewhat consistent with stable population variance. 
-
-It is possible that members towards the outer edges of the population distribution of height are less likely to have offspring -- or have fewer offspring -- than those towards the middle, which would have the effect of counteracting otherwise expanding population variance. On the other hand, if this is not observed, then it is reasonable to assume that the stable population variance condition applies to human stature, in which case the resultant stationary distribution and all of its properties apply as well. 
-
-
-
-\subsection{Historic dataset}
-
-Karl Pearson organized the collection of data on over 1,100 families in England in the 1890s. The dataset he collected contains the heights of mothers, fathers and their adult children with no more than two adult children per family \cite{pearson}. All of adult children were at least age 18, and all of the parents were at most 65 years of age. Here, we check the validity of the model by verifying the initial condition and the one-step downward transition. We present this in detail for the daughter-mother data ($n$ = 1375). Though not shown here, the model passed all of the exact same statistical tests for the father-son data ($n$ = 1078).
-
-
-\subsubsection*{The initial condition}
-
-It is obvious from the Q-Q plot in Figure \ref{fig:qq_pearson_x} that the mother's scores are normally distributed. Furthermore, the normality assumption passes statistical tests of skewness and kurtosis, as well as D’Agostino and Pearson's test that combines skew and kurtosis to produce a single test of normality.
-
-\begin{figure}[h]
-\includegraphics[width=3in]{figures/qq_pearson_x.png}
-\centering
-\caption{Q-Q plot of the mothers' scores in the Pearson female dataset.}
-\label{fig:qq_pearson_x}
-\end{figure}
-
-
-\subsubsection*{The one-step downward transition}
-
-As in the Swedish data, an increase in height between generations was observed, amounting to 3.3 cm, meaning that the adjustment to our model must be made. 
-
-We can see that the residuals were normally distributed from the Q-Q plot in Figure \ref{fig:qq_pearson_epsi}. Furthermore, the normality assumption passes statistical tests of skewness, kurtosis, and D’Agostino and Pearson's test.
-
-Likewise, we can show in Figure \ref{fig:pearson_residuals_by_score} that the residuals have mean zero over all parent scores. This means that the adjustment constant can be applied safely as the shift applies uniformly to all offspring. 
-
-
-\begin{figure}[p]
-\includegraphics[width=3in]{figures/qq_pearson_epsi.png}
-\centering
-\caption{Q-Q plot of the daughters' residuals in the Pearson female dataset.}
-\label{fig:qq_pearson_epsi}
-%\end{figure}
-
-\vspace{2cm}
-
-%\begin{figure}[h]
-\includegraphics[width=3in]{figures/pearson_residuals_by_score.png}
-\centering
-\caption{Mean values of the residuals by parent score, shown with normal 95\% confidence intervals.}
-\label{fig:pearson_residuals_by_score}
-\end{figure}
-
-The normality of the daughter generation was also confirmed by Q-Q plot, as well as skewness, kurtosis tests, and D’Agostino and Pearson's test.
-
-In summary, we have confirmed from the Pearson female data both the initial condition and the one-step downward transition, and thus the entire model -- as long as there is stable population variance as described earlier. 
-
-
-\subsubsection*{Observed coefficients and population variance dynamics}
-
-The Pearson female data had the MLEs of $r$ = 0.54 and $r_s$ = 0.96, which nearly produce stable population variance (SD ratio of 1.10). Remarkably, $r^2 + r_s^2$ agreed with the variance of the daughters' scores to 15 decimal places -- the limit of the computer's output. However, the female data failed the F-test for equality of variances between the mother and daughter generation ($p < 0.01$). 
-
-The Pearson male data had the MLEs of $r$ = 0.51 and $r_s$ = 0.89, which nearly produce stable population variance (SD ratio of 1.03). Again, $r^2 + r_s^2$ agreed with the variance of the sons' scores to 14 decimal places. The male data passed the F-test for equality of variances between the father and son generation ($p$ = 0.20). 
-
-It is worth mentioning that the dataset collected by Francis Galton in 1885 was looked at, although it is not described in great detail here \cite{galton}. It contains the heights of 197 families and 898 adult children. For daughters-mothers ($n$ = 433), the SD ratio was 1.04 and had the MLEs of $r$ = 0.33 and $r_s$ = 0.99. This data passed the F-test for equality of variances between the mother and daughter generation ($p$ = 0.20). 
-
-Overall, population variance seems \emph{a priori} to be a reasonable condition for human stature, though has mixed confirmation in actual data. One possible explanation for why the variance has sometimes been observed to be moderately larger in the offspring generation is that the offspring were relatively young adults, and so their heights may have continued to regress towards the mean after the study. Then, their eventual adult heights would have a more similar variance to the heights of their much older parents. This explanation is plausible because, in the Swedish data, all the adult children had their heights measured at around age eighteen. Similarly, in the Pearson data, the adult children had their heights measured when they were eighteen years of age or older. 
-
-% Add citation to Karlberg
-% https://www.nature.com/articles/pr1995278#citeas 
 
 
 
@@ -360,8 +260,10 @@ $$\sigma_{i+n}^2 =  (r^2+r_s^2)^n  \sigma_{i}^2 =  r^{2n}\sigma_i^2 + \tilde{\si
 %
 After rearranging and taking the square root, we obtain the equation for $\tilde{\sigma}_{i+n}$.
 
-As it happens, our result proves the following fact, which can be shown by induction to hold any real numbers $a$,  $b$:
+Our result is consistent with the following fact, which can be shown by induction to hold for all real numbers $a$,  $b$:
 $$(a+b)^n = a^n + b \sum_{j=1}^{n}a^{n-j}(a+b)^{j-1}$$
+
+In the section on the conditional ancestor distribution, we will show another way the conditional descendant distribution can be obtained.
 
 
 
@@ -390,11 +292,11 @@ By the polygenic analogy, this result says that after many generations, a popula
 
 
 \subsubsection*{Role of the coefficients}
-The rate at which the conditional descendant distribution converges to the population distribution is determined by on the regression and residual coefficients. 
+The rate at which the conditional descendant distribution converges to the population distribution is determined by the regression and residual coefficients. 
 
 From the expressions for the downward convergence in expectation as well as in variance, we see that the more regression towards the mean there is (\emph{smaller $r$}), the faster the downward convergence to the marginal distribution. Likewise, the less regression towards the mean there is (\emph{larger $r$}), the slower the downward convergence to the marginal distribution. 
 
-From the expression for the downward convergence in variance, we that the less residual variance there is (\emph{larger $r_s$}), the slower the convergence to the marginal distribution. That is, as long as $|r| < 1$, otherwise the conditional expectation will not converge to $0$.  Likewise, the larger the residual variance (\emph{smaller $r_s$}), the faster the convergence to the marginal distribution. 
+From the expression for the downward convergence in variance, we that the less residual variance there is (\emph{smaller $r_s$}), the slower the convergence to the marginal distribution. That is, as long as $|r| < 1$, otherwise the conditional expectation will not converge to $0$. Likewise, the larger the residual variance (\emph{larger $r_s$}), the faster the convergence to the marginal distribution. 
 
 
 \subsubsection*{Degenerate lower bound for the residual coefficient}
@@ -416,20 +318,20 @@ In the first case: $r = r^2 + r_s^2$, then we have no regression to the mean rel
 $$\frac{\tilde{\mu}_{i+n}}{\sigma_{i+n}^2} = \frac{X_i}{\sigma_i^2}$$
 
 
-In the second case: $r > r^2 + r_s^2$, then we have $r^2 + r_s^2 < 1$ and $\sigma_{i+n}^2 \rightarrow 0$, as we have previously shown. While this is otherwise alright, in this case it leads to the variance of the marginal population shrinking to zero faster than the conditional expectation does, causing the expconditional descendant distributionected z-score of a descendant to diverge.
+In the second case: $r > r^2 + r_s^2$, then we have $r^2 + r_s^2 < 1$ and $\sigma_{i+n}^2 \rightarrow 0$ for large $n$, as we have previously shown. While this is otherwise alright, here it leads to the variance of the marginal population shrinking to zero faster than the conditional expectation does, which causes the descendant's expected z-score to diverge.
 $$\frac{\tilde{\sigma}_{i+n}^2}{\sigma_{i+n}^2} = (\frac{r}{r^2+r_s^2})^n \frac{X_i}{\sigma_i^2} \rightarrow \infty$$
-As $X_i$ was arbitrary, all descendant score would diverge regardless of the ancestor score, which is a highly bizarre situation.
+As $X_i$ was arbitrary, all descendants' expected z-scores would diverge regardless of their ancestors' scores, which can be considered degenerate. 
 
 
 \subsubsection*{Exponential functions for conditional expectation and variance}
 
 The role of the coefficients can also be seen in the equations for the rate of change in the parameters of the conditional descendant distribution.
 
-The rate of change in the conditional expectation is negative and increasing with $n$ (positive second partial derivative). Therefore, the conditional expectation asymptotically approaches $0$, and the smaller $r$ is, the larger the negative rate. The natural logarithm is denoted by '$\log$'.
+The rate of change in the conditional expectation is negative and increasing with $n$ (positive second partial derivative). Therefore, the conditional expectation asymptotically approaches zero, and the smaller $r$ is, the larger the negative rate. The natural logarithm is denoted by '$\log$'.
 $$\frac{\partial }{\partial n}[\tilde{\mu}_{i+n}] = -\log(\frac{1}{r}) \, \tilde{\mu}_{i+n}$$
 
 
-Likewise, the rate of change in the ratio of the conditional variance to the marginal variance is positive and decreasing with $n$. Therefore, the ratio asymptotically approaches $1$. The smaller $r$ is, or the larger $r_s$ is, the larger the positive rate of convergence.
+Likewise, the rate of change in the ratio of the conditional variance to the marginal variance is positive and decreasing with $n$ (negative second partial derivative). Therefore, the ratio asymptotically approaches one. The smaller $r$ is, or the larger $r_s$ is, the larger the positive rate of convergence.
 $$\frac{\partial }{\partial n}[\frac{\tilde{\sigma}_{i+n}^2}{\sigma_{i+n}^2}] = \log(1+\frac{r_s^2}{r^2}) \, [1 - \frac{\tilde{\sigma}_{i+n}^2}{\sigma_{i+n}^2}]$$
 
 We then get the following exponential functions:
@@ -569,7 +471,7 @@ The role of the coefficients can also be seen in the equations for the rate of c
 The rate of change in the conditional expectation is negative and increasing with $n$ (positive second partial derivative). Therefore, the conditional expectation asymptotically approaches $0$. The smaller $r$ is, or the larger $r_s$ is, the larger the negative rate. 
 $$\frac{\partial}{\partial n}[\tilde{\mu}_{i-n}] = -\log(\frac{r^2 + r_s^2}{r}) \, \tilde{\mu}_{i-n}$$
 
-The rate of change in the ratio of the conditional variance to the marginal variance has the same form as in the upward convergence. Therefore, the rate of change is positive and decreasing with $n$, asymptotically approaching $1$. The smaller $r$ is, or the larger $r_s$ is, the larger the positive rate of convergence.
+The rate of change in the ratio of the conditional variance to the marginal variance has the same form as in the upward convergence. Therefore, the rate of change is positive and decreasing with $n$ (negative second partial derivative), asymptotically approaching one. The smaller $r$ is, or the larger $r_s$ is, the larger the positive rate of convergence.
 $$\frac{\partial }{\partial n}[\frac{\tilde{\sigma}_{i-n}^2}{\sigma_{i-n}^2}] = \log(1+\frac{r_s^2}{r^2}) \, [1 - \frac{\tilde{\sigma}_{i-n}^2}{\sigma_{i-n}^2}]$$
 
 We then get the following exponential functions:
@@ -577,6 +479,137 @@ $$\tilde{\mu}_{i-n} = X_i \, \exp[-\log(\frac{r^2 + r_s^2}{r}) \, n]$$
 $$\tilde{\sigma}_{i-n}^2 = \sigma_{i-n}^2 \, (1 - \exp[-\log(1+\frac{r_s^2}{r^2}) \, n])$$
 
 Earlier, we derived the conditional distribution of the score of an ancestor, given the score of its descendant $X_{i-n}|X_i \sim \mathcal{N}( \tilde{\mu}_{i-n}, \tilde{\sigma}_{i-n}^2)$. Now we have just shown that the parameters of this distribution are both exponential functions of the generation gap $n$, and that both converge on the marginal parameters. In other words, the conditional expectation of an ancestor's score exponentially approaches the population mean, and the conditional variance of an ancestor's score also exponentially approaches the population variance. 
+
+
+
+
+
+
+
+
+
+%% MODEL VERIFICATION FOR HUMAN STATURE %%
+\section{Application to human stature}
+
+The model formulation is checked against data on the heights of parents and their adult children. Because all of the properties of the Markov chain follow from the initial condition and the one-step downward transition, confirming their accuracy confirms the model's properties over any number of steps.
+
+\subsubsection*{Verifying the model}
+We consider the parental generation to be the initial generation. Then, we have two basic requirements to confirm our model:
+\begin{enumerate}
+\item The parental heights are modeled by the initial condition.
+\item The conditional distribution of the offspring heights is modeled by the one-step downward transition, for which we can also refer to its linear regression form.
+\end{enumerate}
+
+
+
+\subsection{Large population-based study}
+
+The study \emph{Target Height as Predicted by Parental Heights in a Population-Based Study}, published in \emph{Nature -- Pediatric Research} \cite{luo}, analyzed the relationship between the heights of adult children and the heights of their parents for predicting target height. The data they analyzed was from a large sample ($n$ = 2402) of normal Swedish children born in the 1970s. 
+
+
+\subsubsection*{The initial condition}
+Unfortunately, the authors did not report on the normality of the parental heights in the dataset. Nonetheless, the authors cite a paper that reports height to be normally distributed in a population \cite{preece}. Thus, we can assume that the parental heights were normally distributed, confirming the initial condition.
+
+
+\subsubsection*{The one-step downward transition}
+
+An increase in height between generations was observed, amounting to 0.7 cm for male and 1.0 cm for female subjects. We have shown that as long as the increase is uniform, i.e., not dependent on the parent's score, then we can include the increase in the model by the addition of a constant-term in the linear regression. That is, as long as the mean residual values are zero over all possible parent scores, then the increase is uniform and is accurately described by the adjustment to the model.
+
+The authors tested the validity of a normal linear model for the one-step transition of parent to offspring heights. Their model was identical to the linear regression form of the one-step transition discussed earlier. The authors confirm the veracity of the linear model, and thus the they confirm the formulation one-step downward transition -- completely in the case of stable population variance.
+
+The authors confirm the validity of the normal linear model by the following tests:
+\begin{enumerate}
+\item The residuals were normally distributed (tested by skewness and kurtosis).
+\item The mean residual values were fairly constant over the range of midparental heights, fluctuating around zero, and were only statistically significantly above zero ($p < 0.05$) for very short mid-parental heights (below $-2$ SDs).
+\item The mean residual values were constant over the range of difference in parental heights.
+\item The residual SDs were constant over the range of midparental height  
+\item The residual SDs were constant over the range of difference in parental heights.
+\end{enumerate}
+
+In summary, the residuals were normally distributed about the linearly predicted offspring height, and neither midparental height, nor the difference in parental height, affected the residual values. In terms of the model, this result means that both $r$ and $r_s$ are neither dependent on $X_i$, nor on the difference between $X_i$ and the score of the mating partner. 
+
+The authors also conclude that the predictive accuracy was also not affected by assortative mating, as they observed a correlation coefficient between the parents of 0.27, which is an indication of assortative mating.
+
+
+
+\subsubsection*{Observed coefficients}
+Varied values of $r$ and $r_s$ were found for using mothers' heights to predict sons' heights, fathers' heights to predict sons' heights, mothers' heights to predict daughters' heights, etc. However, these four possibilities averaged around $r$ = 0.49 and $r_s$ = 0.88, which essentially produces stable population variance, giving a ratio of the adult children's SD to the parents' SD, which we will from now on call the SD ratio, of 1.01.
+$$\mathrm{SD} \, \mathrm{ratio} = \frac{\sigma_{i+1}}{\sigma_i}$$
+
+\subsubsection*{Model can be completely confirmed for stable population variance}
+From one-step transition data, we cannot confirm the part of our model that says $\tilde{\sigma}_{i+1} = r_s \sigma_i$, that is, except for when there is stable population variance. Then, $\sigma_i$ is constant, and we have $\tilde{\sigma}_{i+1} = r_s$, because the initial variance is standardized to one.
+
+In the dataset, the observed ratio of the sons-fathers SD ratio was 0.978, consistent with stable population variance. The observed ratio of the daughters-mothers SD ratio was 1.16, somewhat consistent with stable population variance. 
+
+It is possible that members towards the outer edges of the population distribution of height are less likely to have offspring -- or have fewer offspring -- than those towards the middle, which would have the effect of counteracting otherwise expanding population variance. On the other hand, if this is not observed, then it is reasonable to assume that the stable population variance condition applies to human stature, in which case the resultant stationary distribution and all of its properties apply as well. 
+
+
+
+\subsection{Historic dataset}
+
+Karl Pearson organized the collection of data on over 1,100 families in England in the 1890s. The dataset he collected contains the heights of mothers, fathers and their adult children with no more than two adult children per family \cite{pearson}. All of adult children were at least age 18, and all of the parents were at most 65 years of age. Here, we check the validity of the model by verifying the initial condition and the one-step downward transition. We present this in detail for the daughter-mother data ($n$ = 1375). Though not shown here, the model passed all of the exact same statistical tests for the son-father data ($n$ = 1078).
+
+
+\subsubsection*{The initial condition}
+
+It is obvious from the Q-Q plot in Figure \ref{fig:qq_pearson_x} that the mother's scores are normally distributed. Furthermore, the normality assumption passes statistical tests of skewness and kurtosis, as well as D’Agostino and Pearson's test that combines skew and kurtosis to produce a single test of normality.
+
+\begin{figure}[h]
+\includegraphics[width=3in]{figures/qq_pearson_x.png}
+\centering
+\caption{Q-Q plot of the mothers' scores in the Pearson female dataset.}
+\label{fig:qq_pearson_x}
+\end{figure}
+
+
+\subsubsection*{The one-step downward transition}
+
+As in the Swedish data, an increase in height between generations was observed, amounting to 3.3 cm, meaning that the adjustment to our model must be made. 
+
+We can see that the residuals were normally distributed from the Q-Q plot in Figure \ref{fig:qq_pearson_epsi}. Furthermore, the normality assumption passes statistical tests of skewness, kurtosis, and D’Agostino and Pearson's test.
+
+Likewise, we can show in Figure \ref{fig:pearson_residuals_by_score} that the residuals have mean zero over all parent scores. This means that the adjustment constant can be applied safely as the shift applies uniformly to all offspring. 
+
+
+\begin{figure}[p]
+\includegraphics[width=3in]{figures/qq_pearson_epsi.png}
+\centering
+\caption{Q-Q plot of the daughters' residuals in the Pearson female dataset.}
+\label{fig:qq_pearson_epsi}
+%\end{figure}
+
+\vspace{2cm}
+
+%\begin{figure}[h]
+\includegraphics[width=3in]{figures/pearson_residuals_by_score.png}
+\centering
+\caption{Mean values of the residuals by parent score, shown with normal 95\% confidence intervals.}
+\label{fig:pearson_residuals_by_score}
+\end{figure}
+
+The normality of the daughter generation was also confirmed by Q-Q plot, as well as skewness, kurtosis tests, and D’Agostino and Pearson's test.
+
+In summary, we have confirmed from the Pearson female data both the initial condition and the one-step downward transition, and thus the entire model -- as long as there is stable population variance as described earlier. 
+
+
+\subsubsection*{Observed coefficients and population variance dynamics}
+
+The Pearson female data had the MLEs of $r$ = 0.54 and $r_s$ = 0.96, which nearly produce stable population variance (SD ratio of 1.10). Remarkably, $r^2 + r_s^2$ agreed with the variance of the daughters' scores to 15 decimal places -- the limit of the computer's output. However, the female data failed the F-test for equality of variances between the mother and daughter generation ($p < 0.01$). 
+
+The Pearson male data had the MLEs of $r$ = 0.51 and $r_s$ = 0.89, which nearly produce stable population variance (SD ratio of 1.03). Again, $r^2 + r_s^2$ agreed with the variance of the sons' scores to 14 decimal places. The male data passed the F-test for equality of variances between the father and son generation ($p$ = 0.20). 
+
+It is worth mentioning that the dataset collected by Francis Galton in 1885 was looked at, although it is not described in great detail here \cite{galton}. It contains the heights of 197 families and 898 adult children. For daughters-mothers ($n$ = 433), the SD ratio was 1.04 and had the MLEs of $r$ = 0.33 and $r_s$ = 0.99. This data passed the F-test for equality of variances between the mother and daughter generation ($p$ = 0.20). 
+
+Overall, stable population variance seems \emph{a priori} to be a reasonable condition for human stature, though has mixed confirmation in actual data. One possible explanation for why the variance has sometimes been observed to be moderately larger in the offspring generation is that the offspring were relatively young adults, and so their heights may have continued to regress towards the mean after the study. Then, their eventual adult heights would have a more similar variance to the heights of their much older parents. This explanation is plausible because, in the Swedish data, all the adult children had their heights measured at around age eighteen. Similarly, in the Pearson data, the adult children had their heights measured when they were eighteen years of age or older. 
+
+% Add citation to Karlberg
+% https://www.nature.com/articles/pr1995278#citeas 
+
+
+
+
+
+
 
 
 
@@ -612,25 +645,25 @@ We can show with some limiting cases for $r$ and $r_s$ that the desired effects 
 \subsubsection*{Small regression coefficient}
 Firstly, we consider the limiting case: $r \rightarrow 0$, causing $m \rightarrow \infty$. Then, for small $n$, we have:
 $$X_{i+n}|X_i \rightarrow \mathcal{N}(0, \sigma_{i+n}^2)$$
-There is nearly a complete loss in information about a descendant's score and there is maximum mobility. 
+In very few generations, there is nearly a complete loss in information about a descendant's score and there is maximum mobility. 
 
-Likewise, there is also a complete loss in information about an ancestor's score:
+Likewise, there is also a nearly instantaneous complete loss of information about an ancestor's score, given its descendant's score:
 $$X_{i-n}|X_i \rightarrow \mathcal{N}(0, \sigma_{i-n}^2)$$
 
 
 \subsubsection*{Large residual coefficient}
 Next, we consider the limiting case: $r_s \rightarrow \infty$, causing $m \rightarrow \infty$. Then, for small $n$, we have:
 $$X_{i+n}|X_i \rightarrow \mathcal{N}(r^nX_i, \infty)$$
-Note that the conditional variance rapidly approaches the marginal variance goes to infinity:
+Note that the conditional variance rapidly the marginal variance, which goes to infinity:
 $$ \tilde{\sigma}_{i+n}^2 \approx \sigma_{i+n}^2 \rightarrow \infty$$
-Due to the extremely large variance of the marginal disribution, there is nearly a complete loss in information about the descendant's score. There is also maximum mobility, as all conditional expectations would have z-scores of approximately zero. 
+Due to the extremely large variance of the marginal disribution, there is - almost instantly - a nearly complete loss in information about the descendant's score. There is also maximum mobility, as all conditional expectations would have z-scores of approximately zero. 
 
 Likewise, there is also a complete loss in information about the ancestor's score, which converges to the marginal distribution:
 $$X_{i-n}|X_i \rightarrow \mathcal{N}(0, \sigma_{i-n}^2)$$
 
 
 \subsubsection*{Small residual coefficient}
-Lastly, we consider the limiting case: $r_s \rightarrow 0$. Because of the degenerate lower bound on $r_s$, shown in Figure \ref{fig:possible_r_rs}, there are two ways for the residual coefficient to approach zero, either the regression coefficient approaches its lower bound of $0$, or its upper bound of $1$.
+Lastly, we consider the limiting case: $r_s \rightarrow 0$. Because of the degenerate lower bound on $r_s$, shown in Figure \ref{fig:possible_r_rs}, there are two ways for the residual coefficient to approach zero, either the regression coefficient approaches its lower bound of zero, or its upper bound of one.
 
 In the first case: $r \rightarrow 0$, it is straightforward to show form the degenerate bound that $r$ must shrink to zero faster than $r_s$ shrinks to zero, such that, if $r$ is made as close as possible to the degenerate bound ($r$ is as great as it possibly can be), we get:
 $$r_s^2 \approx r$$
@@ -647,7 +680,7 @@ In the second case: $r \rightarrow 1$, we get the smallest amount of mobility an
 $$X_{i+n}|X_i \rightarrow \mathcal{N}(X_i, 0)$$
 $$X_{i-n}|X_i \rightarrow \mathcal{N}(X_i, 0)$$
 Because we also have $r^2 + r_s^2 \rightarrow 1$, the second case is consistent with stable population variance and the stationary distribution.
-$\sigma{i-n}^2 \approx \sigma{i-n}^2 \approx 1$
+$\sigma_{i-n}^2 \approx \sigma_{i-n}^2 \approx 1$
 In other words, there is nearly no mobility whatsoever between generations, and very little information is lost about a descendant's or an ancestor's score between generations. That is, an ancestor's score gives an almost perfect prediction of its descendant's score, and vice versa.
 
 
@@ -714,7 +747,7 @@ $$P_{\alpha , n}(A, B) = \frac{P_n(A, B)}{P(A)}$$
 $$P_{\delta , n}(A, B) = \frac{P_n(A, B)}{P_n(\mathbb{R}, B)}$$
 \end{description}
 
-It can be shown by the fact that an integral over the entire support of a pdf equals $1$, that $P_n(\mathbb{R}, B)$ is the marginal probability that the state $X_i$ is in the set $B$, which is given by $P(B)$. Therefore:
+It can be shown by the fact that an integral over the entire support of a pdf equals one, that $P_n(\mathbb{R}, B)$ is the marginal probability that the state $X_i$ is in the set $B$, which is given by $P(B)$. Therefore:
 %
 $$P_{\delta , n}(A, B) = \frac{P_n(A, B)}{P(B)}$$
 
@@ -792,7 +825,7 @@ Simply knowing or having measured two of the three values: the ratio parent gene
 %
 This can be useful, for example, to obtain the SD of the offspring's polygenic score, after having measured the parent's polygenic score: $\tilde{\sigma}_{i+1} = r_s \sigma_i$.
 %
-Alternatively, after having only measured the $\frac{\sigma_{i+1}^2}{\sigma_i^2}$, which is 1 when there is stable population variance, and $r$, which can be obtained through ordinary least squares with the parent and offspring data or by the correlation coefficient between parent and offspring when there is stable population variance; the model can be constructed and applied.
+Alternatively, after having only measured the $\frac{\sigma_{i+1}^2}{\sigma_i^2}$, which is one when there is stable population variance, and $r$, which can be obtained through ordinary least squares with the parent and offspring data or by the correlation coefficient between parent and offspring when there is stable population variance; the model can be constructed and applied.
 
 
 \subsubsection*{Stationary distribution use case}
