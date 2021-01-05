@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  5 JAN 2021 17:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  5 JAN 2021 19:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -436,30 +436,30 @@ ptm/m/n/10.95 .
  []
 
 [24] [25] [26]
-<figures/quintile-pearson.png, id=109, 669.2202pt x 1369.20677pt>
+<figures/quintile-pearson.png, id=109, 669.2202pt x 1369.2756pt>
 File: figures/quintile-pearson.png Graphic file (type png)
 <use figures/quintile-pearson.png>
 Package pdftex.def Info: figures/quintile-pearson.png  used on input line 789.
-(pdftex.def)             Requested size: 252.94499pt x 517.5253pt.
+(pdftex.def)             Requested size: 252.94499pt x 517.55132pt.
  [27] [28 <./figures/quintile-pearson.png>]
-<figures/quintile-r=0.5-stable.png, id=117, 1338.64688pt x 1369.20677pt>
+<figures/quintile-r=0.5-stable.png, id=117, 1338.6813pt x 1369.2756pt>
 File: figures/quintile-r=0.5-stable.png Graphic file (type png)
 <use figures/quintile-r=0.5-stable.png>
 Package pdftex.def Info: figures/quintile-r=0.5-stable.png  used on input line 
 800.
-(pdftex.def)             Requested size: 469.75499pt x 480.4831pt.
+(pdftex.def)             Requested size: 469.75499pt x 480.48636pt.
 
 Overfull \hbox (39.7196pt too wide) in paragraph at lines 800--801
  [][] 
  []
 
 [29]
-<figures/quintile-mobility.png, id=121, 1338.64688pt x 1369.20677pt>
+<figures/quintile-mobility.png, id=121, 1338.6813pt x 1369.2756pt>
 File: figures/quintile-mobility.png Graphic file (type png)
 <use figures/quintile-mobility.png>
 Package pdftex.def Info: figures/quintile-mobility.png  used on input line 812.
 
-(pdftex.def)             Requested size: 469.75499pt x 480.4831pt.
+(pdftex.def)             Requested size: 469.75499pt x 480.48636pt.
 
 Overfull \hbox (39.7196pt too wide) in paragraph at lines 812--813
  [][] 
@@ -617,7 +617,7 @@ fb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 fb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/l
 ocal/texlive/2020/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texli
 ve/2020/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on polygenic_paper.pdf (43 pages, 3969200 bytes).
+Output written on polygenic_paper.pdf (43 pages, 3443087 bytes).
 PDF statistics:
  236 PDF objects out of 1000 (max. 8388607)
  156 compressed objects within 2 object streams
