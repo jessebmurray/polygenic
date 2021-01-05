@@ -1,16 +1,20 @@
 %\documentclass[a4paper,10pt]{article} % 11pt
 
-\documentclass[letterpaper,10pt]{article} % 10pt
+\documentclass[a4paper,11pt]{article} % added Jan 3, 2021
+
+%\documentclass[letterpaper,10pt]{article} % 10pt % comented Jan 3, 2021
 %Use article for short documents
-%\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc} % uncommented Jan 3, 2021
 \usepackage{parskip}
 \usepackage{latexsym,amsmath,amssymb}
 %\usepackage{natbib}
 \usepackage{graphicx}
-%\usepackage{times}
+\usepackage{times} % uncommented Jan 3, 2021
 \usepackage{zi4}
 \usepackage[letterpaper,left=4cm,right=4cm,top=3cm,bottom=3cm]{geometry}
 %\usepackage[a4paper,left=4cm,right=4cm,top=3cm,bottom=3cm]{geometry}
+\usepackage{float} % force figure
+\usepackage{breakcites} % break citations between lines (prevent from flowing over)
 
 
 
@@ -21,8 +25,8 @@
 
 \thispagestyle{empty}
 
-\title{Polygenic Markov Chain}
-\author{Jesse Murray}
+\title{Normal linear Markov process with applications to polygenic inheritance}
+\author{}
 \date{}
 
 \begin{document}
@@ -34,33 +38,10 @@
 
 
 \section*{Abstract}
-%
-A Markov chain model of polygenic inheritance is proposed.
-%
-Population members reproduce in discrete time, i.e., generations, and have phenotypic scores in continuous space.
-%
-The initial condition is a standard normal distribution of scores.
-%
-The one-step transition (parent to offspring score) is a normal linear model, which is determined by the regression and residual coefficients.
-%
-From this formulation, many important properties are derived. 
-%
-Given a present score, conditional distributions for the scores of all descendants and ancestors are found. 
-%
-These conditional distributions are normal, furthermore, their expectation and variance have exponential functions over time, i.e., the generation-gap.
-%
-As expected, the conditional distributions converge to the marginal population distribution as the generation-gap widens.
-%
-The regression and residual coefficients determine the rates of convergence such that a robust measure of mobility -- equivalently, information loss -- is introduced as the ratio of the residual to the regression coefficient.
-%
-Stable population variance is defined as the case where the marginal population variance remains constant over generations.
-%
-This occurs when the sum of the two squared coefficients equals one, and results in a reversible stationary distribution, meaning the model of inheritance behaves identically going forwards and backwards in time.
-%
-The Markov chain is shown to have probability kernels that can make important predictions over any number of generations in the form of probability attributable and probability destined, which are equivalent in percentile transition matrices. 
-%
-From two large datasets, the proposed model is shown to accurately describe the inheritance of human stature -- with complete confirmation under stable population variance.
+A Markov process model of polygenic inheritance is proposed. Population members reproduce in discrete time, i.e., generations, and have phenotypic scores in continuous space. The initial condition is a population with a standard normal distribution of scores. Child scores relate to parent scores through a normal linear model, which is parametrized by a regression and residual coefficient. This simple formulation results in normal population distributions for all generations -- as expected, and normal conditional distributions for the scores of descendants and ancestors of any generation-gap $n$ apart. Furthermore, the parameters of these conditional distributions follow exponential functions of the generation gap, such that the conditional distributions converge to the population distribution as $n$ increases. That is, as the distance to a descendant or ancestor increases, predictive-ability is asymptotically lost with an exponential function. The regression and residual coefficients determine the rate constants of these exponential functions so that a robust measure of mobility -- also of information-loss -- is introduced as the ratio of the residual to the regression coefficient. Furthermore, the Markov process obtains a stationary distribution when the population variance is stable (constant) between generations, and when scores are indexed by percentile. Stationary distributions are time-reversible, meaning the model of inheritance behaves identically going forwards and backwards in time. Probability kernels are introduced, which can make important predictions over any generation-gap and can be summarized by percentile transition matrices, which are bisymmetric. For every possible combination of percentile-groups, e.g. quintiles, these matrices show the probability that the $n$-gap ancestor or descendant of an individual in, say quintile A, is in quintile B. These probabilities are referred to as attributable and destined, respectively, and are equivalent in percentile transition matrices. The matrices enable visualizations of multi-generational regression towards the mean and the effects of the mobility measure. Matrices are also constructed from observed data, enabling comparisons to the model. From two large datasets on the heights of parents and their children, the proposed model is verified through statistical tests (for the one-step transition), and the regression and residual coefficients are estimated.
 
+
+\let\thefootnote\relax\footnotetext{jesse.murray@stats.ox.ac.uk}
 
 
 \newpage
@@ -71,50 +52,47 @@ From two large datasets, the proposed model is shown to accurately describe the 
 
 
 %\section{Introduction}
-%A simple Markov chain model is proposed that seeks to describe the movement of polygenic scores between familial generations. Some potentially useful %properties are shown to result from this model. %The model is compared with the data on the statures of 898 adult children and their parents, as collected by Francis Galton. 
 
 
 
 %% MODEL FORMULATION %%
-\section{Model formulation}
+\section{Introduction and formulation of the model}
 
 \subsection{Analogy to polygenic inheritance}
-Polygenic inheritance occurs when a trait is determined by many genes (up to hundreds or thousands). In general, the observed phenotypic scores of polygenic traits are normally distributed, which results from the central limit theorem \cite{rieger}. That is, the genotype is the additive sum of many small gene-effects, which are independent and can have an arbitrary probability distribution \cite{lange_book}. 
+Polygenic inheritance occurs when a trait is determined by many genes -- in the range of hundreds or thousands. In general, the observed phenotypic scores of these traits are normally distributed, an effect of the the central limit theorem \cite{rieger, lange_article}. That is, many genes act largely independent of one another -- and can have any unspecified distribution -- combine through an additive sum to determine phenotypes, resulting in a normal distribution \cite{lange_book}. 
 
-A Markov chain is proposed that seeks to provide a basic model for the multi-generational dynamics of inheritance for a univariate polygenic trait. One example of such a trait is human stature, which is thought to be a non-sex-linked, nondominant, polygenic trait \cite{luo}. The observed normal distribution of human stature is unsurprising as, at the time of this writing, there have been 697 variants identified at genome-wide significance that together explain only one-fifth of heritability for adult height \cite{preece, wood}. 
+One example of a polygenic trait is human stature, for which 697 variants have been identified at genome-wide significance, together explaining only one-fifth of the heritability of adult stature \cite{preece, wood}. Furthermore, stature has an observed normal distribution and normal linear models have been used to predict adult child height from parent height \cite{luo}. Normal linear models can be generalized over multiple generations in the form of a Markov process to reveal deeper results about polygenic inheritance and multi-generational mobility. 
 
-Until now, simple normal linear models have been used to predict offspring height from parent height. However, these linear models have not been generalized in the form of a Markov chain. 
-
-\subsection{Markov chain model of inheritance}
+\subsection{Markov process model of inheritance}
 
 % COMPLETE DESCRIPTION
 
-The proposed Markov chain exists in discrete time $ i \in \{0, 1, 2,...\}$, where $i$ is the familial generation (parent, offspring, etc.); and continuous space $X_i \in \mathbb{R}$, where $X_i$ is the phenotypic score of the analogized univariate polygenic trait. The terms \emph{score} and \emph{state} are used interchangeably in reference to the phenotypic score. 
+A Markov process is proposed that seeks to provide a basic model for the multi-generational dynamics of inheritance for a univariate polygenic trait (such as human stature). The proposed Markov process exists in discrete time $ i \in \{0, 1, 2,...\}$, where $i$ is the generation index (parent, child, grandchild, etc.); and continuous space $X_i \in \mathbb{R}$, where $X_i$ is the phenotypic score of the analogized univariate polygenic trait. The terms \emph{score} and \emph{state} are used interchangeably in reference to the phenotypic score. 
 
 \begin{description}
 \item [Convention] Let $Z$ refer to a generic standard normal $Z \sim \mathcal{N}(0, 1)$. The mentions of $Z$ throughout the text are used for explanatory purposes and they can be assumed to be unassociated with one another unless specified otherwise.
-\item [Convention] We will use the tilde symbol, e.g. $\tilde{\mu}_{i+n}$, to denote the conditional parameters, such as conditional expectation and variance, that describe an upward or downward (conditional) transition distribution.
+\item [Convention] Let the tilde symbol, e.g. $\tilde{\mu}_{i+n} \equiv \mathrm{E}(X_{i+n}|X_i)$, denote conditional parameters, such as conditional expectation and variance, that describe an upward or downward (conditional) transition distribution.
 \end{description}
 
-The proposed Markov chain can be entirely derived from: (1.) the initial condition and (2.) the one-step downward transition. 
+The proposed Markov process can be entirely derived from: (1.) the initial condition and (2.) the one-step downward transition. 
 
 \begin{enumerate}
 \item The initial score is drawn from a standard normal distribution representing the scores of the initial generation: $X_0 \sim \mathcal{N}(0, 1)$. A normally distributed univariate polygenic trait can be standardized to meet this condition. 
 
-\item The conditional one-step downward transition, i.e., the score of an offspring, given the score of its parent, is also drawn from a normal distribution: $X_{i+1}|X_i \sim \mathcal{N}(\tilde{\mu}_{i+1}, \tilde{\sigma}_{i+1}^2)$.
+\item The conditional one-step downward transition, i.e., the score of a child, given the score of its parent, is also drawn from a normal distribution: $X_{i+1}|X_i \sim \mathcal{N}(\tilde{\mu}_{i+1}, \tilde{\sigma}_{i+1}^2)$.
 $$X_{i+1}|X_i = \tilde{\mu}_{i+1} + \tilde{\sigma}_{i+1} Z$$ 
 
 \begin{enumerate}
-\item An offspring's score is proportional to the score of its parent, which is scaled by $r$ -- the \emph{regression coefficient}. In order for there to be regression towards the population mean, we require $0 < r < 1$. 
-$$\tilde{\mu}_{i+1} = \mathrm{E}(X_{i+1}|X_i) = rX_i$$
+\item A child's score is proportional to the score of its parent, which is scaled by $r$ -- the \emph{regression coefficient}. In order for there to be regression towards the population mean, we require $0 < r < 1$. 
+$$\tilde{\mu}_{i+1} = rX_i$$
 
-\item While the expected offspring's score can be calculated from the score of its parent, there is a normally distributed residual about the expected offspring score that has a standard deviation (SD) equal to the marginal SD of the parent generation scaled by $r_s$ -- the \emph{residual coefficient}. For the residual SD to be positive and a degenerate normal distribution avoided, we require $r_s > 0$.
-$$\tilde{\sigma}_{i+1} = \sqrt{\mathrm{Var}(X_{i+1}|X_i)} = r_s \sigma_i$$
+\item While the expected child's score can be calculated from the score of its parent, there is a normally distributed residual about the expected child score that has a standard deviation (SD) equal to the marginal SD of the parent generation scaled by $r_s$ -- the \emph{residual coefficient}. For the residual SD to be positive and a degenerate normal distribution avoided, we require $r_s > 0$.
+$$\tilde{\sigma}_{i+1} = r_s \sigma_i$$
 \end{enumerate}
 \end{enumerate}
 
-\subsubsection{Brief and complete description of the chain}
-As we have shown, the Markov chain can be constructed from the equations for the initial condition and the one-step downward transition:
+\subsubsection{Brief and complete description of the process}
+As we have shown, the Markov process can be constructed from the equations for the initial condition and the one-step downward transition:
 $$X_0 \sim \mathcal{N}(0, 1)$$
 $$X_{i+1}|X_i = rX_i+ r_s\sigma_iZ$$
 The latter equation contains the important coefficients $r$ and $r_s$, which have been named the regression coefficient and the residual coefficient, respectively. 
@@ -122,14 +100,14 @@ The latter equation contains the important coefficients $r$ and $r_s$, which hav
 \subsubsection*{Note about standardization to real data}
 The distribution of the initial generation was set to $X_0 \sim \mathcal{N}(0, 1)$, and it was briefly mentioned that the phenotypic score of any univariate polygenic trait, e.g. stature, which is measured in centimeters, could be standardized to have mean zero and variance one. Due to this initial standardization, the scores of all generations are given in z-scores relative to the initial generation. Therefore, in order to obtain a score in terms its measured units, e.g., centimeters, one need only shift and scale the score by the mean and SD, respectively, of the initial generation. 
 
-When handling real data, it may be the case that one has the measured mean and SD of some other generation besides the initial generation. In that case, it is worth noting that the mean of all generations is zero under this model. Furthermore, the SD of any generation can be easily calculated with $r$ and $r_s$ from the SD of any other generation.
+When handling measured data, it may be the case that one has the measured mean and SD of some other generation besides the initial generation. In that case, it is worth noting that the mean of all generations is zero under this model. Furthermore, the SD of any generation can be easily calculated with $r$ and $r_s$ from the SD of any other generation.
 
 
 
 % NORMAL LINEAR 
 \subsection{Linear regression form}
 
-The one-step downward transition of the Markov chain can be written:
+The one-step downward transition of the Markov process can be written:
 $$X_{i+1} = rX_i + \epsilon$$
 $$\epsilon \sim \mathcal{N}(0, r_s^2 \sigma_i^2)$$
 
@@ -141,7 +119,7 @@ $$\bold{x} \sim \mathcal{N}(\bold{0}, I_n)$$
 Where $\bold{0}$ is a vector of length $n$ containing zeros, and $I_n$ is the $n \times n$ identity matrix, and the vector $\epsilon$ represents the errors, or differences in statures $\bold{y}$ from the predicted statures $r\bold{x}$. 
 
 \subsubsection*{Without standardization}
-The column vectors $\bold{x}, \bold{y}$ were both standardized to the mean and SD of the measured parent scores. It is easy to show how the linear regression equation can be written in terms of the un-standardized scores $\bold{x}_u, \bold{y}_u$ of the parents and offspring, which might be the measurements in their original units, e.g. centimeters. 
+The column vectors $\bold{x}, \bold{y}$ were both standardized to the mean and SD of the measured parent scores. It is easy to show how the linear regression equation can be written in terms of the un-standardized scores $\bold{x}_u, \bold{y}_u$ of the parents and child, which might be the measurements in their original units, e.g. centimeters. 
 $$\bold{y}_u =  r \, \bold{x}_u + \sigma_x\bold{\epsilon} +  \bold{\mu}_x(1-r)$$
 Where $\bold{\mu}_x$ is a repeated column vector containing the mean of the parent scores and $\sigma_x$ is the standard deviation of the parent scores, both given in their measured units. Importantly, the regression coefficient is still the slope of the regression line, even without standardization. 
 
@@ -153,8 +131,8 @@ $$\hat{r} = (\bold{x}^T \bold{x})^{-1} \bold{x}^T \bold{y}$$
 %
 The MLE of $r_s^2$ is obtained from the minimum value of the sum of squared errors. That is, $\hat{r}_s^2$ is equal to the variance of $\epsilon$, under the MLE of $r$. Taking the square root to obtain the MLE of $\hat{r}_s$, we get:
 %
-$$\hat{r}_s = \sqrt{\mathrm{Var}({\epsilon} | \hat{r})}$$%
-
+$$\hat{r}_s = \sqrt{\mathrm{Var}({\epsilon} | \hat{r})}$$
+%
 These equations gives us a way to obtain the MLEs of $r$ and $r_s$ from one-step transition data. 
 
 
@@ -165,8 +143,8 @@ These equations gives us a way to obtain the MLEs of $r$ and $r_s$ from one-step
 \subsubsection*{Assumptions}
 \begin{enumerate}
 \item Normality of the polygenic trait. This assumption is generally supported by the literature consensus on the effect of the central limit theorem for additive polygenic traits. The normality assumption has been widely been confirmed within the literature on human stature \cite{luo}.
-\item Normal linear relationship between parent and offspring statures. That is, the linear regression form of the one-step downward transition has normally distributed residuals. This has been verified for human stature \cite{luo}.
-\item Equal probability and degree of successful reproduction for all members of the population -- regardless of score. In other words, no members of the population have more offspring than other members, and no natural selection occurs. 
+\item Normal linear relationship between parent and child statures. That is, the linear regression form of the one-step downward transition has normally distributed residuals. This has been verified for human stature \cite{luo}.
+\item Equal probability and degree of successful reproduction for all members of the population -- regardless of score. In other words, no members of the population have more children than other members, and no natural selection occurs. 
 \item Phenotypes are determined in the absence of net environmental effects, which would directionally shift phenotypic scores between generations. It is shown however, that an environmental effect that acts uniformly on the population as a whole can easily be included in the model. 
 \end{enumerate}
 
@@ -175,14 +153,14 @@ These equations gives us a way to obtain the MLEs of $r$ and $r_s$ from one-step
 \item No average movement of the population mean occurs between generations due to the equal probability of successful reproduction and no net environmental effects. Therefore, all generations have marginal population mean zero.
 \item Marginal populations implicitly exist in discrete time and are non-overlapping, each having mean $0$ and SD $\sigma_i^2$.
 \item Population size is not modeled. 
-\item Over many generations ($n$-step transitions for when $n$ is large), the model appears to be more appropriate under the condition of stable population variance. Otherwise, the population variance eventually expands to $\infty$ or shrinks to $0$, depending on whether $r^2 + r_s^2$ is greater than one or less than one, respectively. On the other hand, it will be discussed how proposed calculations of probability attributable and probability destined can remain valid and undistorted even when there is unstable population variance.
+\item Over many generations ($n$-step transitions for when $n$ is large), the model appears to be more appropriate under the condition of stable population variance. Otherwise, the population variance eventually expands to $\infty$ or shrinks to $0$, depending on whether $r^2 + r_s^2$ is greater than one or less than one, respectively. On the other hand, it will be discussed how proposed calculations of attributable and destined probabilities can remain valid and undistorted even when there is unstable population variance.
 \end{enumerate}
 
 
 \subsubsection*{Adjustment for uniform environmental effects}
 It is worth remarking on the historical observation of human heights increasing between generations, which has been attributed to improvements in the environment for growth, in terms of nutrition and health \cite{bogin}. Previous studies have suggested that overall improvements in access to food, dietary diversification, sanitation, water, living standards, and decreasing exposure to disease are responsible for the secular increases in height occurring in the 19th and 20th centuries across many developed countries \cite{perkins}. 
 
-As was discussed in the limitations section, the model proposed here does not describe average movement of the population mean between generations as a result of net-environmental effects that would uniformly shift the conditional mean of each offspring. However, we can fortunately include these effects in the model without causing any problems. Here, we denote $c$ by the increase in height between generations:
+As was discussed in the limitations section, the model proposed here does not describe average movement of the population mean between generations as a result of net-environmental effects that would uniformly shift the conditional mean of each child. However, we can fortunately include these effects in the model without causing any problems. Here, we denote $c$ by the increase in height between generations:
 $$X_{i+1} = r(X_i - \mu_i) + \epsilon + c$$
 
 Then, the change to our model is quite straightforward, and can be given entirely by the change to the marginal population mean, which until now has always been zero.
@@ -197,16 +175,16 @@ $$\mu_{i-n} = \mu_i - \sum_{t = i-1}^{i-n} c(t)$$
 
 Note that the convergences to the marginal distributions are not affected as the adjustment constant is added to both the marginal and conditional expectation, and thus cancels out when the two are compared. 
 
-The observation of increasing height between generations does not affect the integrity of the un-adjusted form of the model, as we have discussed how increases in height have resulted from improved environmental factors, rather than genetic inheritance per se. It is then fair to say that the model seeks to describe polygenic inheritance -- in the absence of net environmental effects, such as improving nutrition. However, such effects can easily be included within the model if necessary, as long as they act uniformly on all offspring. This is shown to be the case in both the large population-based and historical Pearson datasets. 
+The observation of increasing height between generations does not affect the integrity of the un-adjusted form of the model, as we have discussed how increases in height have resulted from improved environmental factors, rather than genetic inheritance per se. It is then fair to say that the model seeks to describe polygenic inheritance -- in the absence of net environmental effects, such as improving nutrition. However, such effects can easily be included within the model if necessary, as long as they act uniformly on all children. This is shown to be the case in both the large population-based and historical Pearson datasets. 
 
 
 
 
 
 %% PROPERTIES %%
-\section{Properties}
+\section{Properties of the model}
 \subsection{Marginal population distribution}
-The unconditional (marginal) distribution of a population member's score can be shown by induction and the theorem of the sum of independent normal random variables (rvs) to be given by $X_n \sim \mathcal{N}(0, \sigma_n^2)$, which can also be written:
+The unconditional (marginal) distribution of a score can be shown by induction and the theorem of the sum of independent normal random variables (rvs) to be given by $X_n \sim \mathcal{N}(0, \sigma_n^2)$, which can also be written:
 $$X_n = \sigma_nZ$$
 
 This occurs because the residuals of the one-step downward transition are normally distributed about the conditional expectation. If the residuals were not normally distributed, the population would depart from the normal distribution in the next generation.
@@ -229,7 +207,7 @@ $$\sigma_{i+n}^2 = (r^2+r_s^2)^n  \sigma_{i}^2$$
 
 % COVARIANCE AND CORRELATION
 \subsection{Covariance and correlation}
-The regression coefficient relates to the covariance and correlation between the scores of an ancestor and its descendant. Recall that when $n = 1$, we are then describing parent and offspring. 
+The regression coefficient relates to the covariance and correlation between the scores of an ancestor and its descendant. Recall that when $n = 1$, we are then describing parent and child. 
 $$\mathrm{Cov}(X_{i+n}, X_i) = r^n \sigma_i^2$$
 $$\mathrm{Corr}(X_{i+n}, X_i) = r^n \frac{\sigma_i}{\sigma_{i+n}}$$
 
@@ -241,7 +219,7 @@ $$\mathrm{Corr}(X_{i+n}, X_i) = r^n \frac{\sigma_i}{\sigma_{i+n}}$$
 % CONDITIONAL DESCENDANT DISTRIBUTION
 \subsection{Conditional descendant distribution}
 
-In describing the chain, we gave the conditional one-step downward transition, which was the rv of an offspring's score as a function of its parent's score. However, we would like to have a general expression for the probability distribution of  a descendant's score given its ancestor's score, for any number of generations $n$ separating the two. 
+In describing the process, we gave the conditional one-step downward transition, which was the rv of a child's score as a function of its parent's score. However, we would like to have a general expression for the probability distribution of  a descendant's score given its ancestor's score, for any number of generations $n$ separating the two. 
 
 The conditional distribution $X_{i+n}|X_i$ can be shown to be normally distributed with the following expressions for $\mathrm{E}(X_{i+n}|X_i)$ and $\mathrm{Var}(X_{i+n}|X_i)$:
 
@@ -261,7 +239,7 @@ $$\sigma_{i+n}^2 =  (r^2+r_s^2)^n  \sigma_{i}^2 =  r^{2n}\sigma_i^2 + \tilde{\si
 After rearranging and taking the square root, we obtain the equation for $\tilde{\sigma}_{i+n}$.
 
 Our result is consistent with the following fact, which can be shown by induction to hold for all real numbers $a$,  $b$:
-$$(a+b)^n = a^n + b \sum_{j=1}^{n}a^{n-j}(a+b)^{j-1}$$
+$$(a+b)^n - a^n = b \sum_{j=1}^{n}a^{n-j}(a+b)^{j-1}$$
 
 In the section on the conditional ancestor distribution, we will show another way the conditional descendant distribution can be obtained.
 
@@ -282,7 +260,7 @@ Likewise, the convergence of $r^n$ affects the conditional variance $\mathrm{Var
 $$\tilde{\sigma}_{i+n}^2 = \sigma_{i+n}^2 - r^{2n} \sigma_i^2$$
 This equation can perhaps more helpfully be written as a ratio:
 $$\frac{\tilde{\sigma}_{i+n}^2}{\sigma_{i+n}^2} = 1 - (\frac{r^2}{r^2+r_s^2})^n$$
-Recalling that the chain required $r_s > 0$, we see that the conditional variance converges to the population variance for large $n$:
+Recalling that the process required $r_s > 0$, we see that the conditional variance converges to the population variance for large $n$:
 $$\tilde{\sigma}_{i+n}^2 \rightarrow \sigma_{i+n}^2$$
 
 In summary, as $n \rightarrow \infty$:
@@ -373,14 +351,14 @@ $$\sigma_i^2 = 1$$
 \subsection{Stationary distribution}
 
 \subsubsection*{Stable population variance implies stationary distribution}
-It can be shown that the chain is at a stationary distribution when there is stable population variance:
+It can be shown that the process is at a stationary distribution when there is stable population variance:
 $$X_i \sim \mathcal{N}(0, 1)$$
 $$X_{i+1} = r Z_\alpha + r_s Z_\beta$$
 $$X_{i+1} \sim \mathcal{N}(0, r^2+r_s^2)$$
 $$X_{i+1} \sim \mathcal{N}(0, 1)$$
 
 \subsubsection*{Stationary distribution is reversible}
-It will be shown in the section on the conditional ancestor distribution that the chain behaves identically going forwards and backwards in time when there is stable population variance.
+It will be shown in the section on the conditional ancestor distribution that the process behaves identically going forwards and backwards in time when there is stable population variance.
 
 \subsubsection*{Convergence to the stationary distribution}
 
@@ -416,10 +394,10 @@ $$\tilde{\mu}_{i-n} = (\frac{r}{r^2+r_s^2})^n X_i$$
 
 $$\tilde{\sigma}_{i-n}^2 = [1 - (\frac{r^2}{r^2+r_s^2})^n] \sigma_{i-n}^2$$
 
-The bivariate normal approach can also be used to confirm our earlier expressions for $\tilde{\mu}_{i+n}$ and $\tilde{\sigma}_{i+n}^2$, which were previously obtained by continually re-applying the one-step downward transition of the Markov chain.
+The bivariate normal approach can also be used to confirm our earlier expressions for $\tilde{\mu}_{i+n}$ and $\tilde{\sigma}_{i+n}^2$, which were previously obtained by continually re-applying the one-step downward transition of the Markov process.
 
 \subsubsection*{One-step upward transition}
-The one-step upward transition describes the conditional distribution of a parent's score given its offspring's score. We can show that $X_{i-1}|X_i \sim \mathcal{N}( \tilde{\mu}_{i-1}, \tilde{\sigma}_{i-1}^2)$ with the following parameters:
+The one-step upward transition describes the conditional distribution of a parent's score given its child's score. We can show that $X_{i-1}|X_i \sim \mathcal{N}( \tilde{\mu}_{i-1}, \tilde{\sigma}_{i-1}^2)$ with the following parameters:
 $$\tilde{\mu}_{i-1} = \frac{r}{r^2+r_s^2} X_i$$
 $$\tilde{\sigma}_{i-1}^2 = \frac{r_s^2}{r^2+r_s^2} \sigma_i^2$$
 
@@ -429,7 +407,7 @@ $$X_{i-1} = \frac{r}{r^2+r_s^2} X_i + \frac{r_s}{\sqrt{r^2+r_s^2}} \sigma_{i} Z$
 
 \subsubsection*{Stationary distribution is reversible}
 
-Because we have $r^2+r_s^2 = 1$ under stable population variance, ie., the stationary distribution, the chain behaves the same way going forwards and backwards in time:
+Because we have $r^2+r_s^2 = 1$ under stable population variance, ie., the stationary distribution, the process behaves the same way going forwards and backwards in time:
 $$X_{i-1} = r X_i + r_s \sigma_{i} Z$$
 It is straightforward to show that $X_{i-n}|X_i \sim \mathcal{N}( \tilde{\mu}_{i-n}, \tilde{\sigma}_{i-n}^2)$ has the same form as $X_{i+n}|X_i \sim \mathcal{N}( \tilde{\mu}_{i+n}, \tilde{\sigma}_{i+n}^2)$ under the stationary distribution:
 $$\tilde{\mu}_{i-n} = \tilde{\mu}_{i+n} = r^nX_i$$
@@ -491,13 +469,13 @@ Earlier, we derived the conditional distribution of the score of an ancestor, gi
 %% MODEL VERIFICATION FOR HUMAN STATURE %%
 \section{Application to human stature}
 
-The model formulation is checked against data on the heights of parents and their adult children. Because all of the properties of the Markov chain follow from the initial condition and the one-step downward transition, confirming their accuracy confirms the model's properties over any number of steps.
+The model formulation is checked against data on the heights of parents and their adult children. Because all of the properties of the Markov process follow from the initial condition and the one-step downward transition, confirming their accuracy confirms the model's properties over any number of steps.
 
 \subsubsection*{Verifying the model}
 We consider the parental generation to be the initial generation. Then, we have two basic requirements to confirm our model:
 \begin{enumerate}
 \item The parental heights are modeled by the initial condition.
-\item The conditional distribution of the offspring heights is modeled by the one-step downward transition, for which we can also refer to its linear regression form.
+\item The conditional distribution of the child heights is modeled by the one-step downward transition, for which we can also refer to its linear regression form.
 \end{enumerate}
 
 
@@ -515,7 +493,7 @@ Unfortunately, the authors did not report on the normality of the parental heigh
 
 An increase in height between generations was observed, amounting to 0.7 cm for male and 1.0 cm for female subjects. We have shown that as long as the increase is uniform, i.e., not dependent on the parent's score, then we can include the increase in the model by the addition of a constant-term in the linear regression. That is, as long as the mean residual values are zero over all possible parent scores, then the increase is uniform and is accurately described by the adjustment to the model.
 
-The authors tested the validity of a normal linear model for the one-step transition of parent to offspring heights. Their model was identical to the linear regression form of the one-step transition discussed earlier. The authors confirm the veracity of the linear model, and thus the they confirm the formulation one-step downward transition -- completely in the case of stable population variance.
+The authors tested the validity of a normal linear model for the one-step transition of parent to child heights. Their model was identical to the linear regression form of the one-step transition discussed earlier. The authors confirm the veracity of the linear model, and thus the they confirm the formulation one-step downward transition -- completely in the case of stable population variance.
 
 The authors confirm the validity of the normal linear model by the following tests:
 \begin{enumerate}
@@ -526,7 +504,7 @@ The authors confirm the validity of the normal linear model by the following tes
 \item The residual SDs were constant over the range of difference in parental heights.
 \end{enumerate}
 
-In summary, the residuals were normally distributed about the linearly predicted offspring height, and neither midparental height, nor the difference in parental height, affected the residual values. In terms of the model, this result means that both $r$ and $r_s$ are neither dependent on $X_i$, nor on the difference between $X_i$ and the score of the mating partner. 
+In summary, the residuals were normally distributed about the linearly predicted child height, and neither midparental height, nor the difference in parental height, affected the residual values. In terms of the model, this result means that both $r$ and $r_s$ are neither dependent on $X_i$, nor on the difference between $X_i$ and the score of the mating partner. 
 
 The authors also conclude that the predictive accuracy was also not affected by assortative mating, as they observed a correlation coefficient between the parents of 0.27, which is an indication of assortative mating.
 
@@ -541,11 +519,11 @@ From one-step transition data, we cannot confirm the part of our model that says
 
 In the dataset, the observed ratio of the sons-fathers SD ratio was 0.978, consistent with stable population variance. The observed ratio of the daughters-mothers SD ratio was 1.16, somewhat consistent with stable population variance. 
 
-It is possible that members towards the outer edges of the population distribution of height are less likely to have offspring -- or have fewer offspring -- than those towards the middle, which would have the effect of counteracting otherwise expanding population variance. On the other hand, if this is not observed, then it is reasonable to assume that the stable population variance condition applies to human stature, in which case the resultant stationary distribution and all of its properties apply as well. 
+It is possible that members towards the outer edges of the population distribution of stature are less likely to have child -- or have fewer child -- than those towards the middle, which would have the effect of counteracting otherwise expanding population variance. On the other hand, if this is not observed, then it is reasonable to assume that the stable population variance condition applies to human stature, in which case the resultant stationary distribution and all of its properties apply as well. 
 
 
 
-\subsection{Historic dataset}
+\subsection{Pearson dataset}
 
 Karl Pearson organized the collection of data on over 1,100 families in England in the 1890s. The dataset he collected contains the heights of mothers, fathers and their adult children with no more than two adult children per family \cite{pearson}. All of adult children were at least age 18, and all of the parents were at most 65 years of age. Here, we check the validity of the model by verifying the initial condition and the one-step downward transition. We present this in detail for the daughter-mother data ($n$ = 1375). Though not shown here, the model passed all of the exact same statistical tests for the son-father data ($n$ = 1078).
 
@@ -568,7 +546,7 @@ As in the Swedish data, an increase in height between generations was observed, 
 
 We can see that the residuals were normally distributed from the Q-Q plot in Figure \ref{fig:qq_pearson_epsi}. Furthermore, the normality assumption passes statistical tests of skewness, kurtosis, and D’Agostino and Pearson's test.
 
-Likewise, we can show in Figure \ref{fig:pearson_residuals_by_score} that the residuals have mean zero over all parent scores. This means that the adjustment constant can be applied safely as the shift applies uniformly to all offspring. 
+Likewise, we can show in Figure \ref{fig:pearson_residuals_by_score} that the residuals have mean zero over all parent scores. This means that the adjustment constant can be applied safely as the shift applies uniformly to all children. 
 
 
 \begin{figure}[p]
@@ -600,7 +578,7 @@ The Pearson male data had the MLEs of $r$ = 0.51 and $r_s$ = 0.89, which nearly 
 
 It is worth mentioning that the dataset collected by Francis Galton in 1885 was looked at, although it is not described in great detail here \cite{galton}. It contains the heights of 197 families and 898 adult children. For daughters-mothers ($n$ = 433), the SD ratio was 1.04 and had the MLEs of $r$ = 0.33 and $r_s$ = 0.99. This data passed the F-test for equality of variances between the mother and daughter generation ($p$ = 0.20). 
 
-Overall, stable population variance seems \emph{a priori} to be a reasonable condition for human stature, though has mixed confirmation in actual data. One possible explanation for why the variance has sometimes been observed to be moderately larger in the offspring generation is that the offspring were relatively young adults, and so their heights may have continued to regress towards the mean after the study. Then, their eventual adult heights would have a more similar variance to the heights of their much older parents. This explanation is plausible because, in the Swedish data, all the adult children had their heights measured at around age eighteen. Similarly, in the Pearson data, the adult children had their heights measured when they were eighteen years of age or older. 
+Overall, stable population variance seems \emph{a priori} to be a reasonable condition for human stature, though has mixed confirmation in actual data. One possible explanation for why the variance has sometimes been observed to be moderately larger in the child generation is that the children were relatively young adults, and so their heights may have continued to regress towards the mean after the study. Then, their eventual adult heights would have a more similar variance to the heights of their much older parents. This explanation is plausible because, in the Swedish data, all the adult children had their heights measured at around age eighteen. Similarly, in the Pearson data, the adult children had their heights measured when they were eighteen years of age or older. 
 
 % Add citation to Karlberg
 % https://www.nature.com/articles/pr1995278#citeas 
@@ -613,8 +591,8 @@ Overall, stable population variance seems \emph{a priori} to be a reasonable con
 
 
 
-% MOBILITY AND INFORMATION LOSS
-\section{Mobility and information loss}
+% MOBILITY AND information-loss
+\section{Mobility and information-loss}
 
 We would like to find some way to quantify the degree of \emph{mobility} in the score of a descendant, given the score of its ancestor. This would also correspond to the \emph{loss of information} about the descendant's score, given its ancestor's score, or vice versa.
 
@@ -624,23 +602,23 @@ For the conditional descendant distribution, faster convergence means that the c
 For the conditional ancestor distribution, faster convergence means that a descendant's score provides less information about its ancestor's score. 
 
 \subsection{Proposed measure}
-We have previously shown that convergence of the conditional distribution to the marginal distribution (both upward and downward) occurs faster with smaller $r$ and larger $r_s$ - and occurs slower for larger $r$ and smaller $r_s$. Accordingly, a simple measure of mobility and information loss would be proportional to $r$ and inversely proportional to $r_s$. 
+We have previously shown that convergence of the conditional distribution to the marginal distribution (both upward and downward) occurs faster with smaller $r$ and larger $r_s$ - and occurs slower for larger $r$ and smaller $r_s$. Accordingly, a simple measure of mobility and information-loss would be proportional to $r$ and inversely proportional to $r_s$. 
 
-Therefore, the simplest way to quantify the mobility and information loss that occurs between generations is with the following term:
+Therefore, the simplest way to quantify the mobility and information-loss that occurs between generations is with the following term:
 
 \begin{description}
-\item [Definition] Let $m$ be a measure of mobility or equivalently, a measure of information loss for the Markov chain with parameters $r$ and $r_s$:
+\item [Definition] Let $m$ be a measure of mobility or equivalently, a measure of information-loss for the Markov process with parameters $r$ and $r_s$:
 $$m = \frac{r_s}{r}$$
 \end{description}
 
-In general, a value of $m$ is not unique to any given Markov chain, because infinitely many values for $r$ and $r_s$ can have the the same ratio. Although it is not investigated in detail here, different Markov chains with the same $m$ may turn out to have varied rates of convergence, upwards or downwards, or for expectation or variance. 
+In general, a value of $m$ is not unique to any given Markov process, because infinitely many values for $r$ and $r_s$ can have the the same ratio. Although it is not investigated in detail here, different Markov processs with the same $m$ may turn out to have varied rates of convergence, upwards or downwards, or for expectation or variance. 
 
-Nonetheless, for stable population variance (the stationary distribution), every possible Markov chain has a unique $m$. 
+Nonetheless, for stable population variance (the stationary distribution), every possible Markov process has a unique $m$. 
 % Use case for M at the end. 
 
 \subsection{Mobility under limiting cases}
 
-We can show with some limiting cases for $r$ and $r_s$ that the desired effects in mobility and information loss occur, consistent with the proposed measure of mobility. 
+We can show with some limiting cases for $r$ and $r_s$ that the desired effects in mobility and information-loss occur, consistent with the proposed measure of mobility. 
 
 \subsubsection*{Small regression coefficient}
 Firstly, we consider the limiting case: $r \rightarrow 0$, causing $m \rightarrow \infty$. Then, for small $n$, we have:
@@ -667,7 +645,7 @@ Lastly, we consider the limiting case: $r_s \rightarrow 0$. Because of the degen
 
 In the first case: $r \rightarrow 0$, it is straightforward to show form the degenerate bound that $r$ must shrink to zero faster than $r_s$ shrinks to zero, such that, if $r$ is made as close as possible to the degenerate bound ($r$ is as great as it possibly can be), we get:
 $$r_s^2 \approx r$$
-Then, our measure of mobility and information loss still goes to infinity:
+Then, our measure of mobility and information-loss still goes to infinity:
 $$m \approx \frac{1}{r_s} \rightarrow \infty$$
 Indeed, there is rapid downward convergence to the marginal distribution. For small $n$, we have:
 $$X_{i+n}|X_i \rightarrow \mathcal{N}(0, \sigma_{i+n}^2)$$
@@ -676,7 +654,7 @@ $$X_{i-n}|X_i \rightarrow \mathcal{N}((\frac{r}{r^2+r_s^2})^n X_i, \infty)$$
 $$\tilde{\sigma}_{i-n}^2 \approx \sigma_{i-n}^2 \rightarrow \infty$$
 
 
-In the second case: $r \rightarrow 1$, we get the smallest amount of mobility and information loss. That is, $m \rightarrow 0$. For small $n$, we have:
+In the second case: $r \rightarrow 1$, we get the smallest amount of mobility and information-loss. That is, $m \rightarrow 0$. For small $n$, we have:
 $$X_{i+n}|X_i \rightarrow \mathcal{N}(X_i, 0)$$
 $$X_{i-n}|X_i \rightarrow \mathcal{N}(X_i, 0)$$
 Because we also have $r^2 + r_s^2 \rightarrow 1$, the second case is consistent with stable population variance and the stationary distribution.
@@ -689,124 +667,241 @@ In other words, there is nearly no mobility whatsoever between generations, and 
 %% PROBABILITY KERNELS %%
 \section{Probability kernels}
 
-\subsection{State to set probability}
-Let $A$ be a subset of the state space: 
+\subsection{State to set, and set to set probabilities}
+Let $D$ be a subset of the state space: 
+%
+$$D \subseteq \mathbb{R}$$
+
+\begin{description}
+\item [Definition] The probability kernel $P_n(D, x_i)$ is the $n$-step probability of reaching the set $D$ in the descendant population from the state $x_i$ in the ancestor population.
+$$P_n(D, x_i) = \int_{x_{i+n}\in D}^{} f(x_{i+n}|x_i)f(x_i) \, dx_{i+n}$$
+\end{description}
+
+Where $f(x_{i+n}|x_i)$ is the conditional probability density function (pdf) of $X_{i+n}|X_i \sim \mathcal{N}( \tilde{\mu}_{i+n}, \tilde{\sigma}_{i+n})$, and $f(x_i)$ is the pdf of $X_i \sim \mathcal{N}(0, \sigma_i^2)$.
+The expression can be simplified to the following, as long as $D$ is the uninterrupted set $(D_{min}, D_{max})$:
+
+$$P_n(D, x_i) = f(x_i)[\, \Phi(\frac{D_{max}- \tilde{\mu}_{i+n}}{\tilde{\sigma}_{i+n}}) - \Phi(\frac{D_{min}- \tilde{\mu}_{i+n}}{\tilde{\sigma}_{i+n}}) \, ]$$
+
+Where $\Phi$ is the cumulative density function (cdf) of the standard normal distribution. 
+
+Let $A$ also be a subset of the state space:
 %
 $$A \subseteq \mathbb{R}$$
 
 \begin{description}
-\item [Definition] The probability kernel $P_n(A, x_i)$ is the $n$-step probability of reaching the set $A$ from the state $x_i$.
-$$P_n(A, x_i) = \int_{x_{i+n}\in A}^{} f(x_{i+n}|x_i)f(x_i) \, dx_{i+n}$$
+\item [Definition] A similar probability kernel $P_n(D, A)$ is the $n$-step probability of reaching the set $D$ in the descendant population from the set $A$ in the ancestor population. 
+$$P_n(D, A) = \int_{x_i\in A}^{} P_n(D, x_i) \, dx_i$$
 \end{description}
 
-Where $f(x_{i+n}|x_i)$ is the conditional probability density function (pdf) of $X_{i+n}|X_i \sim \mathcal{N}( \tilde{\mu}_{i+n}, \tilde{\sigma}_{i+n})$, and $f(x_i)$ is the pdf of $X_i \sim \mathcal{N}(0, \sigma_i^2)$.
-The expression can be simplified to the following, as long as $A$ is the uninterrupted set $(A_{min}, A_{max})$:
+The stationary distribution arises from stable population variance, in which we have $f(x_1|x_2)f(x_2) = f(x_2|x_1)f(x_1) = f(x_1, x_2)$ for any $x_1$, $x_2$, where $f(\cdot|\cdot)$ has the form $f(x_{i+n}|x_i)$ (describing the conditional descendant distribution). Therefore, under stable population variance, we have: 
+$$P_n(D, A) = P_n(A, D)$$
+To show this, we let $d = i+n$ be the notation for the conditional ancestor distribution, then we have $f(x_{i+n}|x_i)f(x_i) = f(x_{d-n}|x_d)f(x_d)$ in all cases (for both stable and unstable population variance). However, under the time-reversibility of stable population variance, we also have $f(x_{d-n}|x_d)f(x_d) = f(x_{i}|x_{i+n})f(x_{i+n})$, where the right hand side is the form of the conditional descendant distribution. Thus we have shown the result. 
 
-$$P_n(A, x_i) = f(x_i)[\, \Phi(\frac{A_{max}- \tilde{\mu}_{i+n}}{\tilde{\sigma}_{i+n}}) - \Phi(\frac{A_{min}- \tilde{\mu}_{i+n}}{\tilde{\sigma}_{i+n}}) \, ]$$
-
-Where $\Phi$ is the cumulative density function (cdf) of the standard normal distribution. 
-
-
-\subsection{Set to set probability}
-Let $B$ also be a subset of the state space:
-%
-$$B \subseteq \mathbb{R}$$
-
-\begin{description}
-\item [Definition] A similar probability kernel $P_n(A, B)$ is the $n$-step probability of reaching the set $A$ from the set $B$. 
-$$P_n(A, B) = \int_{x_i\in B}^{} P_n(A, x_i) \, dx_i$$
-\end{description}
-
-
+It should also be noted that when $x_1$ and $x_2$ are calculated from percentiles, the result is akin to the that of stable population variance, because the values are normalized to the differing variances of the two generations. That is for any two percentiles $p_1$ and $p_2$, we have: 
+$$f(F_{i+n}^{-1}(p_1)|F_i^{-1}(p_2))f(F_i^{-1}(p_2)) = f(F_{i+n}^{-1}(p_2)|F_i^{-1}(p_1))f(F_i^{-1}(p_1))$$
+Where $f(\cdot|\cdot)$ has the form $f(x_{i+n}|x_i)$ as before, and $F_{\cdot}^{-1}(p)$ is the inverse cumulative density function of generation $i$ or $i+n$. Therefore, when $Q_j$ and $Q_k$ are percentile sets, we have:
+$$P_n(Q_j, Q_k) = P_n(Q_k, Q_j)$$ 
+Where the notation implies a conversion to real numbers of the form: $P_n(F_{i+n}^{-1}(Q_j), F_i^{-1}(Q_k)$. This results in a persymmetry property described in the section on percentile transition matrices. 
 
 
 % ATTRIBUTABLE
-\subsection{Probability attributable}
+\subsection{Attributable and destined probabilities}
 
 \begin{description}
-\item [Definition] $P_{\alpha , n}(A, B)$ is the probability that a state $X_{i+n}$ in set $A$ came from or is \emph{attributable} to an ancestor state $X_i$ in set $B$.
-$$P_{\alpha , n}(A, B) = \frac{P_n(A, B)}{P_n(A, \mathbb{R})}$$
+\item [Definition] $P_{\alpha , n}(D, A)$ is the probability that a state $X_{i+n}$ in set $D$ is descendant from or is \emph{attributable} to an ancestor state $X_i$ in set $A$.
+$$P_{\alpha , n}(D, A) = \frac{P_n(D, A)}{P_n(D, \mathbb{R})}$$
 \end{description}
 
-By the law of total probability, $P_n(A, \mathbb{R})$ is the marginal probability that the state $X_{i+n}$ is in the space $A$, this can be obtained by the cumulative density function of a normal distribution by the following definition.
+By the law of total probability, $P_n(D, \mathbb{R})$ is the marginal probability that the state $X_{i+n}$ is in the space $D$, this can be obtained by the cumulative density function of a normal distribution by the following definition.
 
 \begin{description}
 \item [Definition] For some arbitrary subset of the state space $S \subseteq \mathbb{R}$, $P(S)$ is the marginal probability that the normally distributed rv $X \sim \mathcal{N}(\mu, \sigma^2)$ is in the subset $S$. The last equality holds if $S$ is the uninterrupted set $(S_{min}, S_{max})$.
 $$P(S) = \int_{x\in S} f(x) \, dx = \Phi(\frac{S_{max} - \mu}{\sigma}) - \Phi(\frac{S_{min} - \mu}{\sigma})$$
 \end{description}
 
-For $P(A)$, its integrand $f(x)$ would be the pdf of $X_{i+n} \sim \mathcal{N}(0, \sigma_{i+n}^2)$. Therefore:
-%
-$$P_{\alpha , n}(A, B) = \frac{P_n(A, B)}{P(A)}$$
+For $P(D)$, its integrand $f(x)$ would be the pdf of $X_{i+n} \sim \mathcal{N}(0, \sigma_{i+n}^2)$. Therefore:
+$$P_{\alpha , n}(D, A) = \frac{P_n(D, A)}{P(D)}$$
+
 
 % DESTINED
-\subsection{Probability destined}
 
 \begin{description}
-\item [Definition] $P_{\delta , n}(A, B)$ is the probability that a state $X_i$ in set $B$ has a descendant state $X_{i+n}$ that appears in or is \emph{destined} for the set $A$. 
-$$P_{\delta , n}(A, B) = \frac{P_n(A, B)}{P_n(\mathbb{R}, B)}$$
+\item [Definition] $P_{\delta , n}(D, A)$ is the probability that a state $X_i$ in set $A$ has a descendant state $X_{i+n}$ that appears in or is \emph{destined} for the set $D$. 
+$$P_{\delta , n}(D, A) = \frac{P_n(D, A)}{P_n(\mathbb{R}, A)}$$
 \end{description}
 
-It can be shown by the fact that an integral over the entire support of a pdf equals one, that $P_n(\mathbb{R}, B)$ is the marginal probability that the state $X_i$ is in the set $B$, which is given by $P(B)$. Therefore:
+It can be shown by the fact that an integral over the entire support of a pdf equals one, that $P_n(\mathbb{R}, A)$ is the marginal probability that the state $X_i$ is in the set $A$, which is given by $P(A)$. Therefore:
 %
-$$P_{\delta , n}(A, B) = \frac{P_n(A, B)}{P(B)}$$
+$$P_{\delta , n}(D, A) = \frac{P_n(D, A)}{P(A)}$$
 
 
-\subsubsection*{Note about unstable population variance}
-Probability attributable and destined calculations are generally made on a relative basis, which means they are not affected by unstable population variance. Specifically, the sets $A$ and $B$, and are usually stated in terms of percentiles, as we shall see. In that case, the descendant population, for which the set $A$ is a part of, may have an absurdly large or small variance relative to the set $B$ is a part of, but the ratio in variances is made irrelevant due to standardization.
+It should be noted that when attributable and destined probability calculations are generally made on a relative basis, they are not distorted by unstable population variance. Specifically, for the percentile sets $Q_j$ and $Q_k$, the descendant population may have a very large or small variance relative to the ancestor population, especially if $n$ is large, however this is made immaterial by the standardization involved in calculating from percentiles.
+
+% PERCENTILE TRANSITION MATRICES
+\subsection{Percentile transition matrices}
+
+The calculations of attributable and destined probabilities can be defined by percentile sets, as introduced earlier. For example, in $P_{\delta , n}(Q_j, Q_k)$, the percentile set $Q_k$ would be converted to a real number set through $F_i^{-1}(Q_k)$, using the marginal population variance $\sigma_i^2$ of population $i$. 
+
+Percentile transition matrices result from equal-size, continuous percentile sets $Q_1$, $Q_2$, ..., $Q_m$. For example, for $m=5$, we have: $Q_1 = \left(0, 0.2\right]$, $Q_2 = \left(0.2, 0.4\right]$, ..., $Q_m = \left(0.8, 1\right]$. Because, all percentile sets have the same size, e.g., $P(Q_j) = P(Q_k) = 0.2$, the calculations can be equivalently interpreted as attributable and destined probabilities. That is, we have, for all $j$, $k$:
+$$P_{\alpha , n}(Q_j, Q_k) = P_{\delta , n}(Q_j, Q_k) = P_{\cdot , n}(Q_j, Q_k)$$
+
+\begin{description}
+\item [Definition] The percentile transition matrix is defined as follows for continuous, equal-size percentile sets $Q_1$, $Q_2$, ..., $Q_m$:
+ $$
+\begin{pmatrix}
+P_{\cdot , n}(Q_m, Q_1) &  P_{\cdot , n}(Q_m, Q_2)  & \ldots & P_{\cdot , n}(Q_m, Q_m)\\
+P_{\cdot , n}(Q_{m-1}, Q_1)  &  P_{\cdot , n}(Q_{m-1}, Q_2) & \ldots & P_{\cdot , n}(Q_{m-1}, Q_m)\\
+\vdots & \vdots & \ddots & \vdots\\
+P_{\cdot , n}(Q_1, Q_1)  &   P_{\cdot , n}(Q_1, Q_2)       &\ldots & P_{\cdot , n}(Q_1, Q_m)
+\end{pmatrix}
+$$
+\end{description}
+ 
+Simulated and observed percentile transition matrices are shown in Figures \ref{fig:quintile_pearson}, \ref{fig:quintile_stable}, and \ref{fig:quintile_mobility}, and \ref{fig:quintile_chetty}, with the rows indicated by color, and the sizes proportional to the probabilities. One way to understand these matrices is to consider an entry as a proportion of its column sum (indicating probability or proportion destined) or row sum (indicating probability or proportion attributable). Because the quintiles in the ancestor and descendant generations are the same size, e.g., 20\%, the column sums and row sums must both add to 100\% (with any deviations due to rounding). 
+
+\subsubsection*{Bisymmetry of percentile transition matrices}
+
+Theoretical percentile transition matrices are bisymmetric (symmetric along both diagonals). This can be proved by showing them to be both persymmetric (symmetric along the northeast to southwest diagonal) and symmetric (symmetric along the northwest to southeast diagonal). 
+
+We discussed in the section on set to set probabilities, how $P_n(Q_j, Q_k) = P_n(Q_k, Q_j)$. Therefore, assuming  $P(Q_j) = P(Q_k)$ as before, we also have for percentile transition matrices: 
+$$P_{ \cdot, n}(Q_j, Q_k) = P_{\cdot, n}(Q_k, Q_j)$$
+An example of the persymmetry property is that the probability relating parents in the bottom quintile to children in the second quintile, is the same as that relating parents in the second quintile to children in the bottom quintile.
+
+The symmetry property results from the fact that normal distributions are symmetric, which means that $f(-x_1,-x_2) = f(x_1,x_2)$ (under the conditional descendant distribution). Combining this fact with the earlier one, we get $f(x_1|x_2)f(x_2) = f(-x_2|-x_1)f(-x_1)$, which is equivalent to percentile transition matrices being symmetric. The symmetry property can be written as follows:
+$$P_{ \cdot, n}(Q_j, Q_k) = P_{\cdot, n}(Q_{m-k+1}, Q_{m-j+1})$$
+An example of the symmetry property is that the probability relating parents in the bottom quintile to children in the fourth quintile, is the same as that relating parents in the second quintile to children in the top quintile. Because of the symmetry property, the simulated matrices in Figures \ref{fig:quintile_pearson}, \ref{fig:quintile_stable}, and \ref{fig:quintile_mobility}, can equivalently re-written with the x-axis as \emph{Descendant's} or \emph{Child's Quintile}, and the y-axis as \emph{Cumulative Probability of Parent's} or \emph{Ancestor's Quintile}. 
+
+One result of bisymmetry is that the number of unique entries in a theoretical percentile transition matrix is far fewer than the number of entries in the matrix. The number of unique entries in an $m \times m$ bisymmetric matrix has an additive analogy of $m!!$ unique, or independent, entries. This can be shown by a simple geometric argument: filling in the entries by row, in which for every new iteration, the outer two entries are non-unique. That is, the number of unique entries in an $m \times m$ percentile transition matrix are $m + (m-2) + (m-4) + ... + 4 + 2$ for even $m$, and $m + (m-2) + (m-4) + ... + 3 + 1$ for odd $m$. Therefore, the simulated quintile-transition matrices shown in this paper, for which $m = 5$, have 25 total entries, but only $5+3+1 = 9$ unique entries.
 
 
-\subsection{Percentile transiton matrices}
 
-The calculations of probability attributable and probability destined can be defined by percentiles with sets $A$ and $B$ generally calculated relative to the populations they are a part of. For example, in $P_{\delta , n}(A, B)$, the state $B$ would be calculated as a percentile, relative to the marginal population variance $\sigma_i^2$ of generation $i$. 
+\subsection{Visualizations of percentile transition matrices}
 
-Such percentile-based calculations can be used to create percentile transition matrices. As the states would be calculated from percentiles and all percentiles in the matrix would be the same, e.g. 20\%, then $P(A) = P(B)$ for all calculations. Therefore, in percentile transition matrices, probability attributable calculations are identical to probability destined calculations.
-$$P_{\alpha , n}(A, B) = P_{\delta , n}(A, B)$$
+\subsubsection*{Comparison to Pearson data}
 
-In Figure \ref{fig:old_quintile_p1}, we see an example of a quintile transition matrix showing the probability that an offspring's score is within a certain quintile, e.g., the bottom quintile, the middle quintile, etc., given the quintile of its parent's score. As described just a moment ago, the Figure \ref{fig:old_quintile_p1} is equally a plot of probability destined. That is, it is also showing probability that a parent's score is within a certain quintile, given the quintile of its offspring's score (mentally switch the words \emph{offspring} and \emph{parent} when looking at the Figure \ref{fig:old_quintile_p1}).
+The observed percentile transition matrices of the Pearson mother-daughter and father-son data are shown along with a simulation from the estimated parameters in Figure \ref{fig:quintile_pearson}. A reasonable similarity is observed between the simulated and observed matrices. It should be noted that for the Pearson data, there was a relatively small number of observations for each entry of the quintile-quintile matrices (average of 49, minimum of 10, and maximum of 149). This may explain some of the variation between the male and female matrices, and potentially also the deviations from the simulated matrix. 
 
-\begin{figure}[h]
+The rightmost column in Figure \ref{fig:quintile_pearson} shows that for stature, a parent in the top quintile has about a 43\% chance of having a child also in (destined for) the top quintile, a 25\% chance of having a child (of the same sex) in the fourth quintile, an 18\% chance of having a child in the middle quintile, and so on. Equivalently, these numbers can be interpreted as follows: about 43\% of the children in the top quintile are attributable to parents (of the same sex) also in the top quintile, 25\% of the children in the fourth quintile are attributable to parents in the the top quintile, 18\% of the children in the middle quintile are attributable to parents in the top quintile, and so on. 
+
+\begin{figure}[H]
 \centering
-\advance\leftskip+0.8cm
-\includegraphics[width=0.8\linewidth]{figures/model_mobility_n1000_r50_r_s90_.png} 
-\caption{Example of a probability attributable quintile transition matrix, with parameters $r = 0.5$ and $r_s = 0.9$.}
-\label{fig:old_quintile_p1}
+\advance\leftskip-0.4in
+\includegraphics[width=3.5in]{figures/quintile-pearson.png} 
+\caption{Observed and simulated quintile transition matrices from the Pearson data, with estimated parameters $r = 0.54$, $r_s = 0.96$ for female and $r = 0.51$, $r_s = 0.89$ for male \cite{pearson}. These parameters result in identical simulated matrices (to the first decimal place), therefore only one is shown.}
+\label{fig:quintile_pearson}
 \end{figure}
 
-The parameters quintile transition matrix in \ref{fig:old_quintile_p1} can be compared with the calculated values of the the dataset collected by Francis Galton in 1885, shown in  \ref{fig:old_galton_quintile} (197 families and 898 adult children). 
+\subsubsection*{Multigenerational regression towards the mean}
+Between the Pearson and Swedish data on stature, the estimates for $r$ were about 0.5, with approximately stable population variance. Using $r = 0.5$ and stable population variance ($r_s \approx 0.866$), percentile transition matrices can be simulated, showing the regression towards the mean that takes place over multiple generations. Quintile transition matrices of this form are shown in Figure \ref{fig:quintile_stable}. The exponential convergence to the descendant distribution can be seen in the asymptotic approach of the probabilities towards uniform 20\%, with slowing rates of convergence as the generation-gap widens. 
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\advance\leftskip+0.8cm
-\includegraphics[width=0.8\linewidth]{figures/galton_mobility.png} 
-\caption{Calculated transition matrix from data on the heights of 898 adult children and their 394 parents. Observed parameters $r = 0.51$ and $r_s = 0.90$ (using midparental heights for the regression).}
-\label{fig:old_galton_quintile}
+\advance\leftskip-0.6in
+\includegraphics[width=6.5in]{figures/quintile-r=0.5-stable.png} 
+\caption{Quintile transition matrices over generation-gaps $n$ from 1 through 6, with stable population variance at $r = 0.5$ ($r_s \approx 0.866$).}
+\label{fig:quintile_stable}
+\end{figure}
+
+\subsubsection*{Visualization of the mobility measure}
+The effect of the mobility measure $m$ introduced earlier, where $m = \frac{r_s}{r}$, can be visualized in percentile transition matrices with varying $m$. Quintile transition matrices of this form are shown in Figure \ref{fig:quintile_mobility} under stable population variance, for which $m$ uniquely describes the distribution.
+
+
+\begin{figure}[H]
+\centering
+\advance\leftskip-0.6in
+\includegraphics[width=6.5in]{figures/quintile-mobility.png} 
+\caption{Parent-to-child quintile transition matrices, over decreasing levels of mobility, with stable population variance.}
+\label{fig:quintile_mobility}
 \end{figure}
 
 
-The effect of $m$ in determining mobility and information loss becomes clear as the regression and residual coefficients determine the percentile transition matrices. While an example is not given here, percentile transition matrices can be calculated for any number of generations $n$ separating the ancestor and descendant. 
+\subsubsection*{Comparison to US family income mobility}
 
-Multi-generational transition matrices are forthcoming.
+A quintile transition matrix relating the family incomes of 9,867,736 US children born between 1980-82 and their parents has been calculated from tax-data, shown in Figure \ref{fig:quintile_chetty} \cite{chetty}. This transition matrix is crucially different than the other ones shown in this paper because it relates measures of the \emph{families} of children and their parents, rather than relating measures of an individual child to one of its parents (of the same sex). Nonetheless, reasons for similarity can be explained by the fact that the distribution of income can be approximated by a log-normal distribution \cite{battistin, neal}. Percentiles (and their corresponding transition matrices) are unaffected by this transformation because taking the logarithm is a monotonic function. Then, if the relation between the (log) income of parents and their children can be roughly approximated by a normal linear model, the Markov process model described in this paper could reasonably be applied.
 
+If there is a positive correlation between the income of a child and the income of his or her parent, then the correspondence should be greater (and mobility lower) when using the parent's \emph{family} income (rather than only one of the parent's income), because measuring family income combines the incomes of all parents. On the other hand, if there is a correlation of less than one between a child's income and the incomes of his or her parents, the correspondence should be lower (and mobility greater), when using the child's \emph{family} income (rather than the child's individual income). 
+
+Whether these two opposing effects on mobility cancel out precisely depends on whether the correlation between individual and family income is the same for both the child and parent generations, or whether such correlations vary between income quintile. These are both unknown, thus the caveat must be made that the transition matrix in Figure \ref{fig:quintile_chetty} cannot be equivalently compared to the other transition matrices shown in this paper. Nonetheless, it can be generally remarked that there is greater degree of observed mobility in family income (Figure \ref{fig:quintile_chetty}) than in stature (Figure \ref{fig:quintile_pearson}). More precisely, mobility measure for income appears to be best approximated by $m \approx 3$, for which there is a corresponding quintile transition matrix in Figure \ref{fig:quintile_mobility}. This can be compared with the mobility of height (which has a much larger genetic determinant) of about $m \approx  $1.7-1.8, obtained from the estimates of the regression and residual coefficients.
+
+\begin{figure}[H]
+\centering
+\advance\leftskip-0.4in
+\includegraphics[width=3.5in]{figures/quintile-chetty.png} 
+\caption{Parent-to-child quintile transition matrix for US family income data for the 1980-82 birth cohort \cite{chetty}.}
+\label{fig:quintile_chetty}
+\end{figure}
+
+The heritability of height has been well established, and the similarities between parents is primarily explained by the shared genealogies of children and their parents \cite{luo, preece, wood}. However, much of the correspondence between the incomes of parents and their children between may be reasonably hypothesized to result from environmental factors. Therefore, the income transition matrix suggests the question of whether some of the correspondence between the statures of children and their parents can be explained by environmental factors. Nonetheless, studies of genome-wide SNPs have identified polygenic scores that account for a small amount (~2.5\%) of the variance in family socioeconomic status (SES), including income \cite{trzaskowski, krapohl}. In that case, a normal linear model (and the corresponding Markov process introduced here) may be be useful to describe both the genetic \emph{and} environmental factors that relate parents and their children.
+
+%This finding invites a brief discussion on how it might be interpreted. Krapohl and Plomin write that a high degree of heritability in SES is usually interpreted to mean a low degree of social mobility. However, they write that as environmental differences diminish (approaching equal opportunity), individual differences that remain will to a larger proportion be due to genetic differences, increasing the observed heritability. Therefore, the authors posit that the heritability of SES can be viewed as an index of social mobility \cite{trzaskowski, krapohl}.
+
+
+% DISCUSSION
 \section{Discussion}
-Forthcoming.
+
+\subsection{Summary of the model and its important properties}
+
+\subsubsection*{Generalization of the normal linear model}
+
+Normal linear models have previously been applied to the inheritance between parents and children of stature -- a polygenic trait \cite{luo}. Under a linear model, the conditional expectation for a child's score is the weighted average of the parent's score and the mean population score, where the weight of the parent's score is given by the regression coefficient $r$. Around this expectation, or prediction, there is random normal variation with a SD that is proposed here as proportional to the marginal SD of the parent-generation population, where the degree of proportionality is given by the residual coefficient $r_s$. 
+
+This simple formulation relating parents and their children is re-applied through induction as generations reproduce to produce successive generations. The result is a Markov process in discrete time (generations) and continuous space (phenotypic score). From this process, conditional normal distributions are derived for the scores of descendants and ancestors of any generation-gap $n$ apart. Furthermore, the conditional distribution of an ancestor or descendant's score follows an exponential function of convergence to the overall or marginal population distributions as $n$ increases, with rate constants determined by $r$ and $r_s$. In other words, as the distance to a descendant or ancestor increases, prediction-power is lost as an exponential function of the generation-gap. 
 
 
+\subsubsection*{Marginal population distributions and the stationary distribution}
+
+The simple formulation is also consistent with the overall normal distribution of the polygenic trait in the population. Assuming the parent-generation's population is normally distributed, the child-generation's population is also normally distributed, as are all descendant and ancestor-generation populations. To obtain the marginal distribution of the child's generation, the rv representing a parent -- scaled by the regression coefficient, is combined additively with the standard normally distributed rv representing the variation about the prediction -- scaled by the residual coefficient. The sum of independent normally distributed rvs is a normal rv with expectation equal to the sum of the expectations and variance equal to the sum of the variances. An immediate result is therefore that the population variance of the child-generation is proportional to that of the parent-generation by $r^2 + r_s^2$. This means that in order for there to be stable (constant) population variance between generations, $r^2 + r_s^2$ must equal one. 
+
+Stable population variance results in the stationary distribution. That is, the conditional descendant and ancestor distributions are identical for the same generation-gap $n$. Equivalently, the system behaves the same with time going forwards or backwards. When scores are indexed by percentile (relative to the population of their generation) there is always time-reversibility (for both stable and unstable population variance). This is because indexing by percentile standardizes to the differing population variances of the generations. In other words, the Markov process is always stationary when the scores of descendant and ancestors are indexed by the percentile of their respective generation. 
+
+\subsubsection*{Intergenerational edge persistence}
+
+The model can quantify questions about intergenerational edge persistence. Consider those with scores in some edge of the population distribution, for example, the tallest members of the population. To what extent are they the children of parents also within the same edge, and to what extent are they the children of parents in the lower or upper majority (not the edge) of the distribution? (The edge can be defined by having a score above or below some threshold, or having a score within the top or bottom $x$\% of the distribution.) Two general effects have counteracting effects on intergenerational edge persistence: probability and number. That is, parents at the edge of the distribution have a higher probability of having offspring within the same edge-section. However, there are many more parents in the rest of the distribution. The amount of edge persistence thus results from a competition of sorts between the greater probability for the parents at the edge and the greater number of parents with lower probability. Intuitively, when mobility, measured by $m$, is greater, there is less edge persistence, and vice versa. 
+
+For an example, if the edge is defined as the top 20\% of the distribution, such that being among the \emph{richest} means having a family income in the top 20\%, the question would be: Are the richest people in the US (born between 1980-82) mostly the children of the richest parents, or are they primarily from non-rich families (middle class, lower class, etc.)? The answer from Figure \ref{fig:quintile_chetty} is that a majority (64\%) of the richest are the children of parents in the bottom 80\%. That is, the greater number beats the greater probability (for an edge defined as the top 20\%). The greater number also wins for stature at this edge, though to a lesser extent, such that a smaller majority (56\%) of the tallest are the children of parents in the lower four quintiles (see Figure \ref{fig:quintile_pearson}). As the size of edge gets larger, the percentage from the rest decreases monotonically -- likewise the percentage from within the edge increases. For example, a minority of those in the top 40\% are from parents in the bottom 60\% for both income and stature: 45.5\% and 41\%, respectively. The results for both edge sizes are consistent with the measure of mobility $m$ being greater for income than for stature. 
 
 
+% USE CASES
+\subsection{Use cases of the model}
+
+\subsubsection*{Estimation of parameters}
+The regression and residual coefficients provide the SD ratio of the marginal child to the marginal parent-generation population with the following equation:
+$$\mathrm{SD}\,\, \mathrm{ratio} =  \sqrt{r^2+r_s^2}$$
+Therefore, having MLE estimates of any two of the three values in the above equation, means also having an estimate of the third. Likewise, under stable population variance, observing or measuring one of $r$ or $r_s$ immediately gives away the other. When there is stable population variance, $r$ is also the correlation coefficient between parent and child scores and can be estimated that way. Alternatively, the MLEs of $r$ and $r_s$ could be obtained by ordinary least squares as shown in this paper. Estimates of $r$ and $r_s$ are sufficient to describe the model.
+
+\subsubsection*{Potential to model both genetic and environmental factors}
+
+The example of US family income introduced in the section on visualizations of percentile transition matrices suggests that a normal linear model may be useful to describe the relation between parents and their children for a trait with genetic, or environmental determinants, or a combination thereof. This is especially reasonable to expect if the effects of the environment are also numerous and, on average, small, as are the effects of genes for a polygenic trait. Then, the trait should be normally distributed in the marginal population and fall under the paradigm of the linear model, in which conditional expectation for a child's score is a weighted average (by $r$) of the parent's score and the mean population score. 
+
+In future work therefore, the Markov process described in this paper could model traits that are approximately normally distributed and for which child scores can be predicted from parent scores with a normal linear model. These traits could have some arbitrary combination of genetic or environmental determinants, as long as they meet those basic two requirements. For such traits, this paper introduces a vocabulary of sorts: the regression coefficient $r$ and the residual coefficient $r_s$, which can be estimated from data (as shown in this paper). Additionally, a justification was made for indicating the amount of mobility, or information-loss, through the ratio of $r_s$ to $r$, given by $m$. Estimates of these terms could enable standard comparisons between such traits, such as the comparisons between stature and income discussed here. 
+
+\subsubsection*{Possible extension to general linear models}
+
+Additional future work could apply the multi-generational extension of the normal linear model shown in this paper to other generalized linear models. This extension was justified for describing a population that reproduces between generations, in which the forward one-step transition between generations is well-modeled by a normal linear relationship. However, other general linear models, such as the Poisson or the Gamma, might also be extended to a Markov process, with potential applications to nature. 
 
 \clearpage
+
+
+%References
+
+
+\bibliographystyle{apalike}
+\bibliography{polygenic_bib}
+
+\clearpage
+
 
 
 % APPENDIX
 \section{Appendix}
 
-\subsection*{Check with Eve's law}
+\subsection{Further mathematical checks}
+\subsection*{Verifying the marginal population variance with Eve's law}
 We can verify our expression for $\mathrm{Var}(X_{i+n})$ using Eve's law:
 %
 $$\mathrm{Var}(X_{i+n}) = \mathrm{E}(\mathrm{Var}(X_i|X_{i+n})) + \mathrm{Var}(\mathrm{E}(X_{i+n}|X_i))$$
 %
-As we have previously shown:
+We have separately shown the conditional variance and expectation of the conditional descendant distribution:
 %
 $$\mathrm{E}(\mathrm{Var}(X_{i+n}|X_i)) = \sigma_i^2 [(r^2+r_s^2)^n-r^{2n}]$$
 $$\mathrm{Var}(\mathrm{E}(X_{i+n}|X_i)) = \mathrm{Var}(r^nX_i) = r^{2n}\sigma_i^2$$
@@ -815,40 +910,241 @@ Combining the terms, we confirm our earlier expression:
 %
 $$\sigma_{i+n}^2 = (r^2+r_s^2)^n  \sigma_i^2$$
 
+\subsection{Python functions for calculating the percentile transition matrices}
 
-\subsection*{Use cases}
-With the two coefficients $r$ and $r_s$, we can perfectly describe the variance of the offspring's generation relative to that of the parent's generation through the following relation:
-%
-$$\frac{\sigma_{i+1}^2}{\sigma_i^2} = r^2+r_s^2$$
-%
-Simply knowing or having measured two of the three values: the ratio parent generation and offspring generation variance, the regression coefficient ($r$), the residual coefficient ($r_s$); it is possible to obtain the third.
-%
-This can be useful, for example, to obtain the SD of the offspring's polygenic score, after having measured the parent's polygenic score: $\tilde{\sigma}_{i+1} = r_s \sigma_i$.
-%
-Alternatively, after having only measured the $\frac{\sigma_{i+1}^2}{\sigma_i^2}$, which is one when there is stable population variance, and $r$, which can be obtained through ordinary least squares with the parent and offspring data or by the correlation coefficient between parent and offspring when there is stable population variance; the model can be constructed and applied.
+\begin{verbatim}
+import numpy as np
+import scipy.stats as st
+import matplotlib.pyplot as plt
 
 
-\subsubsection*{Stationary distribution use case}
-Under stable population variance, observing or measuring one of $r$ or $r_s$ immediately gives away the other. As an example, $r$ could be obtained by the correlation coefficient between parent and offspring.  
-$$\mathrm{Corr}(X_{i+1}, X_i) = r$$
+# Basic model functions
 
-Alternatively, $r$ could be obtained by ordinary least squares, as described later.
-
-When there is stable population variance, knowledge of either $r$ or $r_s$ provides sufficient information to model the population with the proposed Markov chain model.
+def pdf(x_i, sigma_i=1, mu=0):
+    """Returns the pdf of X_i ~ Normal(mu, sigma_i^2)."""
+    return st.norm.pdf(x_i, scale=sigma_i, loc=mu)
 
 
+def stable_rs(r):
+    """Calculates r_s from r under stable population variance."""
+    return np.sqrt(1 - np.square(r))
 
 
+# Conditional descendent distribution
 
-\clearpage
+def mu_tilda(x_i, r, n):
+    return (r**n)*x_i
 
 
-%\begin{verbatim}
-%Put your R code here.
-%\end{verbatim}
+def sigma_tilda(sigma_i, r, rs, n):
+    return sigma_i * np.sqrt(
+            (np.square(r)+np.square(rs))**n - r**(2*n))
 
-\bibliographystyle{apalike}
-\bibliography{polygenic_bib}
+
+# A (or D) vector
+
+
+def get_a_pers(n_subs):
+    return np.transpose(
+        np.array([np.linspace(0, 1, n_subs, endpoint=False),
+                     np.linspace(0, 1, n_subs, endpoint=False)+1/n_subs]))
+
+
+def convert_a_per(a_vec_per, sigma):
+    """Converts an a_vector of percentiles to the real line."""
+    return st.norm.ppf(a_vec_per, scale=sigma)
+
+
+def normalize_a(a_vec, x_i, sigma_i, r, rs, n):
+    """Takes in a converted a_vector (on the real line)."""
+    return (a_vec - np.reshape(mu_tilda(x_i, r, n), (-1, 1, 1))
+                       ) / sigma_tilda(sigma_i, r, rs, n)
+
+
+# State to set probability
+
+
+def state_set(a_vec, x_i, sigma_i, r, rs, n):
+    """For an n_subs by 2 a-vector, or 1 by 2 element thereof,
+    returns the state to set probability.
+    Requires the right element of each 1 by 2 a-vector element to be greater than the
+    left element (tested elsewhere)."""
+    return np.diff(
+        st.norm.cdf( # taking the transpose doesn't slow it down
+        normalize_a(a_vec, x_i, sigma_i, r, rs, n))).transpose()[0] * pdf(x_i)
+
+
+# Percentile transition matrix
+
+
+def get_matrix(r, rs, n=1, num_iters=100_000, low_round=5, 
+			n_subs0=5, n_subs1=5, sigma_i=1, return_raw=False):
+    sigma_n = np.sqrt((np.square(r) + np.square(rs))**n)*sigma_i
+
+    a_vec = convert_a_per(get_a_pers(n_subs=n_subs1), sigma=sigma_n)
+    # assert (np.diff(a_vec) > 0).all()
+
+    d_vec = convert_a_per(get_a_pers(n_subs=n_subs0), sigma=sigma_i)
+    d_vec[np.isneginf(d_vec)] = -1 * low_round
+    d_vec[np.isposinf(d_vec)] = low_round
+    d_lines = np.linspace(d_vec[:, 0], d_vec[:, 1], num=num_iters, axis=1)
+    # assert d_lines.shape == (d_vec.shape[0], num_iters)
+
+    matrix = np.zeros((a_vec.shape[0], d_vec.shape[0]))
+
+    for j in range(d_vec.shape[0]):
+        matrix[:, j] = np.trapz(state_set(
+                        a_vec, x_i=d_lines[j], sigma_i=sigma_i, r=r, rs=rs, n=n),
+                                d_lines[j])
+    # fails for low `num_iters`
+    # assert np.allclose(matrix.sum(axis=0), matrix.sum(axis=1))  
+    matrix /= matrix.sum(axis=0)
+    return matrix
+
+
+# Plot the percentile transition matrix
+
+
+def plot_ax(ax, matrix, i=0, j=0, title=None, title_loc='left', 
+x_label=True, child=False):
+    from matplotlib.ticker import PercentFormatter
+    ancestors = ['Parent', 'Grandparent', 'Great-Grandparent', 
+    		'Great-Great-Grandparent',
+                'Great$^3$-Grandparent', 'Great$^4$-Grandparent']
+    # ancestors = ['Generation {}'.format(i) for i in range(1, 20)]
+
+    if title:
+        ax.set_title(title, fontsize=17, loc=title_loc)
+    if matrix.shape[1] == 5:
+        step_labels = ['Bottom', 'Second', 'Third', 'Fourth', 'Top']
+        if x_label:
+            ax.set_xlabel('{}\'s Quintile'.format(ancestors[i]), fontsize=15)
+        else:
+            if j >= 4:
+                ax.set_xlabel('{}\'s Quintile'.format(ancestors[i]), fontsize=15)
+            else:
+                ax.set_xlabel(' '.format(ancestors[i]), fontsize=15)
+        # ax.set_xlabel("Generation {} Quintile".format(i+1), fontsize=15)
+        if j % 2 == 0:
+            if child:
+                ax.set_ylabel('Cumulative Probability of Child\'s Quintile', 
+                			fontsize=15)
+            else:
+                ax.set_ylabel('Cumulative Probability of Descendant\'s Quintile', 
+                			fontsize=15)
+    else:
+        step_labels = list(range(1, matrix.shape[1] + 1))
+
+    pal = ['#c6dbef', '#9ecae1', '#6baed6', '#4292c6', '#2171b5'][::-1]
+
+    ax.set_ylim(0, 1)
+    values_sum_list = [1] * matrix.shape[1]
+    for j in range(len(matrix) - 1, -1, -1):
+        if len(matrix) <= 5:
+            ax.bar(step_labels, [- value for value in matrix[j]], 
+            		bottom=values_sum_list, color=pal[j])
+        else:
+            ax.bar(step_labels, [- value for value in matrix[j]], bottom=values_sum_list)
+
+        for a, b, c in zip(step_labels, values_sum_list, [value for value in matrix[j]]):
+            if c >= 0.01:
+                num = (b - c / 2) - 0.018
+                color = 'w'
+                if j >= 2:
+                    color = 'k'
+                round_str = "{:0.0%}"
+                if i > 3:
+                    round_str = "{:0.1%}"
+                ax.text(a, num, ' ' + round_str.format(c), va='bottom', ha='center', 
+                		color=color, size=13, alpha=0.8)
+
+        for k in range(len(values_sum_list)):
+            values_sum_list[k] -= matrix[j][k]
+
+    ax.set_yticks(np.arange(0, 1.1, 0.1))
+    ax.set_xticklabels(step_labels, Fontsize=14)
+    ax.yaxis.set_major_formatter(PercentFormatter(1))
+
+
+# Handling data
+
+
+def get_percentiles(array):
+    """Convert data to percentiles"""
+    return st.rankdata(array) / array.size
+
+
+def get_matrix_data(x, y, n_subs0=5, n_subs1=5, return_raw=False):
+    """Obtains the observed percentile transition matrix from data"""
+    bins0 = np.linspace(0, 1, n_subs0, endpoint=False)
+    bins1 = np.linspace(0, 1, n_subs1, endpoint=False)
+
+    xb = np.digitize(get_percentiles(x), bins0)
+    yb = np.digitize(get_percentiles(y), bins1)
+
+    matrix = np.zeros((n_subs0, n_subs1))
+
+    for i in range(n_subs0):
+        desc = xb[yb == i + 1]
+        for j in range(n_subs1):
+            if return_raw:
+                matrix[j, i] = np.sum(desc == j + 1)
+            else:
+                matrix[j, i] = np.mean(desc == j + 1)
+
+    return matrix
+
+
+## Example of using the functions: producing the percentile transitions for 
+## different mobility measures
+
+import numpy as np
+import matplotlib.pyplot as plt
+import probability_kernels as pk
+
+# Create the parameters 
+
+mv = np.array([12, 6, 3, 2, 1.4, 1])
+m = mv.size
+
+rv = 1 / np.sqrt(mv**2 + 1)
+rsv = pk.stable_rs(rv)
+
+matrices_m = [None] * m
+
+# Create the matrices
+
+%%time 
+# ^ Jupyter notebook magic
+for i in range(m):
+    matrices_m[i] = pk.get_matrix(r=rv[i], rs=rsv[i], n=1, num_iters=1_000_000,
+    				low_round=6, n_subs0=5, n_subs1=5)
+				
+# CPU times: user 17 s, sys: 5.61 s, total: 22.6 s
+# Wall time: 22.7 s
+
+# There are `num_iters` number of iterations over the simulated 
+# integral for each probability calculation.
+# Therefore, 5*5*num_iters total for one quintile transition matrix. 
+# Here we make six matrices in 23 seconds. Therefore, about 
+# 6.5 million computations per second - due to vectorization. 
+
+
+# Plot the matrices
+
+fig, axes = plt.subplots(3, 2, figsize=(13*2*0.95*0.75, 8*3/0.95*0.75))
+
+for i in range(m):
+    pk.plot_ax(ax=axes.ravel()[i], matrix=matrices_m[i], i=0, j=i, 
+               title=pk.report_mobility(mv, rv, rsv, i), title_loc='center', 
+               x_label=False, child=True)
+
+plt.tight_layout()
+plt.savefig('latex/figures/quintile-mobility.png', dpi=350)
+plt.show()
+
+
+\end{verbatim}
 
 
 \end{document}

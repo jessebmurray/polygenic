@@ -1,5 +1,14 @@
 \begin{thebibliography}{}
 
+\bibitem[Battistin et~al., 2007]{battistin}
+Battistin, E., Blundell, R., and Lewbel, A. (2007).
+\newblock Why is consumption more log normal than income? gibrat’s law
+  revisited.
+\newblock {\em Battistin, E. and Blundell, R. and Lewbel, A. (2007) Why is
+  consumption more log normal than income? Gibrat’s Law revisited. Working
+  paper. IFS Working Papers (W08/07). Institute for Fiscal Studies, London,
+  UK.}, 117.
+
 \bibitem[Bogin and Rios, 2003]{bogin}
 Bogin, B. and Rios, L. (2003).
 \newblock Rapid morphological change in living humans: implications for modern
@@ -7,13 +16,30 @@ Bogin, B. and Rios, L. (2003).
 \newblock {\em Comparative Biochemistry and Physiology Part A: Molecular and
   Integrative Physiology}, 136(1):71 -- 84.
 
+\bibitem[Chetty et~al., 2014]{chetty}
+Chetty, R., Hendren, N., Kline, P., and Saez, E. (2014).
+\newblock {Where is the land of Opportunity? The Geography of Intergenerational
+  Mobility in the United States}.
+\newblock {\em The Quarterly Journal of Economics}, 129(4):1553--1623.
+
 \bibitem[Galton, 2017]{galton}
 Galton, F. (2017).
 \newblock {Galton height data}.
 \newblock Harvard Dataverse.
 
-\bibitem[Lange, 1997]{lange_book}
-Lange, K. (1997).
+\bibitem[Krapohl and Plomin, 2016]{krapohl}
+Krapohl, E. and Plomin, R. (2016).
+\newblock Genetic link between family socioeconomic status and children’s
+  educational achievement estimated from genome-wide snps.
+\newblock {\em Molecular Psychiatry}, 21(3):437--443.
+
+\bibitem[Lange, 1997a]{lange_article}
+Lange, K. (1997a).
+\newblock An approximate model of polygenic inheritance.
+\newblock {\em Genetics}, 147(3):1423--1430.
+
+\bibitem[Lange, 1997b]{lange_book}
+Lange, K. (1997b).
 \newblock {\em The Polygenic Model. In: Mathematical and Statistical Methods
   for Genetic Analysis. Statistics for Biology and Health}.
 \newblock Springer, New York, NY.
@@ -23,6 +49,11 @@ Luo, Z.~C., Albertsson-Wikland, K., and Karlberg, J. (1998).
 \newblock Target height as predicted by parental heights in a population-based
   study.
 \newblock {\em Pediatric Research}, 44(4):563--571.
+
+\bibitem[Neal and Rosen, 1998]{neal}
+Neal, D. and Rosen, S. (1998).
+\newblock Theories of the distribution of labor earnings.
+\newblock Working Paper 6378, National Bureau of Economic Research.
 
 \bibitem[Pearson and Lee, 1903]{pearson}
 Pearson, K. and Lee, A. (1903).
@@ -44,6 +75,13 @@ Preece, M.~A. (1996).
 Rieger, R., Michaelis, A., and Green, M. (1968).
 \newblock {\em A Glossary of Genetics and Cytogenetics}.
 \newblock Springer, New York, NY.
+
+\bibitem[Trzaskowski et~al., 2014]{trzaskowski}
+Trzaskowski, M., Harlaar, N., Arden, R., Krapohl, E., Rimfeld, K., McMillan,
+  A., Dale, P.~S., and Plomin, R. (2014).
+\newblock Genetic influence on family socioeconomic status and children's
+  intelligence.
+\newblock {\em Intelligence}, 42(100):83 -- 88.
 
 \bibitem[Wood and Esko, 2014]{wood}
 Wood, A.~R. and Esko, T., e.~a. (2014).
