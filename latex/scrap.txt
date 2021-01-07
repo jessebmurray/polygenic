@@ -1,0 +1,23 @@
+%The one-step downward transition of the Markov process can be written:
+%$$X_{i+1} = rX_i + \epsilon$$
+%$$\epsilon \sim \mathcal{N}(0, r_s^2 \sigma_i^2)$$
+%$$\hat{r} = (\bold{x}^T \bold{x})^{-1} \bold{x}^T \bold{y}$$
+%
+
+%This has the same form as a normal linear model of one variable, in which the explanatory variable is normally distributed. We begin with the paired column vectors $\bold{x}, \bold{y}$, both containing $n$ data points. The vectors could contain the statures of mothers and daughters after standardization to the mothers' mean and SD. 
+%$$\bold{y} = r \, \bold{x} + \bold{\epsilon}$$
+%$$\bold{\epsilon} \sim \mathcal{N}(\bold{0}, r_s^2 I_n)$$
+%$$\bold{x} \sim \mathcal{N}(\bold{0}, I_n)$$
+
+
+
+%\subsubsection*{Without standardization}
+%The column vectors $\bold{x}, \bold{y}$ were both standardized to the mean and SD of the measured parent scores. It is easy to show how the linear regression equation can be written in terms of the un-standardized scores $\bold{x}_u, \bold{y}_u$ of the parents and child, which might be the measurements in their original units, e.g. centimeters. 
+%$$\bold{y}_u =  r \, \bold{x}_u + \sigma_x\bold{\epsilon} +  \bold{\mu}_x(1-r)$$
+%Where $\bold{\mu}_x$ is a repeated column vector containing the mean of the parent scores and $\sigma_x$ is the standard deviation of the parent scores, both given in their measured units. Importantly, the regression coefficient is still the slope of the regression line, even without standardization. 
+
+
+
+
+%It is worth mentioning that the dataset collected by Francis Galton in 1885 was looked at, although it is not described in great detail here \cite{galton}. It contains the heights of 197 families and 898 adult children. For daughters-mothers ($n$ = 433), the SD ratio was 1.04 and had the MLEs of $r$ = 0.33 and $r_s$ = 0.99. This data passed the F-test for equality of variances between the mother and daughter generation ($p$ = 0.20). 
+
