@@ -28,7 +28,7 @@
 \contentsline {section}{\numberline {6}Discussion}{33}%
 \contentsline {subsection}{\numberline {6.1}Summary of the model and its important properties}{33}%
 \contentsline {subsection}{\numberline {6.2}Use cases of the model}{35}%
-\contentsline {section}{\numberline {7}References}{36}%
-\contentsline {section}{\numberline {8}Appendix}{38}%
-\contentsline {subsection}{\numberline {8.1}Further mathematical checks}{38}%
-\contentsline {subsection}{\numberline {8.2}Python functions for calculating the percentile transition matrices}{38}%
+\contentsline {section}{\numberline {7}References}{37}%
+\contentsline {section}{\numberline {8}Appendix}{39}%
+\contentsline {subsection}{\numberline {8.1}Further mathematical checks}{39}%
+\contentsline {subsection}{\numberline {8.2}Python functions for calculating the percentile transition matrices}{39}%

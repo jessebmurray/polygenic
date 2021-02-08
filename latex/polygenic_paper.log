@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  7 JAN 2021 19:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  5 FEB 2021 15:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -452,134 +452,135 @@ File: figures/quintile-chetty.png Graphic file (type png)
 <use figures/quintile-chetty.png>
 Package pdftex.def Info: figures/quintile-chetty.png  used on input line 783.
 (pdftex.def)             Requested size: 252.94499pt x 172.45639pt.
- [32 <./figures/quintile-chetty.png>] [33] [34] [35] (./polygenic_paper.bbl
+ [32 <./figures/quintile-chetty.png>] [33] [34] [35] [36]
+(./polygenic_paper.bbl
 Underfull \hbox (badness 2351) in paragraph at lines 26--30
 []\T1/ptm/m/n/10.95 Karlberg, J. and Albertsson-Wikland, K.
  []
 
-[36
+[37
 
-]) [37]
-LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 86
-9.
+]) [38]
+LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 87
+3.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/inconsolata/t1zi4.fd
 File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 869.
+(Font)              scaled to size 10.95pt on input line 873.
 
-[38
+[39
 
 ]
-Overfull \hbox (43.95558pt too wide) in paragraph at lines 1101--1101
+Overfull \hbox (43.95558pt too wide) in paragraph at lines 1105--1105
 []    \T1/zi4/m/n/10.95 Requires the right element of each 1 by 2 a-vector elem
 ent to be greater than the[] 
  []
 
 LaTeX Font Info:    Trying to load font information for TS1+zi4 on input line 1
-101.
+105.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/inconsolata/ts1zi4.fd
 File: ts1zi4.fd 2018/01/14 TS1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 1101.
+(Font)              scaled to size 10.95pt on input line 1105.
 
-Overfull \hbox (12.94553pt too wide) in paragraph at lines 1101--1101
+Overfull \hbox (12.94553pt too wide) in paragraph at lines 1105--1105
 []        \T1/zi4/m/n/10.95 normalize_a(a_vec, x_i, sigma_i, r, rs, n))).transp
 ose()[0] * pdf(x_i)[] 
  []
 
-[39]
-Overfull \hbox (3.76842pt too wide) in paragraph at lines 1101--1101
+[40]
+Overfull \hbox (3.76842pt too wide) in paragraph at lines 1105--1105
 []                        \T1/zi4/m/n/10.95 a_vec, x_i=d_lines[j], sigma_i=sigm
 a_i, r=r, rs=rs, n=n),[] 
  []
 
 Package textcomp Info: Symbol \textasciigrave not provided by
 (textcomp)             font family zi4 in TS1 encoding.
-(textcomp)             Default family used instead on input line 1101.
+(textcomp)             Default family used instead on input line 1105.
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
-101.
+105.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
-1101.
+1105.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 Package textcomp Info: Symbol \textasciigrave not provided by
 (textcomp)             font family zi4 in TS1 encoding.
-(textcomp)             Default family used instead on input line 1101.
+(textcomp)             Default family used instead on input line 1105.
 
-Overfull \hbox (9.29926pt too wide) in paragraph at lines 1101--1101
+Overfull \hbox (9.29926pt too wide) in paragraph at lines 1105--1105
 []            \T1/zi4/m/n/10.95 ax.set_xlabel(\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/1
 0.95 {}\\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/10.95 s Quintile\TS1/zi4/m/n/10.95 '\T1
 /zi4/m/n/10.95 .format(ancestors[i]), fontsize=15)[] 
  []
 
 
-Overfull \hbox (23.88434pt too wide) in paragraph at lines 1101--1101
+Overfull \hbox (23.88434pt too wide) in paragraph at lines 1105--1105
 []                \T1/zi4/m/n/10.95 ax.set_xlabel(\TS1/zi4/m/n/10.95 '\T1/zi4/m
 /n/10.95 {}\\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/10.95 s Quintile\TS1/zi4/m/n/10.95 
 '\T1/zi4/m/n/10.95 .format(ancestors[i]), fontsize=15)[] 
  []
 
 
-Overfull \hbox (20.2269pt too wide) in paragraph at lines 1101--1101
+Overfull \hbox (20.2269pt too wide) in paragraph at lines 1105--1105
 []                \T1/zi4/m/n/10.95 ax.set_ylabel(\TS1/zi4/m/n/10.95 '\T1/zi4/m
 /n/10.95 Cumulative Probability of Descendant\\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/1
 0.95 s Quintile\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/10.95 ,[] 
  []
 
-[40]
-Overfull \hbox (65.85555pt too wide) in paragraph at lines 1101--1101
+[41]
+Overfull \hbox (65.85555pt too wide) in paragraph at lines 1105--1105
 []            \T1/zi4/m/n/10.95 ax.bar(step_labels, [- value for value in matri
 x[j]], bottom=values_sum_list)[] 
  []
 
 
-Overfull \hbox (65.85555pt too wide) in paragraph at lines 1101--1101
+Overfull \hbox (65.85555pt too wide) in paragraph at lines 1105--1105
 []        \T1/zi4/m/n/10.95 for a, b, c in zip(step_labels, values_sum_list, [v
 alue for value in matrix[j]]):[] 
  []
 
 
-Overfull \hbox (31.16571pt too wide) in paragraph at lines 1101--1101
+Overfull \hbox (31.16571pt too wide) in paragraph at lines 1105--1105
 []                \T1/zi4/m/n/10.95 ax.text(a, num, \TS1/zi4/m/n/10.95 ' ' \T1/
 zi4/m/n/10.95 + round_str.format(c), va=\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/10.95 b
 ottom\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/10.95 , ha=\TS1/zi4/m/n/10.95 '\T1/zi4/m/n
 /10.95 center\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/10.95 ,[] 
  []
 
-[41]
-Overfull \hbox (5.66415pt too wide) in paragraph at lines 1101--1101
+[42]
+Overfull \hbox (5.66415pt too wide) in paragraph at lines 1105--1105
 []\T1/zi4/m/n/10.95 ## Example of using the functions: producing the percentile
  transitions for[] 
  []
 
 
-Overfull \hbox (29.39284pt too wide) in paragraph at lines 1101--1101
+Overfull \hbox (29.39284pt too wide) in paragraph at lines 1105--1105
 []    \T1/zi4/m/n/10.95 matrices_m[i] = pk.get_matrix(r=rv[i], rs=rsv[i], n=1, 
 num_iters=1_000_000,[] 
  []
 
 Package textcomp Info: Symbol \textasciigrave not provided by
 (textcomp)             font family zi4 in TS1 encoding.
-(textcomp)             Default family used instead on input line 1101.
+(textcomp)             Default family used instead on input line 1105.
 Package textcomp Info: Symbol \textasciigrave not provided by
 (textcomp)             font family zi4 in TS1 encoding.
-(textcomp)             Default family used instead on input line 1101.
-[42] [43] (./polygenic_paper.aux) ) 
+(textcomp)             Default family used instead on input line 1105.
+[43] [44] (./polygenic_paper.aux) ) 
 Here is how much of TeX's memory you used:
  4496 strings out of 480608
  62974 string characters out of 5903631
- 308386 words of memory out of 5000000
+ 308384 words of memory out of 5000000
  20240 multiletter control sequences out of 15000+600000
  570756 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,9n,40p,2497b,279s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,9n,40p,2482b,279s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/en
 c/dvips/cm-super/cm-super-ts1.enc}{/usr/local/texlive/2020/texmf-dist/fonts/enc
 /dvips/inconsolata/i4-ts1.enc}{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvi
@@ -600,10 +601,10 @@ b></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm1
 pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/
 local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texl
 ive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on polygenic_paper.pdf (43 pages, 3433770 bytes).
+Output written on polygenic_paper.pdf (44 pages, 3434996 bytes).
 PDF statistics:
- 232 PDF objects out of 1000 (max. 8388607)
- 153 compressed objects within 2 object streams
+ 235 PDF objects out of 1000 (max. 8388607)
+ 155 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
