@@ -22,8 +22,7 @@ def mu_tilda(x_i, r, n):
 
 
 def sigma_tilda(sigma_i, r, rs, n):
-    return sigma_i * np.sqrt(
-            (np.square(r)+np.square(rs))**n - r**(2*n))
+    return sigma_i * np.sqrt((np.square(r)+np.square(rs))**n - r**(2*n))
 
 
 # A (or D) vector
@@ -32,7 +31,7 @@ def sigma_tilda(sigma_i, r, rs, n):
 def get_a_pers(n_subs):
     return np.transpose(
         np.array([np.linspace(0, 1, n_subs, endpoint=False),
-                     np.linspace(0, 1, n_subs, endpoint=False)+1/n_subs]))
+                  np.linspace(0, 1, n_subs, endpoint=False)+1/n_subs]))
 
 
 def convert_a_per(a_vec_per, sigma):
@@ -42,8 +41,8 @@ def convert_a_per(a_vec_per, sigma):
 
 def normalize_a(a_vec, x_i, sigma_i, r, rs, n):
     """Takes in a converted a_vector (on the real line)."""
-    return (a_vec - np.reshape(mu_tilda(x_i, r, n), (-1, 1, 1))
-                       ) / sigma_tilda(sigma_i, r, rs, n)
+    return (a_vec - np.reshape(mu_tilda(x_i, r, n),
+                               (-1, 1, 1))) / sigma_tilda(sigma_i, r, rs, n)
 
 
 # State to set probability
@@ -54,16 +53,16 @@ def state_set(a_vec, x_i, sigma_i, r, rs, n):
     returns the state to set probability.
     Requires the right element of each 1 by 2 a-vector element to be greater than the
     left element (tested elsewhere)."""
+    # Taking the transpose doesn't slow it down
     return np.diff(
-        st.norm.cdf( # taking the transpose doesn't slow it down
-        normalize_a(a_vec, x_i, sigma_i, r, rs, n))).transpose()[0] * pdf(x_i)
+            st.norm.cdf(
+                normalize_a(a_vec, x_i, sigma_i, r, rs, n))).transpose()[0] * pdf(x_i)
 
 
 # Percentile transition matrix
 
 
-def get_matrix(r, rs, n=1, num_iters=100_000, low_round=5, n_subs0=5, n_subs1=5, sigma_i=1,
-               return_raw=False):
+def get_matrix(r, rs, n=1, num_iters=100_000, low_round=5, n_subs0=5, n_subs1=5, sigma_i=1):
     sigma_n = np.sqrt((np.square(r) + np.square(rs))**n)*sigma_i
 
     a_vec = convert_a_per(get_a_pers(n_subs=n_subs1), sigma=sigma_n)
@@ -92,7 +91,7 @@ def get_matrix(r, rs, n=1, num_iters=100_000, low_round=5, n_subs0=5, n_subs1=5,
 def plot_ax(ax, matrix, i=0, j=0, title=None, title_loc='left', x_label=True, child=False):
     from matplotlib.ticker import PercentFormatter
     ancestors = ['Parent', 'Grandparent', 'Great-Grandparent', 'Great-Great-Grandparent',
-                'Great$^3$-Grandparent', 'Great$^4$-Grandparent']
+                 'Great$^3$-Grandparent', 'Great$^4$-Grandparent']
     # ancestors = ['Generation {}'.format(i) for i in range(1, 20)]
 
     if title:
@@ -155,8 +154,8 @@ def plot_matrix(matrix, n=1, child=True, legend=True):
         if n == 1:
             term = 'Child'
         if legend:
-            legend = ['{} in the\nTop Quintile'.format(term), 'Fourth Quintile', 'Third Quintile', 'Second Quintile',
-                  'Bottom Quintile']
+            legend = ['{} in the\nTop Quintile'.format(term), 'Fourth Quintile',
+                      'Third Quintile', 'Second Quintile', 'Bottom Quintile']
             fig.legend(legend, bbox_to_anchor=(1, 0.977), loc="upper left", fontsize=15)
     plt.tight_layout()
 

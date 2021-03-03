@@ -495,7 +495,7 @@ Members towards the outer edges of the population distribution of stature may be
 
 \subsection{Pearson dataset}
 
-Karl Pearson organized the collection of data on over 1,100 families in England in the 1890s. The dataset he collected contains the heights of mothers, fathers and their adult children with no more than two adult children per family \cite{pearson}. All the adult children were at least age 18, and all of the parents were at most 65 years of age. Here, we check the validity of the model by verifying the initial condition and the one-step downward transition. We present this in detail for the daughter-mother data ($n$ = 1375). Though not shown here, the model passed all of the same statistical tests for the son-father data ($n$ = 1078).
+Karl Pearson organized the collection of data on over 1,100 families in England in the 1890s. The dataset he collected contains the heights of mothers, fathers and their adult children with no more than two adult children per family \cite{pearson}. All the adult children were at least age 18, and all of the parents were at most 65 years of age. Here, we check the validity of the model by verifying the initial condition and the one-step downward transition. We present this in detail for the daughter-mother data ($n$ = 1375) with statistical tests at the 5\% level.
 
 
 \subsubsection*{The initial condition}
@@ -503,7 +503,7 @@ Karl Pearson organized the collection of data on over 1,100 families in England 
 It is obvious from the Q-Q plot in Figure \ref{fig:qq_pearson_x} that the mother's scores are normally distributed. Furthermore, the normality assumption passes statistical tests of skewness and kurtosis, as well as D’Agostino and Pearson's test that combines skew and kurtosis to produce a single test of normality.
 
 \begin{figure}[h]
-\includegraphics[width=3in]{figures/qq_pearson_x.png}
+\includegraphics[width=3in]{figures/pearson-lee-mother-daughter-qq_parents.png}
 \centering
 \caption{Q-Q plot of the mothers' scores in the Pearson female dataset.}
 \label{fig:qq_pearson_x}
@@ -520,7 +520,7 @@ Likewise, we can show in Figure \ref{fig:pearson_residuals_by_score} that residu
 
 
 \begin{figure}[p]
-\includegraphics[width=3in]{figures/qq_pearson_epsi.png}
+\includegraphics[width=3in]{figures/pearson-lee-mother-daughter-qq_residuals.png}
 \centering
 \caption{Q-Q plot of the daughters' residuals in the Pearson female dataset.}
 \label{fig:qq_pearson_epsi}
@@ -529,7 +529,7 @@ Likewise, we can show in Figure \ref{fig:pearson_residuals_by_score} that residu
 \vspace{2cm}
 
 %\begin{figure}[h]
-\includegraphics[width=3in]{figures/pearson_residuals_by_score.png}
+\includegraphics[width=3in]{figures/pearson-lee-mother-daughter-residuals_by_parent.png}
 \centering
 \caption{Mean values of the residuals by parent score, shown with normal 95\% confidence intervals.}
 \label{fig:pearson_residuals_by_score}
@@ -537,6 +537,7 @@ Likewise, we can show in Figure \ref{fig:pearson_residuals_by_score} that residu
 
 The normality of the daughter generation was also confirmed by Q-Q plot, as well as skewness, kurtosis tests, and D’Agostino and Pearson's test. In summary, we have confirmed from the Pearson female data both the initial condition and the one-step downward transition, and thus the entire model -- as long as there is stable population variance as described earlier. 
 
+Though not shown here, the same statistical tests were applied to the son-father data ($n$ = 1078). All tests passed except the the kurtosis and D'Agostino and Person's test for normality of the residuals and son generation (the skewness tests passed). The failures occurred because of deviations from normality in the edges (more than two standard deviations from the mean) as apparent from the Q-Q plots. These deviations were such that the extremely low and high residuals or scores in the sons generation were lower and higher, respectively, than expected under a normal distribution. 
 
 \subsubsection*{Observed coefficients and population variance dynamics}
 
@@ -547,7 +548,8 @@ Overall, stable population variance seems \emph{a priori} to be a reasonable con
 
 
 
-% MOBILITY AND information-loss
+
+% MOBILITY AND INFORMATION-LOSS
 \section{Mobility and information-loss}
 
 We would like to find some way to quantify the degree of \emph{mobility} in the score of a descendant, given the score of its ancestor. This would also correspond to the \emph{loss of information} about the descendant's score, given its ancestor's score, or vice versa.
