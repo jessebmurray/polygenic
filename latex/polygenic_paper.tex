@@ -16,6 +16,8 @@
 \usepackage{float} % force figure
 \usepackage{breakcites} % break citations between lines (prevent from flowing over)
 
+\usepackage{hyperref} % hyperlinks
+\usepackage[all]{hypcap}    %for going to the top of an image when a figure reference is clicked
 
 
 \usepackage[nottoc,numbib]{tocbibind} % References in contents?
@@ -725,7 +727,7 @@ An example of the persymmetry property is that the probability relating parents 
 
 The symmetry property results from the fact that normal distributions are symmetric, which means that $f(-x_1,-x_2) = f(x_1,x_2)$ (under the conditional descendant distribution). Combining this fact with the earlier one, we get $f(x_1|x_2)f(x_2) = f(-x_2|-x_1)f(-x_1)$, which is equivalent to percentile transition matrices being symmetric. The symmetry property can be written as follows:
 $$P_{ \cdot, n}(Q_j, Q_k) = P_{\cdot, n}(Q_{m-k+1}, Q_{m-j+1})$$
-An example of the symmetry property is that the probability relating parents in the bottom quintile to children in the fourth quintile is the same as that relating parents in the second quintile to children in the top quintile. Because of the symmetry property, the simulated matrices in Figures \ref{fig:quintile_pearson}, \ref{fig:quintile_stable}, and \ref{fig:quintile_mobility}, can equivalently re-written with the x-axis as \emph{Descendant's} or \emph{Child's Quintile}, and the y-axis as \emph{Cumulative Probability of Parent's} or \emph{Ancestor's Quintile}. 
+An example of the symmetry property is that the probability relating parents in the bottom quintile to children in the fourth quintile is the same as that relating parents in the second quintile to children in the top quintile. Because of the symmetry property, the simulated matrices in Figures \ref{fig:quintile_pearson}, \ref{fig:quintile_stable}, and \ref{fig:quintile_mobility}, can equivalently be re-written with the x-axis as \emph{Descendant's} or \emph{Child's Quintile}, and the y-axis as \emph{Cumulative Probability of Parent's} or \emph{Ancestor's Quintile}. 
 
 One result of bisymmetry is that the number of unique entries in a theoretical percentile transition matrix is far fewer than the number of entries in the matrix. The number of unique entries in an $m \times m$ bisymmetric matrix has an additive analogy of $m!!$ unique, or independent, entries. This can be shown by a simple geometric argument: filling in the entries by row, in which for every new iteration, the outer two entries are non-unique. That is, the number of unique entries in an $m \times m$ percentile transition matrix is $m + (m-2) + (m-4) + ... + 4 + 2$ for even $m$, and $m + (m-2) + (m-4) + ... + 3 + 1$ for odd $m$. This is an arithmetic series, and the sum of an arithmetic series with $n$ terms is always $S_n = n(a_1 + a_n) /2$, where $a_1$ is the smallest term and $a_n$ is the largest term (the gap between successive terms is irrelevant). Then it is straightforward to show that the number of unique entries is $m(m+2)/4$ for even $m$, and for $(m+1)^2/4$ for odd $m$. Therefore, the simulated quintile-transition matrices shown in this paper, for which $m = 5$, have 25 total entries, but only 9 unique entries.
 
@@ -870,241 +872,12 @@ Combining the terms, we confirm our earlier expression:
 %
 $$\sigma_{i+n}^2 = (r^2+r_s^2)^n  \sigma_i^2$$
 
-\subsection{Python functions for calculating the percentile transition matrices}
+\subsection{Software}
+Available at \href{https://github.com/jessebmurray/polygenic}{github.com/jessebmurray/polygenic}
 
-\begin{verbatim}
-import numpy as np
-import scipy.stats as st
-import matplotlib.pyplot as plt
+%\ begin{verbatim}
 
-
-# Basic model functions
-
-def pdf(x_i, sigma_i=1, mu=0):
-    """Returns the pdf of X_i ~ Normal(mu, sigma_i^2)."""
-    return st.norm.pdf(x_i, scale=sigma_i, loc=mu)
-
-
-def stable_rs(r):
-    """Calculates r_s from r under stable population variance."""
-    return np.sqrt(1 - np.square(r))
-
-
-# Conditional descendent distribution
-
-def mu_tilda(x_i, r, n):
-    return (r**n)*x_i
-
-
-def sigma_tilda(sigma_i, r, rs, n):
-    return sigma_i * np.sqrt(
-            (np.square(r)+np.square(rs))**n - r**(2*n))
-
-
-# A (or D) vector
-
-
-def get_a_pers(n_subs):
-    return np.transpose(
-        np.array([np.linspace(0, 1, n_subs, endpoint=False),
-                     np.linspace(0, 1, n_subs, endpoint=False)+1/n_subs]))
-
-
-def convert_a_per(a_vec_per, sigma):
-    """Converts an a_vector of percentiles to the real line."""
-    return st.norm.ppf(a_vec_per, scale=sigma)
-
-
-def normalize_a(a_vec, x_i, sigma_i, r, rs, n):
-    """Takes in a converted a_vector (on the real line)."""
-    return (a_vec - np.reshape(mu_tilda(x_i, r, n), (-1, 1, 1))
-                       ) / sigma_tilda(sigma_i, r, rs, n)
-
-
-# State to set probability
-
-
-def state_set(a_vec, x_i, sigma_i, r, rs, n):
-    """For an n_subs by 2 a-vector, or 1 by 2 element thereof,
-    returns the state to set probability.
-    Requires the right element of each 1 by 2 a-vector element to be greater than the
-    left element (tested elsewhere)."""
-    return np.diff(
-        st.norm.cdf( # taking the transpose doesn't slow it down
-        normalize_a(a_vec, x_i, sigma_i, r, rs, n))).transpose()[0] * pdf(x_i)
-
-
-# Percentile transition matrix
-
-
-def get_matrix(r, rs, n=1, num_iters=100_000, low_round=5, 
-			n_subs0=5, n_subs1=5, sigma_i=1, return_raw=False):
-    sigma_n = np.sqrt((np.square(r) + np.square(rs))**n)*sigma_i
-
-    a_vec = convert_a_per(get_a_pers(n_subs=n_subs1), sigma=sigma_n)
-    # assert (np.diff(a_vec) > 0).all()
-
-    d_vec = convert_a_per(get_a_pers(n_subs=n_subs0), sigma=sigma_i)
-    d_vec[np.isneginf(d_vec)] = -1 * low_round
-    d_vec[np.isposinf(d_vec)] = low_round
-    d_lines = np.linspace(d_vec[:, 0], d_vec[:, 1], num=num_iters, axis=1)
-    # assert d_lines.shape == (d_vec.shape[0], num_iters)
-
-    matrix = np.zeros((a_vec.shape[0], d_vec.shape[0]))
-
-    for j in range(d_vec.shape[0]):
-        matrix[:, j] = np.trapz(state_set(
-                        a_vec, x_i=d_lines[j], sigma_i=sigma_i, r=r, rs=rs, n=n),
-                                d_lines[j])
-    # fails for low `num_iters`
-    # assert np.allclose(matrix.sum(axis=0), matrix.sum(axis=1))  
-    matrix /= matrix.sum(axis=0)
-    return matrix
-
-
-# Plot the percentile transition matrix
-
-
-def plot_ax(ax, matrix, i=0, j=0, title=None, title_loc='left', 
-x_label=True, child=False):
-    from matplotlib.ticker import PercentFormatter
-    ancestors = ['Parent', 'Grandparent', 'Great-Grandparent', 
-    		'Great-Great-Grandparent',
-                'Great$^3$-Grandparent', 'Great$^4$-Grandparent']
-    # ancestors = ['Generation {}'.format(i) for i in range(1, 20)]
-
-    if title:
-        ax.set_title(title, fontsize=17, loc=title_loc)
-    if matrix.shape[1] == 5:
-        step_labels = ['Bottom', 'Second', 'Third', 'Fourth', 'Top']
-        if x_label:
-            ax.set_xlabel('{}\'s Quintile'.format(ancestors[i]), fontsize=15)
-        else:
-            if j >= 4:
-                ax.set_xlabel('{}\'s Quintile'.format(ancestors[i]), fontsize=15)
-            else:
-                ax.set_xlabel(' '.format(ancestors[i]), fontsize=15)
-        # ax.set_xlabel("Generation {} Quintile".format(i+1), fontsize=15)
-        if j % 2 == 0:
-            if child:
-                ax.set_ylabel('Cumulative Probability of Child\'s Quintile', 
-                			fontsize=15)
-            else:
-                ax.set_ylabel('Cumulative Probability of Descendant\'s Quintile', 
-                			fontsize=15)
-    else:
-        step_labels = list(range(1, matrix.shape[1] + 1))
-
-    pal = ['#c6dbef', '#9ecae1', '#6baed6', '#4292c6', '#2171b5'][::-1]
-
-    ax.set_ylim(0, 1)
-    values_sum_list = [1] * matrix.shape[1]
-    for j in range(len(matrix) - 1, -1, -1):
-        if len(matrix) <= 5:
-            ax.bar(step_labels, [- value for value in matrix[j]], 
-            		bottom=values_sum_list, color=pal[j])
-        else:
-            ax.bar(step_labels, [- value for value in matrix[j]], bottom=values_sum_list)
-
-        for a, b, c in zip(step_labels, values_sum_list, [value for value in matrix[j]]):
-            if c >= 0.01:
-                num = (b - c / 2) - 0.018
-                color = 'w'
-                if j >= 2:
-                    color = 'k'
-                round_str = "{:0.0%}"
-                if i > 3:
-                    round_str = "{:0.1%}"
-                ax.text(a, num, ' ' + round_str.format(c), va='bottom', ha='center', 
-                		color=color, size=13, alpha=0.8)
-
-        for k in range(len(values_sum_list)):
-            values_sum_list[k] -= matrix[j][k]
-
-    ax.set_yticks(np.arange(0, 1.1, 0.1))
-    ax.set_xticklabels(step_labels, Fontsize=14)
-    ax.yaxis.set_major_formatter(PercentFormatter(1))
-
-
-# Handling data
-
-
-def get_percentiles(array):
-    """Convert data to percentiles"""
-    return st.rankdata(array) / array.size
-
-
-def get_matrix_data(x, y, n_subs0=5, n_subs1=5, return_raw=False):
-    """Obtains the observed percentile transition matrix from data"""
-    bins0 = np.linspace(0, 1, n_subs0, endpoint=False)
-    bins1 = np.linspace(0, 1, n_subs1, endpoint=False)
-
-    xb = np.digitize(get_percentiles(x), bins0)
-    yb = np.digitize(get_percentiles(y), bins1)
-
-    matrix = np.zeros((n_subs0, n_subs1))
-
-    for i in range(n_subs0):
-        desc = xb[yb == i + 1]
-        for j in range(n_subs1):
-            if return_raw:
-                matrix[j, i] = np.sum(desc == j + 1)
-            else:
-                matrix[j, i] = np.mean(desc == j + 1)
-
-    return matrix
-
-
-## Example of using the functions: producing the percentile transitions for 
-## different mobility measures
-
-import numpy as np
-import matplotlib.pyplot as plt
-import probability_kernels as pk
-
-# Create the parameters 
-
-mv = np.array([12, 6, 3, 2, 1.4, 1])
-m = mv.size
-
-rv = 1 / np.sqrt(mv**2 + 1)
-rsv = pk.stable_rs(rv)
-
-matrices_m = [None] * m
-
-# Create the matrices
-
-%%time 
-# ^ Jupyter notebook magic
-for i in range(m):
-    matrices_m[i] = pk.get_matrix(r=rv[i], rs=rsv[i], n=1, num_iters=1_000_000,
-    				low_round=6, n_subs0=5, n_subs1=5)
-				
-# CPU times: user 17 s, sys: 5.61 s, total: 22.6 s
-# Wall time: 22.7 s
-
-# There are `num_iters` number of iterations over the simulated 
-# integral for each probability calculation.
-# Therefore, 5*5*num_iters total for one quintile transition matrix. 
-# Here we make six matrices in 23 seconds. Therefore, about 
-# 6.5 million computations per second - due to vectorization. 
-
-
-# Plot the matrices
-
-fig, axes = plt.subplots(3, 2, figsize=(13*2*0.95*0.75, 8*3/0.95*0.75))
-
-for i in range(m):
-    pk.plot_ax(ax=axes.ravel()[i], matrix=matrices_m[i], i=0, j=i, 
-               title=pk.report_mobility(mv, rv, rsv, i), title_loc='center', 
-               x_label=False, child=True)
-
-plt.tight_layout()
-plt.savefig('latex/figures/quintile-mobility.png', dpi=300)
-plt.show()
-
-
-\end{verbatim}
+%\end{verbatim}
 
 % Distributed iid: \stackrel{iid}{\sim}
 

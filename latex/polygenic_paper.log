@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  3 MAR 2021 18:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  10 MAR 2021 13:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -196,6 +196,118 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@floatcapt=\box48
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/breakcites/breakcites.sty)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2020/01/14 v7.00d Hypertext links for LaTeX
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+\@linkdim=\dimen154
+\Hy@linkcounter=\count194
+\Hy@pagecounter=\count195
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2020/01/14 v7.00d Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count196
+Package hyperref Info: Hyper figures OFF on input line 4547.
+Package hyperref Info: Link nesting OFF on input line 4552.
+Package hyperref Info: Hyper index ON on input line 4555.
+Package hyperref Info: Plain pages OFF on input line 4562.
+Package hyperref Info: Backreferencing OFF on input line 4567.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4800.
+\c@Hy@tempcnt=\count197
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5159.
+\XeTeXLinkMargin=\dimen155
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count198
+\Field@Width=\dimen156
+\Fld@charsize=\dimen157
+Package hyperref Info: Hyper figures OFF on input line 6430.
+Package hyperref Info: Link nesting OFF on input line 6435.
+Package hyperref Info: Hyper index ON on input line 6438.
+Package hyperref Info: backreferencing OFF on input line 6445.
+Package hyperref Info: Link coloring OFF on input line 6450.
+Package hyperref Info: Link coloring with OCG OFF on input line 6455.
+Package hyperref Info: PDF/A mode OFF on input line 6460.
+LaTeX Info: Redefining \ref on input line 6500.
+LaTeX Info: Redefining \pageref on input line 6504.
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/atbegshi/atbegshi.sty
+Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
+)
+\Hy@abspage=\count199
+\c@Item=\count266
+\c@Hfootnote=\count267
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2020/01/14 v7.00d Hyperref driver for pdfTeX
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/atveryend/atveryend.sty
+Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
+)
+\Fld@listcount=\count268
+\c@bookmark@seq@number=\count269
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+)
+\Hy@SectionHShift=\skip52
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/oberdiek/hypcap.sty
+Package: hypcap 2016/05/16 v1.12 Adjusting the anchors of captions (HO)
+)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/tocbibind/tocbibind.sty
 Package: tocbibind 2010/10/13 v1.5k extra ToC listings
 Package tocbibind Info: The document has section divisions on input line 50.
@@ -205,26 +317,28 @@ Package tocbibind Note: Using section or other style headings.
 
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count194
+\l__kernel_color_stack_int=\count270
 \l__pdf_internal_box=\box49
 ) (./polygenic_paper.aux)
 \openout1 = `polygenic_paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 32
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 34
 .
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/t1ptm.fd
@@ -232,34 +346,22 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count195
-\scratchdimen=\dimen154
+\scratchcounter=\count271
+\scratchdimen=\dimen158
 \scratchbox=\box50
-\nofMPsegments=\count196
-\nofMParguments=\count197
+\nofMPsegments=\count272
+\nofMParguments=\count273
 \everyMPshowfont=\toks26
-\MPscratchCnt=\count198
-\MPscratchDim=\dimen155
-\MPnumerator=\count199
-\makeMPintoPDFobject=\count266
+\MPscratchCnt=\count274
+\MPscratchDim=\dimen159
+\MPnumerator=\count275
+\makeMPintoPDFobject=\count276
 \everyMPtoPDFconversion=\toks27
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 
-(/usr/local/texlive/2020/texmf-dist/tex/generic/infwarerr/infwarerr.sty
-Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/grfext/grfext.sty
 Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-
-(/usr/local/texlive/2020/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
-Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-)) (/usr/local/texlive/2020/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
-)
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
 )
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
@@ -310,31 +412,57 @@ tim
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 33
+\AtBeginShipoutBox=\box51
+Package hyperref Info: Link coloring OFF on input line 34.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count277
+)
+LaTeX Info: Redefining \ref on input line 34.
+LaTeX Info: Redefining \pageref on input line 34.
+LaTeX Info: Redefining \nameref on input line 34.
+ (./polygenic_paper.out) (./polygenic_paper.out)
+\@outlinefile=\write3
+\openout3 = `polygenic_paper.out'.
+
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 36
 .
+
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 33.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 36.
 
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 33.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 36.
 
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+
+Package hyperref Warning: Ignoring empty anchor on input line 46.
+
+[1
 
 {/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (./polygenic_paper.toc)
-\tf@toc=\write3
-\openout3 = `polygenic_paper.toc'.
+\tf@toc=\write4
+\openout4 = `polygenic_paper.toc'.
 
  [2]
-Overfull \hbox (8.7703pt too wide) in paragraph at lines 70--71
+Overfull \hbox (8.7703pt too wide) in paragraph at lines 72--73
 \T1/ptm/m/n/10.95 A Markov pro-cess is pro-posed that seeks to pro-vide a ba-si
 c model for the multi-generational
  []
@@ -342,26 +470,26 @@ c model for the multi-generational
 [3
 
 ] [4] [5] [6] [7]
-Overfull \hbox (1.13864pt too wide) in paragraph at lines 224--225
+Overfull \hbox (1.13864pt too wide) in paragraph at lines 226--227
 \T1/ptm/m/n/10.95 The con-di-tional dis-tri-bu-tion of a de-scen-dant's score, 
 given its an-ces-tor's score $\OML/cmm/m/it/10.95 X[]\OMS/cmsy/m/n/10.95 j\OML/
 cmm/m/it/10.95 X[] \OMS/cmsy/m/n/10.95 ^^X
  []
 
 [8] [9]
-<figures/possible_r_rs.png, id=45, 361.35pt x 361.35pt>
+<figures/possible_r_rs.png, id=268, 361.35pt x 361.35pt>
 File: figures/possible_r_rs.png Graphic file (type png)
 <use figures/possible_r_rs.png>
-Package pdftex.def Info: figures/possible_r_rs.png  used on input line 258.
+Package pdftex.def Info: figures/possible_r_rs.png  used on input line 260.
 (pdftex.def)             Requested size: 216.81pt x 216.81168pt.
  [10 <./figures/possible_r_rs.png>]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
-04.
+06.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [11] [12]
-Overfull \hbox (6.34375pt too wide) in paragraph at lines 359--360
+Overfull \hbox (6.34375pt too wide) in paragraph at lines 361--362
 \T1/ptm/m/n/10.95 is nor-mally dis-tributed with the fol-low-ing ex-pres-sions 
 for $\OT1/cmr/m/n/10.95 E(\OML/cmm/m/it/10.95 X[]\OMS/cmsy/m/n/10.95 j\OML/cmm/
 m/it/10.95 X[]\OT1/cmr/m/n/10.95 )$ \T1/ptm/m/n/10.95 and $[]\OT1/cmr/m/n/10.95
@@ -370,53 +498,53 @@ m/it/10.95 X[]\OT1/cmr/m/n/10.95 )$ \T1/ptm/m/n/10.95 and $[]\OT1/cmr/m/n/10.95
  []
 
 [13]
-Overfull \hbox (6.61363pt too wide) in paragraph at lines 394--395
+Overfull \hbox (6.61363pt too wide) in paragraph at lines 396--397
 \T1/ptm/m/n/10.95 The con-di-tional dis-tri-bu-tion of an an-ces-tor's score, g
 iven its de-scen-dant's score $\OML/cmm/m/it/10.95 X[]\OMS/cmsy/m/n/10.95 j\OML
 /cmm/m/it/10.95 X[] \OMS/cmsy/m/n/10.95 ^^X
  []
 
 [14] [15]
-Overfull \hbox (2.79266pt too wide) in paragraph at lines 471--472
+Overfull \hbox (2.79266pt too wide) in paragraph at lines 473--474
 []\T1/ptm/m/n/10.95 The mean resid-ual val-ues were fairly con-stant over the r
 ange of mid-parental heights,
  []
 
 [16] [17]
-<figures/pearson-lee-mother-daughter-qq_parents.png, id=73, 361.35pt x 361.35pt
->
+<figures/pearson-lee-mother-daughter-qq_parents.png, id=334, 361.35pt x 361.35p
+t>
 File: figures/pearson-lee-mother-daughter-qq_parents.png Graphic file (type png
 )
 <use figures/pearson-lee-mother-daughter-qq_parents.png>
 Package pdftex.def Info: figures/pearson-lee-mother-daughter-qq_parents.png  us
-ed on input line 506.
+ed on input line 508.
 (pdftex.def)             Requested size: 216.81pt x 216.81168pt.
-<figures/pearson-lee-mother-daughter-qq_residuals.png, id=74, 361.35pt x 361.35
-pt>
+<figures/pearson-lee-mother-daughter-qq_residuals.png, id=337, 361.35pt x 361.3
+5pt>
 File: figures/pearson-lee-mother-daughter-qq_residuals.png Graphic file (type p
 ng)
 <use figures/pearson-lee-mother-daughter-qq_residuals.png>
 Package pdftex.def Info: figures/pearson-lee-mother-daughter-qq_residuals.png  
-used on input line 523.
+used on input line 525.
 (pdftex.def)             Requested size: 216.81pt x 216.81168pt.
-<figures/pearson-lee-mother-daughter-residuals_by_parent.png, id=75, 361.35pt x
- 289.08pt>
+<figures/pearson-lee-mother-daughter-residuals_by_parent.png, id=338, 361.35pt 
+x 289.08pt>
 File: figures/pearson-lee-mother-daughter-residuals_by_parent.png Graphic file 
 (type png)
 <use figures/pearson-lee-mother-daughter-residuals_by_parent.png>
 Package pdftex.def Info: figures/pearson-lee-mother-daughter-residuals_by_paren
-t.png  used on input line 532.
+t.png  used on input line 534.
 (pdftex.def)             Requested size: 216.81pt x 173.44933pt.
  [18 <./figures/pearson-lee-mother-daughter-qq_parents.png>] [19 <./figures/pea
 rson-lee-mother-daughter-qq_residuals.png> <./figures/pearson-lee-mother-daught
 er-residuals_by_parent.png>] [20]
-Overfull \hbox (0.82199pt too wide) in paragraph at lines 563--564
+Overfull \hbox (0.82199pt too wide) in paragraph at lines 565--566
 \T1/ptm/m/n/10.95 We have pre-vi-ously shown that con-ver-gence of the con-di-t
 ional dis-tri-bu-tion to the marginal
  []
 
 [21] [22] [23]
-Overfull \hbox (22.32773pt too wide) in paragraph at lines 659--661
+Overfull \hbox (22.32773pt too wide) in paragraph at lines 661--663
 \T1/ptm/m/n/10.95 Where the no-ta-tion im-plies a con-ver-sion to real num-bers
  of the form: $\OML/cmm/m/it/10.95 P[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 F
 []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Q[]\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/
@@ -425,41 +553,41 @@ ptm/m/n/10.95 .
  []
 
 [24] [25] [26]
-<figures/quintile-pearson.png, id=108, 669.2202pt x 1369.2756pt>
+<figures/quintile-pearson.png, id=409, 669.2202pt x 1369.2756pt>
 File: figures/quintile-pearson.png Graphic file (type png)
 <use figures/quintile-pearson.png>
-Package pdftex.def Info: figures/quintile-pearson.png  used on input line 745.
+Package pdftex.def Info: figures/quintile-pearson.png  used on input line 747.
 (pdftex.def)             Requested size: 252.94499pt x 517.55132pt.
  [27] [28 <./figures/quintile-pearson.png>]
-<figures/quintile-r=0.5-stable.png, id=116, 1338.6813pt x 1369.2756pt>
+<figures/quintile-r=0.5-stable.png, id=423, 1338.6813pt x 1369.2756pt>
 File: figures/quintile-r=0.5-stable.png Graphic file (type png)
 <use figures/quintile-r=0.5-stable.png>
 Package pdftex.def Info: figures/quintile-r=0.5-stable.png  used on input line 
-756.
+758.
 (pdftex.def)             Requested size: 469.75499pt x 480.48636pt.
 
-Overfull \hbox (39.7196pt too wide) in paragraph at lines 756--757
+Overfull \hbox (39.7196pt too wide) in paragraph at lines 758--759
  [][] 
  []
 
 [29]
-<figures/quintile-mobility.png, id=120, 1338.6813pt x 1369.2756pt>
+<figures/quintile-mobility.png, id=430, 1338.6813pt x 1369.2756pt>
 File: figures/quintile-mobility.png Graphic file (type png)
 <use figures/quintile-mobility.png>
-Package pdftex.def Info: figures/quintile-mobility.png  used on input line 768.
+Package pdftex.def Info: figures/quintile-mobility.png  used on input line 770.
 
 (pdftex.def)             Requested size: 469.75499pt x 480.48636pt.
 
-Overfull \hbox (39.7196pt too wide) in paragraph at lines 768--769
+Overfull \hbox (39.7196pt too wide) in paragraph at lines 770--771
  [][] 
  []
 
 [30 <./figures/quintile-r=0.5-stable.png>] [31 <./figures/quintile-mobility.png
 >]
-<figures/quintile-chetty.png, id=130, 669.2202pt x 456.2646pt>
+<figures/quintile-chetty.png, id=453, 669.2202pt x 456.2646pt>
 File: figures/quintile-chetty.png Graphic file (type png)
 <use figures/quintile-chetty.png>
-Package pdftex.def Info: figures/quintile-chetty.png  used on input line 785.
+Package pdftex.def Info: figures/quintile-chetty.png  used on input line 787.
 (pdftex.def)             Requested size: 252.94499pt x 172.45639pt.
  [32 <./figures/quintile-chetty.png>] [33] [34] [35] [36]
 (./polygenic_paper.bbl
@@ -470,150 +598,44 @@ Underfull \hbox (badness 2351) in paragraph at lines 26--30
 [37
 
 ]) [38]
-LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 87
-5.
- (/usr/local/texlive/2020/texmf-dist/tex/latex/inconsolata/t1zi4.fd
-File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
-)
-LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 875.
-
-[39
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 884.
+ [39
 
 ]
-Overfull \hbox (43.95558pt too wide) in paragraph at lines 1107--1107
-[]    \T1/zi4/m/n/10.95 Requires the right element of each 1 by 2 a-vector elem
-ent to be greater than the[] 
- []
-
-LaTeX Font Info:    Trying to load font information for TS1+zi4 on input line 1
-107.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/inconsolata/ts1zi4.fd
-File: ts1zi4.fd 2018/01/14 TS1/zi4 (Inconsolata)
-)
-LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 1107.
-
-Overfull \hbox (12.94553pt too wide) in paragraph at lines 1107--1107
-[]        \T1/zi4/m/n/10.95 normalize_a(a_vec, x_i, sigma_i, r, rs, n))).transp
-ose()[0] * pdf(x_i)[] 
- []
-
-[40]
-Overfull \hbox (3.76842pt too wide) in paragraph at lines 1107--1107
-[]                        \T1/zi4/m/n/10.95 a_vec, x_i=d_lines[j], sigma_i=sigm
-a_i, r=r, rs=rs, n=n),[] 
- []
-
-Package textcomp Info: Symbol \textasciigrave not provided by
-(textcomp)             font family zi4 in TS1 encoding.
-(textcomp)             Default family used instead on input line 1107.
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
-107.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)
-LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
-1107.
-
-(/usr/local/texlive/2020/texmf-dist/tex/latex/base/ts1cmtt.fd
-File: ts1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)
-Package textcomp Info: Symbol \textasciigrave not provided by
-(textcomp)             font family zi4 in TS1 encoding.
-(textcomp)             Default family used instead on input line 1107.
-
-Overfull \hbox (9.29926pt too wide) in paragraph at lines 1107--1107
-[]            \T1/zi4/m/n/10.95 ax.set_xlabel(\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/1
-0.95 {}\\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/10.95 s Quintile\TS1/zi4/m/n/10.95 '\T1
-/zi4/m/n/10.95 .format(ancestors[i]), fontsize=15)[] 
- []
-
-
-Overfull \hbox (23.88434pt too wide) in paragraph at lines 1107--1107
-[]                \T1/zi4/m/n/10.95 ax.set_xlabel(\TS1/zi4/m/n/10.95 '\T1/zi4/m
-/n/10.95 {}\\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/10.95 s Quintile\TS1/zi4/m/n/10.95 
-'\T1/zi4/m/n/10.95 .format(ancestors[i]), fontsize=15)[] 
- []
-
-
-Overfull \hbox (20.2269pt too wide) in paragraph at lines 1107--1107
-[]                \T1/zi4/m/n/10.95 ax.set_ylabel(\TS1/zi4/m/n/10.95 '\T1/zi4/m
-/n/10.95 Cumulative Probability of Descendant\\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/1
-0.95 s Quintile\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/10.95 ,[] 
- []
-
-[41]
-Overfull \hbox (65.85555pt too wide) in paragraph at lines 1107--1107
-[]            \T1/zi4/m/n/10.95 ax.bar(step_labels, [- value for value in matri
-x[j]], bottom=values_sum_list)[] 
- []
-
-
-Overfull \hbox (65.85555pt too wide) in paragraph at lines 1107--1107
-[]        \T1/zi4/m/n/10.95 for a, b, c in zip(step_labels, values_sum_list, [v
-alue for value in matrix[j]]):[] 
- []
-
-
-Overfull \hbox (31.16571pt too wide) in paragraph at lines 1107--1107
-[]                \T1/zi4/m/n/10.95 ax.text(a, num, \TS1/zi4/m/n/10.95 ' ' \T1/
-zi4/m/n/10.95 + round_str.format(c), va=\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/10.95 b
-ottom\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/10.95 , ha=\TS1/zi4/m/n/10.95 '\T1/zi4/m/n
-/10.95 center\TS1/zi4/m/n/10.95 '\T1/zi4/m/n/10.95 ,[] 
- []
-
-[42]
-Overfull \hbox (5.66415pt too wide) in paragraph at lines 1107--1107
-[]\T1/zi4/m/n/10.95 ## Example of using the functions: producing the percentile
- transitions for[] 
- []
-
-
-Overfull \hbox (29.39284pt too wide) in paragraph at lines 1107--1107
-[]    \T1/zi4/m/n/10.95 matrices_m[i] = pk.get_matrix(r=rv[i], rs=rsv[i], n=1, 
-num_iters=1_000_000,[] 
- []
-
-Package textcomp Info: Symbol \textasciigrave not provided by
-(textcomp)             font family zi4 in TS1 encoding.
-(textcomp)             Default family used instead on input line 1107.
-Package textcomp Info: Symbol \textasciigrave not provided by
-(textcomp)             font family zi4 in TS1 encoding.
-(textcomp)             Default family used instead on input line 1107.
-[43] [44] (./polygenic_paper.aux) ) 
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 884.
+ (./polygenic_paper.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 884.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 884.
+Package rerunfilecheck Info: File `polygenic_paper.out' has not changed.
+(rerunfilecheck)             Checksum: C2D437C240A0E314FC171AE02D4184F4;2687.
+ ) 
 Here is how much of TeX's memory you used:
- 4496 strings out of 480608
- 63406 string characters out of 5903631
- 308384 words of memory out of 5000000
- 20240 multiletter control sequences out of 15000+600000
- 570756 words of font info for 88 fonts, out of 8000000 for 9000
+ 8181 strings out of 480608
+ 119889 string characters out of 5903631
+ 389778 words of memory out of 5000000
+ 23700 multiletter control sequences out of 15000+600000
+ 569547 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,9n,40p,2482b,279s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2020/texmf-dist/fonts/en
-c/dvips/cm-super/cm-super-ts1.enc}{/usr/local/texlive/2020/texmf-dist/fonts/enc
-/dvips/inconsolata/i4-ts1.enc}{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvi
-ps/inconsolata/i4-t1-0.enc}{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/
-base/8r.enc}</usr/local/texlive/2020/texmf-dist/fonts/type1/public/inconsolata/
-Inconsolata-zi4r.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmex10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmmi10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi6.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmi8.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr6.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r8.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
-0.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.
-pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pf
-b></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm1
-0.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sftt1095.
-pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/
-local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texl
-ive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on polygenic_paper.pdf (44 pages, 3432892 bytes).
+ 34i,9n,40p,2482b,449s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
+xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
+live/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texli
+ve/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive
+/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2
+020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2020
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2020/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2020/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2020/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2020/texmf-d
+ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2020/tex
+mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/fo
+nts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/
+urw/times/utmri8a.pfb>
+Output written on polygenic_paper.pdf (39 pages, 3399577 bytes).
 PDF statistics:
- 235 PDF objects out of 1000 (max. 8388607)
- 155 compressed objects within 2 object streams
- 0 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 598 PDF objects out of 1000 (max. 8388607)
+ 519 compressed objects within 6 object streams
+ 160 named destinations out of 1000 (max. 500000)
+ 313 words of extra memory for PDF output out of 10000 (max. 10000000)
 

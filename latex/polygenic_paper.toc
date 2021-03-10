@@ -1,34 +1,34 @@
-\contentsline {section}{\numberline {1}Introduction and formulation of the model}{3}%
-\contentsline {subsection}{\numberline {1.1}Analogy to polygenic inheritance}{3}%
-\contentsline {subsection}{\numberline {1.2}Markov process model of inheritance}{3}%
-\contentsline {subsubsection}{\numberline {1.2.1}Brief and complete description of the process}{4}%
-\contentsline {subsection}{\numberline {1.3}Estimation of parameters through the normal linear model}{5}%
-\contentsline {subsection}{\numberline {1.4}Summary of assumptions and limitations}{6}%
-\contentsline {section}{\numberline {2}Properties of the model}{7}%
-\contentsline {subsection}{\numberline {2.1}Marginal population distribution}{7}%
-\contentsline {subsection}{\numberline {2.2}Covariance and correlation}{7}%
-\contentsline {subsection}{\numberline {2.3}Conditional descendant distribution}{8}%
-\contentsline {subsection}{\numberline {2.4}Exponential convergence of the conditional descendant distribution}{9}%
-\contentsline {subsection}{\numberline {2.5}Population variance dynamics}{11}%
-\contentsline {subsection}{\numberline {2.6}Stationary distribution}{12}%
-\contentsline {subsection}{\numberline {2.7}Conditional ancestor distribution}{13}%
-\contentsline {subsection}{\numberline {2.8}Exponential convergence of the conditional ancestor distribution}{14}%
-\contentsline {section}{\numberline {3}Application to human stature}{16}%
-\contentsline {subsection}{\numberline {3.1}Large population-based study}{16}%
-\contentsline {subsection}{\numberline {3.2}Pearson dataset}{17}%
-\contentsline {section}{\numberline {4}Mobility and information-loss}{20}%
-\contentsline {subsection}{\numberline {4.1}Mobility as the rate of convergence to the marginal distribution}{20}%
-\contentsline {subsection}{\numberline {4.2}Proposed measure}{21}%
-\contentsline {subsection}{\numberline {4.3}Mobility under limiting cases}{21}%
-\contentsline {section}{\numberline {5}Probability kernels}{23}%
-\contentsline {subsection}{\numberline {5.1}State to set, and set to set probabilities}{23}%
-\contentsline {subsection}{\numberline {5.2}Attributable and destined probabilities}{24}%
-\contentsline {subsection}{\numberline {5.3}Percentile transition matrices}{25}%
-\contentsline {subsection}{\numberline {5.4}Visualizations of percentile transition matrices}{26}%
-\contentsline {section}{\numberline {6}Discussion}{33}%
-\contentsline {subsection}{\numberline {6.1}Summary of the model and its important properties}{33}%
-\contentsline {subsection}{\numberline {6.2}Use cases of the model}{35}%
-\contentsline {section}{\numberline {7}References}{37}%
-\contentsline {section}{\numberline {8}Appendix}{39}%
-\contentsline {subsection}{\numberline {8.1}Further mathematical checks}{39}%
-\contentsline {subsection}{\numberline {8.2}Python functions for calculating the percentile transition matrices}{39}%
+\contentsline {section}{\numberline {1}Introduction and formulation of the model}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Analogy to polygenic inheritance}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Markov process model of inheritance}{3}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Brief and complete description of the process}{4}{subsubsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.3}Estimation of parameters through the normal linear model}{5}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Summary of assumptions and limitations}{6}{subsection.1.4}%
+\contentsline {section}{\numberline {2}Properties of the model}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Marginal population distribution}{7}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Covariance and correlation}{7}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Conditional descendant distribution}{8}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Exponential convergence of the conditional descendant distribution}{9}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Population variance dynamics}{11}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Stationary distribution}{12}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Conditional ancestor distribution}{13}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}Exponential convergence of the conditional ancestor distribution}{14}{subsection.2.8}%
+\contentsline {section}{\numberline {3}Application to human stature}{16}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Large population-based study}{16}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Pearson dataset}{17}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Mobility and information-loss}{20}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Mobility as the rate of convergence to the marginal distribution}{20}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Proposed measure}{21}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Mobility under limiting cases}{21}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Probability kernels}{23}{section.5}%
+\contentsline {subsection}{\numberline {5.1}State to set, and set to set probabilities}{23}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Attributable and destined probabilities}{24}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Percentile transition matrices}{25}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Visualizations of percentile transition matrices}{26}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Discussion}{33}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Summary of the model and its important properties}{33}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Use cases of the model}{35}{subsection.6.2}%
+\contentsline {section}{\numberline {7}References}{37}{section.7}%
+\contentsline {section}{\numberline {8}Appendix}{39}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Further mathematical checks}{39}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Software}{39}{subsection.8.2}%
