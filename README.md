@@ -6,7 +6,15 @@ Paper: [Normal linear Markov model with applications to polygenic inheritance](h
 
 This paper has been accepted at [Statistics 2021 Canada, 6th Canadian Conference in Applied Statistics](https://www.concordia.ca/artsci/events/statistics-2021.html) (Contributed Papers Session 1), which is one of the [Meetings of the Institute of Mathematical Statistics](https://imstat.org/meetings-calendar/).
 
+---
 
+#### Jupyter notebooks
+
+Often, `.ipynb` files take a while to load on GitHub, instead, *please use the following links to browse the main Jupyter notebooks*.
+
+* [probability-kernels](jessebmurray.github.io/polygenic/probability-kernels.html)
+* [pearson-lee-mother-daughter](jessebmurray.github.io/polygenic/pearson-lee-mother-daughter.html)
+* [pearson-lee-mother-daughter](jessebmurray.github.io/polygenic/pearson-lee-mother-daughter.html)
 
 ---
 
