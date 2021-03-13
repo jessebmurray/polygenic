@@ -73,13 +73,14 @@ A Markov process is proposed that seeks to provide a basic model for the multi-g
 
 \begin{description}
 \item [Convention] Let $Z$ refer to a generic standard normal $Z \sim \mathcal{N}(0, 1)$. The mentions of $Z$ throughout the text are used for explanatory purposes and they can be assumed to be unassociated with one another unless specified otherwise.
-\item [Convention] Let the tilde symbol, e.g. $\tilde{\mu}_{i+n} \equiv \mathrm{E}(X_{i+n}|X_i)$, denote conditional parameters, such as conditional expectation and variance, that describe an upward or downward (conditional) transition distribution.
+\item [Convention] Let the tilde symbol, e.g. $\tilde{\mu}_{i+n} \equiv \mathrm{E}(X_{i+n}|X_i)$, denote conditional parameters, such as conditional expectation and variance, that describe an upward or downward (conditional) transition distribution. That is, $\tilde{\mu}_{i+n}$ and $\tilde{\sigma}_{i+n}$ is the conditional expectation and standard deviation (SD), respectively, of state $X_{i+n}$ given state $X_i$. 
+\item [Convention] Let the parameters $\mu_i$ and $\sigma_i$ be the expectation and SD, respectively, of the marginal (population) distribution of state $X_i$. 
 \end{description}
 
 The proposed Markov process can be entirely derived from: (1.) the initial condition and (2.) the one-step downward transition. 
 
 \begin{enumerate}
-\item The initial score is drawn from a standard normal distribution representing the scores of the initial generation: $X_0 \sim \mathcal{N}(0, 1)$. A normally distributed univariate polygenic trait can be standardized to meet this condition. 
+\item The initial score is drawn from a standard normal distribution representing the scores of the initial generation: $X_0 \sim \mathcal{N}(0, 1)$. That is, $\mu_0 = 0$ and $\sigma_0 = 1$. A normally distributed univariate polygenic trait can be standardized to meet this condition. 
 
 \item The conditional one-step downward transition, i.e., the score of a child, given the score of its parent, is also drawn from a normal distribution: $X_{i+1}|X_i \sim \mathcal{N}(\tilde{\mu}_{i+1}, \tilde{\sigma}_{i+1}^2)$.
 $$X_{i+1}|X_i = \tilde{\mu}_{i+1} + \tilde{\sigma}_{i+1} Z$$ 
@@ -88,7 +89,7 @@ $$X_{i+1}|X_i = \tilde{\mu}_{i+1} + \tilde{\sigma}_{i+1} Z$$
 \item A child's score is proportional to the score of its parent, which is scaled by $r$ -- the \emph{regression coefficient}. In order for there to be regression towards the population mean, we require $0 < r < 1$. 
 $$\tilde{\mu}_{i+1} = rX_i$$
 
-\item While the expected child's score can be calculated from the score of its parent, there is a normally distributed residual about the expected child score that has a standard deviation (SD) equal to the marginal SD of the parent generation scaled by $r_s$ -- the \emph{residual coefficient}. For the residual SD to be positive and a degenerate normal distribution avoided, we require $r_s > 0$.
+\item While the expected child's score can be calculated from the score of its parent, there is a normally distributed residual about the expected child score that has a SD equal to the marginal SD of the parent generation ($\sigma_i$) scaled by $r_s$ -- the \emph{residual coefficient}. For the residual SD to be positive and a degenerate normal distribution avoided, we require $r_s > 0$.
 $$\tilde{\sigma}_{i+1} = r_s \sigma_i$$
 \end{enumerate}
 \end{enumerate}

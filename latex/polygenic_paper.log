@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  10 MAR 2021 13:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 MAR 2021 15:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -470,7 +470,7 @@ c model for the multi-generational
 [3
 
 ] [4] [5] [6] [7]
-Overfull \hbox (1.13864pt too wide) in paragraph at lines 226--227
+Overfull \hbox (1.13864pt too wide) in paragraph at lines 227--228
 \T1/ptm/m/n/10.95 The con-di-tional dis-tri-bu-tion of a de-scen-dant's score, 
 given its an-ces-tor's score $\OML/cmm/m/it/10.95 X[]\OMS/cmsy/m/n/10.95 j\OML/
 cmm/m/it/10.95 X[] \OMS/cmsy/m/n/10.95 ^^X
@@ -480,16 +480,16 @@ cmm/m/it/10.95 X[] \OMS/cmsy/m/n/10.95 ^^X
 <figures/possible_r_rs.png, id=268, 361.35pt x 361.35pt>
 File: figures/possible_r_rs.png Graphic file (type png)
 <use figures/possible_r_rs.png>
-Package pdftex.def Info: figures/possible_r_rs.png  used on input line 260.
+Package pdftex.def Info: figures/possible_r_rs.png  used on input line 261.
 (pdftex.def)             Requested size: 216.81pt x 216.81168pt.
  [10 <./figures/possible_r_rs.png>]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
-06.
+07.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [11] [12]
-Overfull \hbox (6.34375pt too wide) in paragraph at lines 361--362
+Overfull \hbox (6.34375pt too wide) in paragraph at lines 362--363
 \T1/ptm/m/n/10.95 is nor-mally dis-tributed with the fol-low-ing ex-pres-sions 
 for $\OT1/cmr/m/n/10.95 E(\OML/cmm/m/it/10.95 X[]\OMS/cmsy/m/n/10.95 j\OML/cmm/
 m/it/10.95 X[]\OT1/cmr/m/n/10.95 )$ \T1/ptm/m/n/10.95 and $[]\OT1/cmr/m/n/10.95
@@ -498,14 +498,14 @@ m/it/10.95 X[]\OT1/cmr/m/n/10.95 )$ \T1/ptm/m/n/10.95 and $[]\OT1/cmr/m/n/10.95
  []
 
 [13]
-Overfull \hbox (6.61363pt too wide) in paragraph at lines 396--397
+Overfull \hbox (6.61363pt too wide) in paragraph at lines 397--398
 \T1/ptm/m/n/10.95 The con-di-tional dis-tri-bu-tion of an an-ces-tor's score, g
 iven its de-scen-dant's score $\OML/cmm/m/it/10.95 X[]\OMS/cmsy/m/n/10.95 j\OML
 /cmm/m/it/10.95 X[] \OMS/cmsy/m/n/10.95 ^^X
  []
 
 [14] [15]
-Overfull \hbox (2.79266pt too wide) in paragraph at lines 473--474
+Overfull \hbox (2.79266pt too wide) in paragraph at lines 474--475
 []\T1/ptm/m/n/10.95 The mean resid-ual val-ues were fairly con-stant over the r
 ange of mid-parental heights,
  []
@@ -517,7 +517,7 @@ File: figures/pearson-lee-mother-daughter-qq_parents.png Graphic file (type png
 )
 <use figures/pearson-lee-mother-daughter-qq_parents.png>
 Package pdftex.def Info: figures/pearson-lee-mother-daughter-qq_parents.png  us
-ed on input line 508.
+ed on input line 509.
 (pdftex.def)             Requested size: 216.81pt x 216.81168pt.
 <figures/pearson-lee-mother-daughter-qq_residuals.png, id=337, 361.35pt x 361.3
 5pt>
@@ -525,7 +525,7 @@ File: figures/pearson-lee-mother-daughter-qq_residuals.png Graphic file (type p
 ng)
 <use figures/pearson-lee-mother-daughter-qq_residuals.png>
 Package pdftex.def Info: figures/pearson-lee-mother-daughter-qq_residuals.png  
-used on input line 525.
+used on input line 526.
 (pdftex.def)             Requested size: 216.81pt x 216.81168pt.
 <figures/pearson-lee-mother-daughter-residuals_by_parent.png, id=338, 361.35pt 
 x 289.08pt>
@@ -533,18 +533,18 @@ File: figures/pearson-lee-mother-daughter-residuals_by_parent.png Graphic file
 (type png)
 <use figures/pearson-lee-mother-daughter-residuals_by_parent.png>
 Package pdftex.def Info: figures/pearson-lee-mother-daughter-residuals_by_paren
-t.png  used on input line 534.
+t.png  used on input line 535.
 (pdftex.def)             Requested size: 216.81pt x 173.44933pt.
  [18 <./figures/pearson-lee-mother-daughter-qq_parents.png>] [19 <./figures/pea
 rson-lee-mother-daughter-qq_residuals.png> <./figures/pearson-lee-mother-daught
 er-residuals_by_parent.png>] [20]
-Overfull \hbox (0.82199pt too wide) in paragraph at lines 565--566
+Overfull \hbox (0.82199pt too wide) in paragraph at lines 566--567
 \T1/ptm/m/n/10.95 We have pre-vi-ously shown that con-ver-gence of the con-di-t
 ional dis-tri-bu-tion to the marginal
  []
 
 [21] [22] [23]
-Overfull \hbox (22.32773pt too wide) in paragraph at lines 661--663
+Overfull \hbox (22.32773pt too wide) in paragraph at lines 662--664
 \T1/ptm/m/n/10.95 Where the no-ta-tion im-plies a con-ver-sion to real num-bers
  of the form: $\OML/cmm/m/it/10.95 P[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 F
 []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Q[]\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/
@@ -556,17 +556,17 @@ ptm/m/n/10.95 .
 <figures/quintile-pearson.png, id=409, 669.2202pt x 1369.2756pt>
 File: figures/quintile-pearson.png Graphic file (type png)
 <use figures/quintile-pearson.png>
-Package pdftex.def Info: figures/quintile-pearson.png  used on input line 747.
+Package pdftex.def Info: figures/quintile-pearson.png  used on input line 748.
 (pdftex.def)             Requested size: 252.94499pt x 517.55132pt.
  [27] [28 <./figures/quintile-pearson.png>]
 <figures/quintile-r=0.5-stable.png, id=423, 1338.6813pt x 1369.2756pt>
 File: figures/quintile-r=0.5-stable.png Graphic file (type png)
 <use figures/quintile-r=0.5-stable.png>
 Package pdftex.def Info: figures/quintile-r=0.5-stable.png  used on input line 
-758.
+759.
 (pdftex.def)             Requested size: 469.75499pt x 480.48636pt.
 
-Overfull \hbox (39.7196pt too wide) in paragraph at lines 758--759
+Overfull \hbox (39.7196pt too wide) in paragraph at lines 759--760
  [][] 
  []
 
@@ -574,11 +574,11 @@ Overfull \hbox (39.7196pt too wide) in paragraph at lines 758--759
 <figures/quintile-mobility.png, id=430, 1338.6813pt x 1369.2756pt>
 File: figures/quintile-mobility.png Graphic file (type png)
 <use figures/quintile-mobility.png>
-Package pdftex.def Info: figures/quintile-mobility.png  used on input line 770.
+Package pdftex.def Info: figures/quintile-mobility.png  used on input line 771.
 
 (pdftex.def)             Requested size: 469.75499pt x 480.48636pt.
 
-Overfull \hbox (39.7196pt too wide) in paragraph at lines 770--771
+Overfull \hbox (39.7196pt too wide) in paragraph at lines 771--772
  [][] 
  []
 
@@ -587,7 +587,7 @@ Overfull \hbox (39.7196pt too wide) in paragraph at lines 770--771
 <figures/quintile-chetty.png, id=453, 669.2202pt x 456.2646pt>
 File: figures/quintile-chetty.png Graphic file (type png)
 <use figures/quintile-chetty.png>
-Package pdftex.def Info: figures/quintile-chetty.png  used on input line 787.
+Package pdftex.def Info: figures/quintile-chetty.png  used on input line 788.
 (pdftex.def)             Requested size: 252.94499pt x 172.45639pt.
  [32 <./figures/quintile-chetty.png>] [33] [34] [35] [36]
 (./polygenic_paper.bbl
@@ -598,14 +598,14 @@ Underfull \hbox (badness 2351) in paragraph at lines 26--30
 [37
 
 ]) [38]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 884.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 885.
  [39
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 884.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 885.
  (./polygenic_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 884.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 884.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 885.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 885.
 Package rerunfilecheck Info: File `polygenic_paper.out' has not changed.
 (rerunfilecheck)             Checksum: C2D437C240A0E314FC171AE02D4184F4;2687.
  ) 
@@ -616,7 +616,7 @@ Here is how much of TeX's memory you used:
  23700 multiletter control sequences out of 15000+600000
  569547 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,9n,40p,2482b,449s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,9n,40p,2482b,436s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
@@ -632,7 +632,7 @@ ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2020/tex
 mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/fo
 nts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/
 urw/times/utmri8a.pfb>
-Output written on polygenic_paper.pdf (39 pages, 3399577 bytes).
+Output written on polygenic_paper.pdf (39 pages, 3399808 bytes).
 PDF statistics:
  598 PDF objects out of 1000 (max. 8388607)
  519 compressed objects within 6 object streams
