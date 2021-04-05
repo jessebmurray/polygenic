@@ -336,10 +336,10 @@ def report_mobility(mv, rv, rsv, i):
 
     # If the mobility value is an integer, display it as an integer
     if mv[i] % 1 == 0:
-        return "$m$ = {:.0f}, $r$ = {:.3f}, $r_s$ = {:.3f}".format(mv[i], rv[i], rsv[i])
+        return "$m$ = {:.0f}, $r$ = {:.3f}, $s$ = {:.3f}".format(mv[i], rv[i], rsv[i])
     # Otherwise, display the first decimal of the mobility value
     else:
-        return "$m$ = {:.1f}, $r$ = {:.3f}, $r_s$ = {:.3f}".format(mv[i], rv[i], rsv[i])
+        return "$m$ = {:.1f}, $r$ = {:.3f}, $s$ = {:.3f}".format(mv[i], rv[i], rsv[i])
 
 
 # Functions for handling (Pearson) data

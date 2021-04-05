@@ -22,92 +22,191 @@
 \citation{preece}
 \citation{wood}
 \citation{luo}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction and formulation of the model}{3}{section.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Analogy to polygenic inheritance}{3}{subsection.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Markov process model of inheritance}{3}{subsection.1.2}\protected@file@percent }
+\citation{luo}
+\@writefile{toc}{\contentsline {title}{Normal linear Markov model with applications to polygenic inheritance}{1}{chapter.1}\protected@file@percent }
+\@writefile{toc}{\authcount {1}}
+\@writefile{toc}{\contentsline {author}{Jesse Murray}{1}{chapter.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Model Formulation}{2}{section.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Markov Model of Inheritance}{2}{subsection.1.2.1}\protected@file@percent }
+\newlabel{model_intro}{{2.1}{2}{Markov Model of Inheritance}{subsection.1.2.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Conventions}{2}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{1. Initial Condition.}{2}{section*.3}\protected@file@percent }
+\newlabel{eq:initial_state}{{1}{2}{1. Initial Condition}{equation.1.2.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{2. One-step Downward Transition.}{2}{section*.4}\protected@file@percent }
+\newlabel{eq:one_step}{{2}{2}{2. One-step Downward Transition}{equation.1.2.2}{}}
+\newlabel{eq:mu_tilde}{{3}{2}{2. One-step Downward Transition}{equation.1.2.3}{}}
+\newlabel{eq:r_require}{{4}{2}{2. One-step Downward Transition}{equation.1.2.4}{}}
+\citation{luo}
+\newlabel{eq:sigma_tilde}{{5}{3}{2. One-step Downward Transition}{equation.1.2.5}{}}
+\newlabel{eq:s_require}{{6}{3}{2. One-step Downward Transition}{equation.1.2.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Properties of the Model}{3}{section.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Marginal Population Distribution}{3}{subsection.1.3.1}\protected@file@percent }
+\newlabel{eq:pop_dist}{{7}{3}{Marginal Population Distribution}{equation.1.3.7}{}}
+\newlabel{eq:pop_mean}{{8}{3}{Marginal Population Distribution}{equation.1.3.8}{}}
+\newlabel{eq:pop_var}{{9}{3}{Marginal Population Distribution}{equation.1.3.9}{}}
+\newlabel{eq:derive_pop_var}{{10}{3}{Marginal Population Distribution}{equation.1.3.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Covariance Between Ancestor and Descendant}{4}{subsection.1.3.2}\protected@file@percent }
+\newlabel{eq:covariance}{{11}{4}{Covariance Between Ancestor and Descendant}{equation.1.3.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Conditional Descendant Distribution}{4}{subsection.1.3.3}\protected@file@percent }
+\newlabel{cdd}{{3.3}{4}{Conditional Descendant Distribution}{subsection.1.3.3}{}}
+\newlabel{eq:d_dist}{{12}{4}{Conditional Descendant Distribution}{equation.1.3.12}{}}
+\newlabel{eq:d_mean}{{13}{4}{Conditional Descendant Distribution}{equation.1.3.13}{}}
+\newlabel{eq:d_var}{{14}{4}{Conditional Descendant Distribution}{equation.1.3.14}{}}
+\newlabel{eq:descendant_reapply}{{15}{4}{Conditional Descendant Distribution}{equation.1.3.15}{}}
+\newlabel{eq:induction_fact}{{16}{4}{Conditional Descendant Distribution}{equation.1.3.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Downward Convergence}{4}{subsection.1.3.4}\protected@file@percent }
+\newlabel{eq:conv_d_mean}{{17}{4}{Downward Convergence}{equation.1.3.17}{}}
+\newlabel{eq:conv_d_var}{{18}{5}{Downward Convergence}{equation.1.3.18}{}}
+\newlabel{eq:conv_d}{{19}{5}{Downward Convergence}{equation.1.3.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Role of the Coefficients in Downward Convergence}{5}{subsection.1.3.5}\protected@file@percent }
+\newlabel{role_down}{{3.5}{5}{Role of the Coefficients in Downward Convergence}{subsection.1.3.5}{}}
+\newlabel{eq:conv_d_var_ratio}{{20}{5}{Role of the Coefficients in Downward Convergence}{equation.1.3.20}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Degenerate Lower Bound for the Residual Coefficient}{5}{subsection.1.3.6}\protected@file@percent }
+\newlabel{eq:lower_bound}{{21}{5}{Degenerate Lower Bound for the Residual Coefficient}{equation.1.3.21}{}}
+\newlabel{eq:first_case}{{22}{5}{Degenerate Lower Bound for the Residual Coefficient}{equation.1.3.22}{}}
+\newlabel{eq:second_case}{{23}{5}{Degenerate Lower Bound for the Residual Coefficient}{equation.1.3.23}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Possible values for the regression and residual coefficients are given by the shaded area, which extends upwards for $s \rightarrow \infty $. The degenerate lower bound has $s > \sqrt  {r(1-r)}$ and stable population variance has $s = \sqrt  {1-r^2}$.}}{6}{figure.1.1}\protected@file@percent }
+\newlabel{fig:possible_r_rs}{{1}{6}{Possible values for the regression and residual coefficients are given by the shaded area, which extends upwards for $s \rightarrow \infty $. The degenerate lower bound has $s > \sqrt {r(1-r)}$ and stable population variance has $s = \sqrt {1-r^2}$}{figure.1.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7}Conditional Ancestor Distribution}{6}{subsection.1.3.7}\protected@file@percent }
+\newlabel{cad}{{3.7}{6}{Conditional Ancestor Distribution}{subsection.1.3.7}{}}
+\newlabel{eq:a_dist}{{24}{6}{Conditional Ancestor Distribution}{equation.1.3.24}{}}
+\newlabel{eq:a_mean}{{25}{6}{Conditional Ancestor Distribution}{equation.1.3.25}{}}
+\newlabel{eq:a_var}{{26}{6}{Conditional Ancestor Distribution}{equation.1.3.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.8}One-step Upward Transition}{7}{subsection.1.3.8}\protected@file@percent }
+\newlabel{eq:up_dist}{{29}{7}{One-step Upward Transition}{equation.1.3.29}{}}
+\newlabel{eq:up_mean}{{30}{7}{One-step Upward Transition}{equation.1.3.30}{}}
+\newlabel{eq:up_var}{{31}{7}{One-step Upward Transition}{equation.1.3.31}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.9}Upward Convergence}{7}{subsection.1.3.9}\protected@file@percent }
+\newlabel{eq:conv_up_one}{{32}{7}{Upward Convergence}{equation.1.3.32}{}}
+\newlabel{eq:conv_a_mean}{{33}{7}{Upward Convergence}{equation.1.3.33}{}}
+\newlabel{eq:conv_up_two}{{34}{7}{Upward Convergence}{equation.1.3.34}{}}
+\newlabel{eq:conv_a_var}{{35}{7}{Upward Convergence}{equation.1.3.35}{}}
+\newlabel{eq:conv_a}{{36}{7}{Upward Convergence}{equation.1.3.36}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.10}Role of the Coefficients in Upward Convergence}{8}{subsection.1.3.10}\protected@file@percent }
+\newlabel{role_up}{{3.10}{8}{Role of the Coefficients in Upward Convergence}{subsection.1.3.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.11}Stable and Unstable Population Variance}{8}{subsection.1.3.11}\protected@file@percent }
+\newlabel{pvd}{{3.11}{8}{Stable and Unstable Population Variance}{subsection.1.3.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.12}Stationary Distribution}{8}{subsection.1.3.12}\protected@file@percent }
+\newlabel{eq:stable_mean}{{37}{8}{Stationary Distribution}{equation.1.3.37}{}}
+\newlabel{eq:stable_var}{{38}{8}{Stationary Distribution}{equation.1.3.38}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.13}Exponential Functions for Downward Convergence}{8}{subsection.1.3.13}\protected@file@percent }
+\newlabel{eq:partial_d_mean}{{39}{8}{Exponential Functions for Downward Convergence}{equation.1.3.39}{}}
+\newlabel{eq:partial_d_var}{{40}{9}{Exponential Functions for Downward Convergence}{equation.1.3.40}{}}
+\newlabel{eq:expo_d_mean}{{41}{9}{Exponential Functions for Downward Convergence}{equation.1.3.41}{}}
+\newlabel{eq:expo_d_var}{{42}{9}{Exponential Functions for Downward Convergence}{equation.1.3.42}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.14}Exponential Functions for Upward Convergence}{9}{subsection.1.3.14}\protected@file@percent }
+\newlabel{eq:partial_a_mean}{{43}{9}{Exponential Functions for Upward Convergence}{equation.1.3.43}{}}
+\newlabel{eq:partial_a_var}{{44}{9}{Exponential Functions for Upward Convergence}{equation.1.3.44}{}}
+\newlabel{eq:expo_a_mean}{{45}{9}{Exponential Functions for Upward Convergence}{equation.1.3.45}{}}
+\newlabel{eq:expo_a_var}{{46}{9}{Exponential Functions for Upward Convergence}{equation.1.3.46}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Mobility and Information-loss}{9}{section.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Mobility as the Rate of Convergence to the Population Distribution}{10}{subsection.1.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Proposed Mobility Measure}{10}{subsection.1.4.2}\protected@file@percent }
+\newlabel{def:m}{{1}{10}{Proposed Mobility Measure}{equation.1.4.47}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Application for Modeling a Polygenic Trait}{10}{section.1.5}\protected@file@percent }
+\citation{luo}
+\citation{luo}
 \citation{bogin}
 \citation{perkins}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.1}Brief and complete description of the process}{4}{subsubsection.1.2.1}\protected@file@percent }
-\citation{luo}
-\citation{luo}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Estimation of parameters through the normal linear model}{6}{subsection.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Summary of assumptions and limitations}{6}{subsection.1.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2}Properties of the model}{7}{section.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Marginal population distribution}{7}{subsection.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Covariance and correlation}{7}{subsection.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Conditional descendant distribution}{8}{subsection.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Exponential convergence of the conditional descendant distribution}{9}{subsection.2.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Possible values for the regression and residual coefficients are given by the shaded area, which extends upwards for $r_s \rightarrow \infty $. The degenerate lower bound has $r_s > \sqrt  {r(1-r)}$ and stable population variance (the stationary distribution) has $r_s = \sqrt  {1-r^2}$.}}{10}{figure.1}\protected@file@percent }
-\newlabel{fig:possible_r_rs}{{1}{10}{Possible values for the regression and residual coefficients are given by the shaded area, which extends upwards for $r_s \rightarrow \infty $. The degenerate lower bound has $r_s > \sqrt {r(1-r)}$ and stable population variance (the stationary distribution) has $r_s = \sqrt {1-r^2}$}{figure.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Population variance dynamics}{11}{subsection.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Stationary distribution}{12}{subsection.2.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}Conditional ancestor distribution}{13}{subsection.2.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.8}Exponential convergence of the conditional ancestor distribution}{14}{subsection.2.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Assumptions and Limitations}{11}{subsection.1.5.1}\protected@file@percent }
+\newlabel{al}{{5.1}{11}{Assumptions and Limitations}{subsection.1.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Adjustment for Uniform Environmental Effects}{11}{subsection.1.5.2}\protected@file@percent }
+\newlabel{adjustment}{{5.2}{11}{Adjustment for Uniform Environmental Effects}{subsection.1.5.2}{}}
+\newlabel{eq:unif_env}{{48}{11}{Adjustment for Uniform Environmental Effects}{equation.1.5.48}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Estimation of Parameters}{11}{subsection.1.5.3}\protected@file@percent }
+\newlabel{estimation}{{5.3}{11}{Estimation of Parameters}{subsection.1.5.3}{}}
 \citation{luo}
 \citation{preece}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Application to human stature}{16}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Large population-based study}{16}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Model Verification for Human Height}{12}{section.1.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Requirements for Model Verification}{12}{subsection.1.6.1}\protected@file@percent }
+\newlabel{verify}{{6.1}{12}{Requirements for Model Verification}{subsection.1.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Swedish Dataset}{12}{subsection.1.6.2}\protected@file@percent }
 \citation{pearson}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Pearson dataset}{17}{subsection.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Q-Q plot of the mothers' scores in the Pearson female dataset.}}{18}{figure.2}\protected@file@percent }
-\newlabel{fig:qq_pearson_x}{{2}{18}{Q-Q plot of the mothers' scores in the Pearson female dataset}{figure.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Q-Q plot of the daughters' residuals in the Pearson female dataset.}}{19}{figure.3}\protected@file@percent }
-\newlabel{fig:qq_pearson_epsi}{{3}{19}{Q-Q plot of the daughters' residuals in the Pearson female dataset}{figure.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Mean values of the residuals by parent score, shown with normal 95\% confidence intervals.}}{19}{figure.4}\protected@file@percent }
-\newlabel{fig:pearson_residuals_by_score}{{4}{19}{Mean values of the residuals by parent score, shown with normal 95\% confidence intervals}{figure.4}{}}
+\citation{pearson}
+\citation{pearson}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}English Dataset}{13}{subsection.1.6.3}\protected@file@percent }
+\newlabel{pearson}{{6.3}{13}{English Dataset}{subsection.1.6.3}{}}
 \citation{karlberg}
 \citation{pearson}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Mobility and information-loss}{20}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Mobility as the rate of convergence to the marginal distribution}{20}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Proposed measure}{21}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Mobility under limiting cases}{21}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}Probability kernels}{23}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}State to set, and set to set probabilities}{23}{subsection.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Attributable and destined probabilities}{24}{subsection.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Percentile transition matrices}{25}{subsection.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Visualizations of percentile transition matrices}{26}{subsection.5.4}\protected@file@percent }
-\citation{pearson}
-\citation{pearson}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Observed and simulated quintile transition matrices from the Pearson data, with estimated parameters $r = 0.54$, $r_s = 0.96$ for female and $r = 0.51$, $r_s = 0.89$ for male \cite  {pearson}. These parameters result in identical simulated matrices (to the first decimal place), therefore only one is shown.}}{28}{figure.5}\protected@file@percent }
-\newlabel{fig:quintile_pearson}{{5}{28}{Observed and simulated quintile transition matrices from the Pearson data, with estimated parameters $r = 0.54$, $r_s = 0.96$ for female and $r = 0.51$, $r_s = 0.89$ for male \cite {pearson}. These parameters result in identical simulated matrices (to the first decimal place), therefore only one is shown}{figure.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Quintile transition matrices over generation-gaps $n$ from 1 through 6, with stable population variance at $r = 0.5$ ($r_s \approx 0.866$).}}{30}{figure.6}\protected@file@percent }
-\newlabel{fig:quintile_stable}{{6}{30}{Quintile transition matrices over generation-gaps $n$ from 1 through 6, with stable population variance at $r = 0.5$ ($r_s \approx 0.866$)}{figure.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Mean values of the residuals by parent score, with normal 95\% confidence intervals for the Pearson mother-daughter data \cite  {pearson}.}}{14}{figure.1.2}\protected@file@percent }
+\newlabel{fig:pearson_residuals_by_score}{{2}{14}{Mean values of the residuals by parent score, with normal 95\% confidence intervals for the Pearson mother-daughter data \cite {pearson}}{figure.1.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Stable Population Variance for Height}{14}{subsection.1.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Probability Kernels}{14}{section.1.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}State and Set Kernels}{14}{subsection.1.7.1}\protected@file@percent }
+\newlabel{eq:state_set}{{49}{15}{State and Set Kernels}{equation.1.7.49}{}}
+\newlabel{def:state_set}{{2}{15}{State and Set Kernels}{equation.1.7.49}{}}
+\newlabel{eq:set_set}{{51}{15}{State and Set Kernels}{equation.1.7.51}{}}
+\newlabel{def:set_set}{{3}{15}{State and Set Kernels}{equation.1.7.51}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Kernel Reversibility}{15}{subsection.1.7.2}\protected@file@percent }
+\newlabel{eq:set_set_eq}{{53}{15}{Kernel Reversibility}{equation.1.7.53}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Attributable and Destined Kernels}{15}{subsection.1.7.3}\protected@file@percent }
+\newlabel{eq:attributable}{{54}{15}{Attributable and Destined Kernels}{equation.1.7.54}{}}
+\newlabel{def:destined}{{4}{15}{Attributable and Destined Kernels}{equation.1.7.54}{}}
+\newlabel{eq:destined}{{55}{15}{Attributable and Destined Kernels}{equation.1.7.55}{}}
+\newlabel{def:attributable}{{5}{15}{Attributable and Destined Kernels}{equation.1.7.55}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Percentile Transition Matrices}{16}{section.1.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Formulation}{16}{subsection.1.8.1}\protected@file@percent }
+\newlabel{eq:ad_eq}{{56}{16}{Formulation}{equation.1.8.56}{}}
+\newlabel{eq:ptm}{{57}{16}{Formulation}{equation.1.8.57}{}}
+\newlabel{eq:size}{{58}{16}{Formulation}{equation.1.8.58}{}}
+\newlabel{def:ptm}{{6}{16}{Formulation}{equation.1.8.58}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Persymmetry}{16}{subsection.1.8.2}\protected@file@percent }
+\newlabel{eq:persymmetry}{{59}{16}{Persymmetry}{equation.1.8.59}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Symmetry}{17}{subsection.1.8.3}\protected@file@percent }
+\newlabel{eq:normal_symmetry}{{60}{17}{Symmetry}{equation.1.8.60}{}}
+\newlabel{eq:trivial}{{61}{17}{Symmetry}{equation.1.8.61}{}}
+\newlabel{eq:symmetry}{{63}{17}{Symmetry}{equation.1.8.63}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Bisymmetry and Number of Unique Entries}{17}{subsection.1.8.4}\protected@file@percent }
+\newlabel{bisymmetry}{{8.4}{17}{Bisymmetry and Number of Unique Entries}{subsection.1.8.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Visualizations of Percentile Transition Matrices}{17}{section.1.9}\protected@file@percent }
+\newlabel{visuals}{{9}{17}{Visualizations of Percentile Transition Matrices}{section.1.9}{}}
 \citation{chetty}
 \citation{battistin}
 \citation{neal}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Parent-to-child quintile transition matrices, over decreasing levels of mobility, with stable population variance.}}{31}{figure.7}\protected@file@percent }
-\newlabel{fig:quintile_mobility}{{7}{31}{Parent-to-child quintile transition matrices, over decreasing levels of mobility, with stable population variance}{figure.7}{}}
-\citation{chetty}
-\citation{chetty}
+\citation{pearson}
+\citation{pearson}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Comparison to Pearson Data}{18}{subsection.1.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Multigenerational Regression Towards the Mean}{18}{subsection.1.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Visualization of the Mobility Measure}{18}{subsection.1.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Comparison to US Family Income Mobility}{18}{subsection.1.9.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Observed and calculated quintile transition matrices from the Pearson data, with estimated parameters $r = 0.54$, $s = 0.96$ for female and $r = 0.51$, $s = 0.89$ for male \cite  {pearson}. These parameters result in identical calculated matrices (to the first decimal place), therefore only one is shown.}}{19}{figure.1.3}\protected@file@percent }
+\newlabel{fig:quintile_pearson}{{3}{19}{Observed and calculated quintile transition matrices from the Pearson data, with estimated parameters $r = 0.54$, $s = 0.96$ for female and $r = 0.51$, $s = 0.89$ for male \cite {pearson}. These parameters result in identical calculated matrices (to the first decimal place), therefore only one is shown}{figure.1.3}{}}
 \citation{luo}
 \citation{preece}
 \citation{wood}
 \citation{trzaskowski}
 \citation{krapohl}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Parent-to-child quintile transition matrix for US family income data for the 1980-82 birth cohort \cite  {chetty}.}}{32}{figure.8}\protected@file@percent }
-\newlabel{fig:quintile_chetty}{{8}{32}{Parent-to-child quintile transition matrix for US family income data for the 1980-82 birth cohort \cite {chetty}}{figure.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Quintile transition matrices over generation-gaps $n$ from 1 through 6, with SPV at $r = 0.5$ ($s \approx 0.866$).}}{20}{figure.1.4}\protected@file@percent }
+\newlabel{fig:quintile_stable}{{4}{20}{Quintile transition matrices over generation-gaps $n$ from 1 through 6, with SPV at $r = 0.5$ ($s \approx 0.866$)}{figure.1.4}{}}
+\citation{chetty}
+\citation{chetty}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Parent-to-child quintile transition matrices, over decreasing levels of mobility, with SPV.}}{21}{figure.1.5}\protected@file@percent }
+\newlabel{fig:quintile_mobility}{{5}{21}{Parent-to-child quintile transition matrices, over decreasing levels of mobility, with SPV}{figure.1.5}{}}
 \citation{luo}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{33}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Summary of the model and its important properties}{33}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Use cases of the model}{35}{subsection.6.2}\protected@file@percent }
-\bibstyle{apalike}
-\bibdata{polygenic_bib}
-\bibcite{battistin}{Battistin et\nobreakspace  {}al., 2007}
-\bibcite{bogin}{Bogin and Rios, 2003}
-\bibcite{chetty}{Chetty et\nobreakspace  {}al., 2014}
-\bibcite{karlberg}{Karlberg and Albertsson-Wikland, 1995}
-\bibcite{krapohl}{Krapohl and Plomin, 2016}
-\bibcite{lange_article}{Lange, 1997a}
-\bibcite{lange_book}{Lange, 1997b}
-\bibcite{luo}{Luo et\nobreakspace  {}al., 1998}
-\bibcite{neal}{Neal and Rosen, 1998}
-\bibcite{pearson}{Pearson and Lee, 1903}
-\bibcite{perkins}{Perkins et\nobreakspace  {}al., 2016}
-\bibcite{preece}{Preece, 1996}
-\bibcite{rieger}{Rieger et\nobreakspace  {}al., 1968}
-\bibcite{trzaskowski}{Trzaskowski et\nobreakspace  {}al., 2014}
-\@writefile{toc}{\contentsline {section}{\numberline {7}References}{37}{section.7}\protected@file@percent }
-\bibcite{wood}{Wood and Esko, 2014}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Appendix}{39}{section.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Further mathematical checks}{39}{subsection.8.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Software}{39}{subsection.8.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Parent-to-child quintile transition matrix for US family income data for the 1980-82 birth cohort \cite  {chetty}.}}{22}{figure.1.6}\protected@file@percent }
+\newlabel{fig:quintile_chetty}{{6}{22}{Parent-to-child quintile transition matrix for US family income data for the 1980-82 birth cohort \cite {chetty}}{figure.1.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Discussion}{22}{section.1.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Model Properties}{22}{subsection.1.10.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Intergenerational Edge Persistence}{23}{subsection.1.10.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}Potential to Model Genetic and Environmental Factors}{23}{subsection.1.10.3}\protected@file@percent }
+\bibcite{battistin}{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.4}Future Work}{24}{subsection.1.10.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}Appendix}{24}{section.1.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}Abbreviations}{24}{subsection.1.11.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}Software and Statistical Tests}{24}{subsection.1.11.2}\protected@file@percent }
+\newlabel{links}{{11.2}{24}{Software and Statistical Tests}{subsection.1.11.2}{}}
+\bibcite{bogin}{2}
+\bibcite{chetty}{3}
+\bibcite{karlberg}{4}
+\bibcite{krapohl}{5}
+\bibcite{lange_article}{6}
+\bibcite{lange_book}{7}
+\bibcite{luo}{8}
+\bibcite{neal}{9}
+\bibcite{pearson}{10}
+\bibcite{perkins}{11}
+\bibcite{preece}{12}
+\bibcite{rieger}{13}
+\bibcite{trzaskowski}{14}
+\bibcite{wood}{15}

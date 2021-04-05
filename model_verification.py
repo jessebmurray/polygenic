@@ -110,6 +110,6 @@ def plot_residuals_by_parent(true_bins, resid_means, resid_cis):
                  color='grey', alpha=1, linewidth=1.4)
     plt.axhline(y=0, color='grey')
     plt.grid(alpha=0.3)
-    plt.xlabel('Parent score')
-    plt.ylabel('Child residual')
+    plt.xlabel('Parent Score')
+    plt.ylabel('Child Residual')
     plt.tight_layout()
