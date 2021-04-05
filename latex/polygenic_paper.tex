@@ -638,7 +638,7 @@ Percentile transition matrices make interpretable predictions over generations, 
 
 \subsection{Formulation}
 
-The calculations of attributable and destined probabilities can be defined by percentile sets. For example, in $P_{\delta , n}(Q_j | Q_k)$, the percentile set $Q_k$ would be converted to a real number set through the cdf $F_i^{-1}(Q_k)$, using the marginal variance $\sigma_i^2$. It should be noted that when attributable and destined probabilities are calculated this way, they are not affected by unstable population variance because using percentiles is a way of standardizing to different variances. 
+The calculations of attributable and destined probabilities can be defined by percentile sets. For example, in $P_{\delta , n}(Q_j | Q_k)$, the percentile set $Q_k$ would be converted to a real number set through the cdf $F_i^{-1}(Q_k)$, using the marginal variance $\sigma_i^2$. It should be noted that when attributable and destined probabilities are simulated this way, they are not affected by unstable population variance because using percentiles is a way of standardizing to different variances. 
 
 Percentile transition matrices result from equal-size, continuous percentile sets $Q_1$, $Q_2$, ..., $Q_m$. For example, for $m=5$, we have: $Q_1 = \left(0, 0.2\right]$, $Q_2 = \left(0.2, 0.4\right]$, ..., $Q_5 = \left(0.8, 1\right]$. As all percentile sets have the same size, e.g., $P_{\cdot}(Q_j) = P_{\cdot}(Q_k) = 0.2$, the calculations can be equivalently interpreted as attributable and destined probabilities. That is, we have 
 \begin{equation}
@@ -713,21 +713,21 @@ Percentile transition matrices are bisymmetric, i.e, symmetric along both diagon
 
 \section{Visualizations of Percentile Transition Matrices} \label{visuals}
 
-Percentile transition matrices are calculated from the model as well as estimated (through proportions) from observed data, enabling comparisons to the model. The matrices are visualized with the rows indicated by color, and the sizes proportional to the probabilities in Figs. \ref{fig:quintile_pearson}, \ref{fig:quintile_stable}, \ref{fig:quintile_mobility}, and \ref{fig:quintile_chetty}. The integral in Eq. \ref{eq:set_set} cannot be solved analytically, and instead is calculated numerically to very high fidelity (see section \ref{links}). 
+Percentile transition matrices are simulated from the model as well as estimated (through proportions) from observed data, enabling comparisons to the model. The matrices are visualized with the rows indicated by color, and the sizes proportional to the probabilities in Figs. \ref{fig:quintile_pearson}, \ref{fig:quintile_stable}, \ref{fig:quintile_mobility}, and \ref{fig:quintile_chetty}. The integral in Eq. \ref{eq:set_set} cannot be solved analytically, and instead is calculated numerically to very high fidelity (see section \ref{links}). 
 
-The calculated \emph{quintile}-transition matrices ($m = 5$) have 9 unique entries (section \ref{bisymmetry}). One way to understand these figures is to consider an entry as a proportion of its column sum (probability destined) or row sum (probability attributable). Because of the symmetry property, the calculated matrices can equivalently be re-written with the x-axis as \emph{Descendant's Quintile}, and the y-axis as \emph{Cumulative Probability of Ancestor's Quintile}. 
+The simulated \emph{quintile}-transition matrices ($m = 5$) have 9 unique entries (section \ref{bisymmetry}). One way to understand these figures is to consider an entry as a proportion of its column sum (probability destined) or row sum (probability attributable). Because of the symmetry property, the simulated matrices can equivalently be re-written with the x-axis as \emph{Descendant's Quintile}, and the y-axis as \emph{Cumulative Probability of Ancestor's Quintile}. 
 
 
 \subsection{Comparison to Pearson Data}
 
-The observed percentile transition matrices of the Pearson mother-daughter and father-son data are shown along with a simulation from the estimated parameters in Fig. \ref{fig:quintile_pearson}. A reasonable similarity is observed between the calculated and observed matrices. It should be noted that for the Pearson data, there was a relatively small number of observations for each entry of the quintile-quintile matrices (minimum of 10, average of 49, and maximum of 149). This may explain some of the deviations between the male and female matrices, and potentially, the deviations from the calculated matrix. 
+The observed percentile transition matrices of the Pearson mother-daughter and father-son data are shown along with a simulation from the estimated parameters in Fig. \ref{fig:quintile_pearson}. A reasonable similarity is observed between the simulated and observed matrices. It should be noted that for the Pearson data, there was a relatively small number of observations for each entry of the quintile-quintile matrices (minimum of 10, average of 49, and maximum of 149). This may explain some of the deviations between the male and female matrices, and potentially, the deviations from the simulated matrix. 
 
 The rightmost column in Fig. \ref{fig:quintile_pearson} shows that for height, a parent in the top quintile has about a 43\% chance of having a child also in (destined for) the top quintile, a 25\% chance of having a child in the fourth quintile, and so on. Equivalently, by Eq. \ref{eq:ad_eq}, these numbers can be interpreted as follows: about 43\% of the children in the top quintile are attributable to a parent also in the top quintile, about 25\% of the children in the fourth quintile are attributable to a parent in the top quintile, and so on. 
 
 
 \subsection{Multigenerational Regression Towards the Mean}
 
-Between the Swedish and English datasets, the estimates for $r$ were about 0.5, with approximate SPV. Using $r = 0.5$ and SPV ($s \approx 0.866$), quintile transition matrices are calculated, showing in Fig. \ref{fig:quintile_stable} the regression towards the mean that takes place over multiple generations. The exponential downward convergence can be seen in the asymptotic approach of the probabilities towards uniform 20\%, with slowing rates of convergence as the generation-gap widens. 
+Between the Swedish and English datasets, the estimates for $r$ were about 0.5, with approximate SPV. Using $r = 0.5$ and SPV ($s \approx 0.866$), quintile transition matrices are simulated, showing in Fig. \ref{fig:quintile_stable} the regression towards the mean that takes place over multiple generations. The exponential downward convergence can be seen in the asymptotic approach of the probabilities towards uniform 20\%, with slowing rates of convergence as the generation-gap widens. 
 
 
 \subsection{Visualization of the Mobility Measure}
@@ -737,14 +737,14 @@ The effect of the mobility measure (Def. \ref{def:m}) is visualized in quintile 
 
 \subsection{Comparison to US Family Income Mobility}
 
-A quintile transition matrix relating the family incomes of 9,867,736 US children born between 1980-82 and their parents was calculated from income tax data by Chetty et al. and is reproduced in Fig. \ref{fig:quintile_chetty} \cite{chetty}. This transition matrix is crucially different than the other ones shown in this paper because it relates measures of the \emph{families} of children and their parents, rather than relating measures of an individual child to one of its parents (of the same sex). Nonetheless, reasons for similarity can be explained by the fact that the distribution of income can be approximated by a log-normal distribution \cite{battistin, neal}. Then, if the relation between the (log) income of parents and their children can be roughly approximated by a normal linear model, the Markov model described in this paper could reasonably be applied.
+A quintile transition matrix relating the family incomes of 9,867,736 US children born between 1980-82 and their parents was simulated from income tax data by Chetty et al. and is reproduced in Fig. \ref{fig:quintile_chetty} \cite{chetty}. This transition matrix is crucially different than the other ones shown in this paper because it relates measures of the \emph{families} of children and their parents, rather than relating measures of an individual child to one of its parents (of the same sex). Nonetheless, reasons for similarity can be explained by the fact that the distribution of income can be approximated by a log-normal distribution \cite{battistin, neal}. Then, if the relation between the (log) income of parents and their children can be roughly approximated by a normal linear model, the Markov model described in this paper could reasonably be applied.
 
 
 \begin{figure}[H]
 \centering
 %\advance\leftskip-0.4in
 \includegraphics[width=2.8in]{figures/quintile-pearson.png} 
-\caption{Observed and calculated quintile transition matrices from the Pearson data, with estimated parameters $r = 0.54$, $s = 0.96$ for female and $r = 0.51$, $s = 0.89$ for male \cite{pearson}. These parameters result in identical calculated matrices (to the first decimal place), therefore only one is shown.}
+\caption{Observed and simulated quintile transition matrices from the Pearson data, with estimated parameters $r = 0.54$, $s = 0.96$ for female and $r = 0.51$, $s = 0.89$ for male \cite{pearson}. These parameters result in identical simulated matrices (to the first decimal place), therefore only one is shown.}
 \label{fig:quintile_pearson}
 \end{figure}
 
