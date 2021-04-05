@@ -14,7 +14,7 @@ Often, `.ipynb` files take a while to load on GitHub, instead, *please use the f
 
 * [probability-kernels](https://jessebmurray.github.io/polygenic/probability-kernels.html)
 * [pearson-lee-mother-daughter](https://jessebmurray.github.io/polygenic/pearson-lee-mother-daughter.html)
-* [pearson-lee-mother-daughter](https://jessebmurray.github.io/polygenic/pearson-lee-mother-daughter.html)
+* [pearson-lee-father-son](https://jessebmurray.github.io/polygenic/pearson-lee-father-son.html)
 
 ---
 
