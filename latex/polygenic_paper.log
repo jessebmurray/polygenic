@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  5 APR 2021 23:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  6 APR 2021 13:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -596,28 +596,33 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 35.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\\' on input line 35.
+
+
+Underfull \vbox (badness 1253) has occurred while \output is active []
+
+ [1
 
 
 {/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
  [4]
-<figures/possible_r_rs.png, id=111, 361.35pt x 361.35pt>
+<figures/possible_r_rs.png, id=107, 361.35pt x 361.35pt>
 File: figures/possible_r_rs.png Graphic file (type png)
 <use figures/possible_r_rs.png>
-Package pdftex.def Info: figures/possible_r_rs.png  used on input line 248.
+Package pdftex.def Info: figures/possible_r_rs.png  used on input line 233.
 (pdftex.def)             Requested size: 202.35622pt x 202.35461pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[5] [6 <./figures/possible_r_rs.png>] [7] [8] [9] [10] [11] [12]
-<figures/pearson-lee-mother-daughter-residuals_by_parent.png, id=269, 361.35pt 
+[5 <./figures/possible_r_rs.png>] [6] [7] [8] [9] [10] [11] [12]
+<figures/pearson-lee-mother-daughter-residuals_by_parent.png, id=274, 361.35pt 
 x 289.08pt>
 File: figures/pearson-lee-mother-daughter-residuals_by_parent.png Graphic file 
 (type png)
 <use figures/pearson-lee-mother-daughter-residuals_by_parent.png>
 Package pdftex.def Info: figures/pearson-lee-mother-daughter-residuals_by_paren
-t.png  used on input line 538.
+t.png  used on input line 537.
 (pdftex.def)             Requested size: 202.35622pt x 161.88368pt.
 
 
@@ -625,23 +630,23 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [13] [14 <./figures/pearson-lee-mother-daughter-residuals_by_parent.png>]
 [15] [16] [17]
-<figures/quintile-pearson.png, id=379, 669.2202pt x 1369.2756pt>
+<figures/quintile-pearson.png, id=381, 669.2202pt x 1369.2756pt>
 File: figures/quintile-pearson.png Graphic file (type png)
 <use figures/quintile-pearson.png>
-Package pdftex.def Info: figures/quintile-pearson.png  used on input line 746.
+Package pdftex.def Info: figures/quintile-pearson.png  used on input line 745.
 (pdftex.def)             Requested size: 202.35622pt x 414.04523pt.
  [18]
 Underfull \vbox (badness 1953) has occurred while \output is active []
 
  [19 <./figures/quintile-pearson.png>]
-<figures/quintile-r=0.5-stable.png, id=403, 1338.6813pt x 1369.2756pt>
+<figures/quintile-r=0.5-stable.png, id=409, 1338.6813pt x 1369.2756pt>
 File: figures/quintile-r=0.5-stable.png Graphic file (type png)
 <use figures/quintile-r=0.5-stable.png>
 Package pdftex.def Info: figures/quintile-r=0.5-stable.png  used on input line 
-758.
+757.
 (pdftex.def)             Requested size: 375.80377pt x 384.39745pt.
 
-Overfull \hbox (17.11678pt too wide) in paragraph at lines 758--759
+Overfull \hbox (17.11678pt too wide) in paragraph at lines 757--758
  [][] 
  []
 
@@ -649,59 +654,59 @@ Overfull \hbox (17.11678pt too wide) in paragraph at lines 758--759
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [20 <./figures/quintile-r=0.5-stable.png>]
-<figures/quintile-mobility.png, id=414, 1338.6813pt x 1369.2756pt>
+<figures/quintile-mobility.png, id=420, 1338.6813pt x 1369.2756pt>
 File: figures/quintile-mobility.png Graphic file (type png)
 <use figures/quintile-mobility.png>
-Package pdftex.def Info: figures/quintile-mobility.png  used on input line 770.
+Package pdftex.def Info: figures/quintile-mobility.png  used on input line 769.
 
 (pdftex.def)             Requested size: 375.80377pt x 384.39745pt.
 
-Overfull \hbox (17.11678pt too wide) in paragraph at lines 770--771
+Overfull \hbox (17.11678pt too wide) in paragraph at lines 769--770
  [][] 
  []
 
-<figures/quintile-chetty.png, id=415, 669.2202pt x 456.2646pt>
+<figures/quintile-chetty.png, id=421, 669.2202pt x 456.2646pt>
 File: figures/quintile-chetty.png Graphic file (type png)
 <use figures/quintile-chetty.png>
-Package pdftex.def Info: figures/quintile-chetty.png  used on input line 780.
+Package pdftex.def Info: figures/quintile-chetty.png  used on input line 779.
 (pdftex.def)             Requested size: 202.35622pt x 137.9665pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [21 <./figures/quintile-mobility.png>] [22 <./figures/quintile-chetty.png>] [2
 3]
-Overfull \hbox (9.5439pt too wide) in paragraph at lines 830--831
+Overfull \hbox (9.5439pt too wide) in paragraph at lines 829--830
 \OT1/cmr/m/n/10 able with ex-ten-sive doc-u-men-ta-tion at []https://github.com
 /jessebmurray/polygenic[].
  []
 
 [24]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 928.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 927.
  [25]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 928.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 927.
  (./polygenic_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 928.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 928.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 927.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 927.
 Package rerunfilecheck Info: File `polygenic_paper.out' has not changed.
-(rerunfilecheck)             Checksum: 7BABA2192114CAB66CCC2E145631EAB3;104.
+(rerunfilecheck)             Checksum: C0877A6FD75CD79970315A77D89B540E;85.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 928.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 927.
  )
 (\end occurred inside a group at level 1)
 
-### simple group (level 1) entered at line 809 ({)
+### simple group (level 1) entered at line 808 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 7985 strings out of 480608
- 115900 string characters out of 5903631
- 393227 words of memory out of 5000000
- 23506 multiletter control sequences out of 15000+600000
+ 7988 strings out of 480608
+ 115931 string characters out of 5903631
+ 392329 words of memory out of 5000000
+ 23509 multiletter control sequences out of 15000+600000
  540353 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,9n,40p,1062b,516s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,9n,40p,1106b,516s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmbx12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/c
@@ -724,10 +729,10 @@ xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/tex
 live/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texli
 ve/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive
 /2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on polygenic_paper.pdf (25 pages, 3296416 bytes).
+Output written on polygenic_paper.pdf (25 pages, 3299420 bytes).
 PDF statistics:
- 574 PDF objects out of 1000 (max. 8388607)
- 504 compressed objects within 6 object streams
+ 580 PDF objects out of 1000 (max. 8388607)
+ 509 compressed objects within 6 object streams
  200 named destinations out of 1000 (max. 500000)
  39 words of extra memory for PDF output out of 10000 (max. 10000000)
 
