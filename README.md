@@ -1,6 +1,6 @@
 # Polygenic
 
-#### Paper
+### Paper
 
 Paper: [Normal linear Markov model of polygenic inheritance](https://jessebmurray.github.io/project_files/Normal_linear_Markov_model_with_applications_to_polygenic_inheritance.pdf)
 
@@ -8,7 +8,7 @@ This paper has been accepted at [Statistics 2021 Canada, 6th Canadian Conference
 
 ---
 
-#### Browsing the code
+### Browsing the Code
 
 **Caution**: The parameter *s* in the paper was previously called *r_s*, and is denoted in the code as such.
 
@@ -25,7 +25,7 @@ Their supporting `.py` files are:
 
 ---
 
-#### Data sources
+### Data sources
 
 ##### Pearson mother-daughter data from the R package `alr3`
 
