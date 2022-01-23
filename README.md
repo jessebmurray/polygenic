@@ -2,17 +2,12 @@
 
 ### Paper
 
-Paper: [A Markov model of polygenic inheritance](https://jessebmurray.github.io/project_files/A_Markov_model_of_polygenic_inheritance.pdf)
-
-This paper has been accepted at [Statistics 2021 Canada, 6th Canadian Conference in Applied Statistics](https://www.concordia.ca/artsci/events/statistics-2021.html) (Contributed Papers Session 1), which is one of the [Meetings of the Institute of Mathematical Statistics](https://imstat.org/meetings-calendar/).
+https://doi.org/10.1007/978-3-030-86133-9_6
 
 ---
 
 ### Browsing the Code
 
-**Caution**: The parameter *s* in the paper was previously called *r_s*, and is denoted in the code as such.
-
-Often, `.ipynb` files take a while to load on GitHub, instead, *please use the following links to browse the main Jupyter notebooks*.
 
 * [probability-kernels.html](https://jessebmurray.github.io/polygenic/probability-kernels.html)
 * [pearson-lee-mother-daughter.html](https://jessebmurray.github.io/polygenic/pearson-lee-mother-daughter.html)
